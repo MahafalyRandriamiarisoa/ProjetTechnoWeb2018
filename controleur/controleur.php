@@ -14,12 +14,13 @@
  * Fonction pour le contrôle de l'Acceuil
  * 
  * il s'agit de l'interface qui suit l'identification,
- * elle s'adapte selon la catégorie d'employé
+ * On y récupere la categorie de l'employé ainsi que 
  */           
     function CtlAcceuil($login,$mdp){
         if(!emty($login) && !enmpty($mdp)){
-            if(!empty(checkLogin($login,$mdp))){
-                AfficherAcceuil(getCategorie($login))
+            $employe=checkLogin($login,$mdp);
+            if(!empty($employe){
+                AfficherAcceuil(checkLogin($employe,$employe[0]->CATEGORIE);
             }
         }
     }

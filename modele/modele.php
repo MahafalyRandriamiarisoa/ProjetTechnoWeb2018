@@ -30,7 +30,7 @@ function getConnect(){
  * @param string : $mdp
  * 		Correspond au mot de passe de l'employé à rechercher 
  * 
- * @return arrray
+ * @return array
  * 		Correspond au résultat de la requête SQL sous forme de tableau contenant l'employé
  * 		recherché
  */
@@ -50,7 +50,7 @@ function checkLogin($login, $mdp){
  * @param integer : $idClient
  * 		Correspond au numéro du client à rechercher
  * 
- * @return arrray
+ * @return array
  * 		Correspond au résultat de la requête SQL sous forme de tableau contenant le client
  * 		recherché
  */
@@ -74,15 +74,37 @@ function checkClient($idClient){
  * @param string : $dateNaissance
  * 		Correspond à la date de naissance du client
  * 
- * @return arrray
+ * @return array
  * 		Correspond au résultat de la requête SQL sous forme de tableau contenant le client
  * 		recherché
  */
 
 function rechercherClient($nom, $dateNaissance){
 	$connexion = getConnect();
-	$requete = "SELECT * FROM CLIENT WHERE nom = '$nom' AND dateDeNaissance = STR_TO_DATE('$dateNaissance', '%Y-%m-%d')";
+	$requete = "SELECT * FROM CLIENT WHERE nom = '$nom' AND dateDeNaissance = '$dateNaissance'";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat->fetchAll();
 }
+
+/**
+ * Cette fonction effectue une requete SQL à la base de donnée pour obtenir un resultat
+ * correspondant à la catégorie de l'employé
+ * 
+ * @param string : $login
+ * 		Correspond au login de l'employé
+ * 
+ * @return array
+ * 		Correspond au résultat de la requête SQL sous forme de tableau contenant la catégorie
+ * 		de l'employé recherché
+ */
+
+function getCategorie($login){
+	$connexion = getConnect();
+	$requete = "SELECT CATEGORIE FROM EMPLOYE WHERE login = '$login'";
+	$resultat = $connexion->query($requete);
+	$resultat->setFetchMode(PDO::FETCH_OBJ);
+	return $resultat ->fetchAll();
+}
+
+

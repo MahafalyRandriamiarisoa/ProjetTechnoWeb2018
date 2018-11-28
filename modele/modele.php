@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Cette fonction permet d'obtenir une connection à la base de donnée grâce aux informations de connexion
+ * situées dans le fichier connect.php
+ * 
+ * @return PDO
+ * 		Correspond à la connexion à la base de donnée
+ */
+
 function getConnect(){
 		require_once('connect.php');
 		try{
@@ -12,13 +20,20 @@ function getConnect(){
 			}
 }
 
-function showAll(){
-	$connexion = getConnect();
-	$requete = "SELECT * FROM CLIENT";
-	$resultat = $connexion->query($requete);
-	$resultat->setFetchMode(PDO::FETCH_OBJ);
-	return $resultat->fetchAll();
-}
+
+/**
+ * Cette fonction effectue une requete SQL à la base de donnée pour obtenir un resultat
+ * correspondant à l'employé recherché
+ * 
+ * @param string : $login
+ * 		Correspond au login de l'employé à rechercher
+ * @param string : $mdp
+ * 		Correspond au mot de passe de l'employé à rechercher 
+ * 
+ * @return arrray
+ * 		Correspond au résultat de la requête SQL sous forme de tableau contenant l'employé
+ * 		recherché
+ */
 
 function checkLogin($login, $mdp){
 	$connexion = getConnect();
@@ -28,13 +43,41 @@ function checkLogin($login, $mdp){
 	return $resultat->fetchAll();
 }
 
+/**
+ * Cette fonction effectue une requete SQL à la base de donnée pour obtenir un resultat
+ * correspondant au client recherché
+ * 
+ * @param integer : $idClient
+ * 		Correspond au numéro du client à rechercher
+ * 
+ * @return arrray
+ * 		Correspond au résultat de la requête SQL sous forme de tableau contenant le client
+ * 		recherché
+ */
+
 function checkClient($idClient){
 	$connexion = getConnect();
 	$requete = "SELECT * FROM CLIENT WHERE numClient = $idClient";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
+	echo gettype($idClient);
 	return $resultat->fetchAll();
 }
+
+/**
+ * Cette fonction effectue une requete SQL à la base de donnée pour obtenir un resultat
+ * correspondant au client recherché
+ * 
+ * @param string : $nom
+ * 		Correspond au nom du client à rechercher
+ * 
+ * @param string : $dateNaissance
+ * 		Correspond à la date de naissance du client
+ * 
+ * @return arrray
+ * 		Correspond au résultat de la requête SQL sous forme de tableau contenant le client
+ * 		recherché
+ */
 
 function rechercherClient($nom, $dateNaissance){
 	$connexion = getConnect();

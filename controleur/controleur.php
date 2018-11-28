@@ -20,8 +20,8 @@
     function CtlAcceuil($login,$mdp){
         if(!emty($login) && !empty($mdp)){
             $employe=checkLogin($login,$mdp);
-            if(!empty($employe){
-                AfficherAcceuil(checkLogin($employe,$employe[0]->CATEGORIE);
+            if(!empty($employe)){
+                AfficherAcceuil(checkLogin($employe,$employe[0]->CATEGORIE));
             }else{
                 AfficherInterfaceLogin("Identifiants Incorrectes");
             }

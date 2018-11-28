@@ -6,6 +6,6 @@
             CtlAfficherInterfaceLogin();
         }
 
-    }catch(PDOException e1){
-        echo e1->getMessage();
+    }catch(Exception $e1){
+        echo $e1->getMessage();
     }

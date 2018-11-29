@@ -29,3 +29,18 @@
             AfficherInterfaceLogin("Identifiants Incorrectes");
         }
     }
+/**
+	*Fonction pour la Gestion d'enregistrement d'un client
+	*@param attributClient c'est parametre sont recuperés via un formulaire
+	*
+	*/
+	function CtlEnregistrerClient($nom,$prenom,$dateNaiss,$numTel,$adresse,$situationFamilial){
+		
+	}
+	/**
+	*Fonction 
+	*
+	*
+	*/
+	/*function Ctl
+	

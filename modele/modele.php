@@ -47,7 +47,7 @@ function checkLogin($login, $mdp){
  * Cette fonction effectue une requete SQL à la base de donnée pour obtenir un resultat
  * correspondant au client recherché
  * 
- * @param integer : $idClient
+ * @param integer : $numClient
  * 		Correspond au numéro du client à rechercher
  * 
  * @return array
@@ -55,13 +55,13 @@ function checkLogin($login, $mdp){
  * 		recherché
  */
 
-function checkClient($idClient){
+function checkClient($numClient){
 	$connexion = getConnect();
 	$requete = "SELECT * FROM CLIENT WHERE numClient = $idClient";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	echo gettype($idClient);
-	return $resultat->fetchAll();
+	return $resultat->fetch();
 }
 
 /**
@@ -102,6 +102,45 @@ function rechercherClient($nom, $dateNaissance){
 function getCategorie($login){
 	$connexion = getConnect();
 	$requete = "SELECT CATEGORIE FROM EMPLOYE WHERE login = '$login'";
+	$resultat = $connexion->query($requete);
+	$resultat->setFetchMode(PDO::FETCH_OBJ);
+	return $resultat ->fetchAll();
+}
+
+/**
+ * Cette fonction effectue une requete SQL à la base de donnée pour obtenir un resultat
+ * correspondant à la synthèse du client passé en paramètre
+ * 
+ * @param integer : $numClient
+ * 		Correspond au numéro du client
+ * 
+ * @return array
+ * 		Correspond au résultat de la requête SQL sous forme de tableau contenant la synthèse du client
+ */
+
+function getSyntheseClient($numClient){
+	$connexion = getConnect();
+	$requete = "SELECT * FROM CLIENT WHERE numClient = $numClient";
+	$resultat = $connexion->query($requete);
+	$resultat->setFetchMode(PDO::FETCH_OBJ);
+	return $resultat ->fetch();
+}
+
+/**
+ * Cette fonction effectue une requete SQL à la base de donnée pour obtenir un resultat
+ * correspondant aux rendez-vous du client passé en paramètre
+ * 
+ * @param integer : $numClient
+ * 		Correspond au numéro du client
+ * 
+ * @return array
+ * 		Correspond au résultat de la requête SQL sous forme de tableau contenant tous les rendez-vous
+ * 		du client
+ */
+
+function getRDV($numClient){
+	$connexion = getConnect();
+	$requete = "SELECT * FROM RENDEZVOUS WHERE numClient = $numClient";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat ->fetchAll();

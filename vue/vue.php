@@ -41,7 +41,7 @@ function AfficherSyntheseClient($client,$compte,$contrat){
 
 				if(count($compte)<=1) {
                     $contenuInterface .= '<table>
-										<caption>Liste des comptes</caption>';
+					<caption>Liste des comptes</caption>';
                     for ($j = 0; $j < count($compte); $j++) {
                         $contenuInterface .= '<tr><td>' . $compte[$j]->NOMCOMPTE . '</td><td>' . $compte[$j]->SOLDE . '</td></tr>';
                     }
@@ -50,7 +50,7 @@ function AfficherSyntheseClient($client,$compte,$contrat){
 
 				if(count($contrat)<=1) {
                     $contenuInterface .= '<table>
-										<caption>Liste des contrats</caption>';
+					<caption>Liste des contrats</caption>';
                     for ($j = 0; $j < count($contrat); $j++) {
                         $contenuInterface .= '<tr><td>' . $contrat[$j]->LIBELLE . '</td></tr>';
                     }
@@ -62,7 +62,7 @@ function AfficherSyntheseClient($client,$compte,$contrat){
 		if(count($client)<1){
 			$contenuInterface='<form method="post" action="banque.php"><fieldset><table><tr><td></td><td>Nom</td><td>Prénom</td><td>Tel</td><td>Date de naissance</td></tr>';
 			for($i=0;$i<count($client);$i++){
-				$contenuInterface.='<tr><td><input type="radio" name="leclient"/></td><td>'.$client[$i]->NOM.'</td><td>'.$client[$i]->PRENOM.'</td><td>'.$client[$i]->NUMEROTELEPHONE.'</td><td>'.$client[$i]->DATEDENAISSANCE.'</td></tr>';
+				$contenuInterface.='<tr><td><input type="radio" name="leclient" value="'.$client[$i]->NUMCLIENT.'"/></td><td>'.$client[$i]->NOM.'</td><td>'.$client[$i]->PRENOM.'</td><td>'.$client[$i]->NUMEROTELEPHONE.'</td><td>'.$client[$i]->DATEDENAISSANCE.'</td></tr>';
 			}
 			$contenuInterface.='</table><p><input type="submit" name="synthese" value="Synthèse client"/></p></fieldset></form>';
 		}else{

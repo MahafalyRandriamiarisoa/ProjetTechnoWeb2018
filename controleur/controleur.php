@@ -7,16 +7,17 @@
  *@param message qui potentiellement un message inquant une erreur
  */
     function CtlInterfaceLogin($msg){ 
-        AfficherInterfaceLogin($msg);
+        AfficherInterfaceLogin();
             }
-   
+
 
 /**
  * Fonction pour le contrôle de l'Acceuil
- * 
+ *
  * il s'agit de l'interface qui suit l'identification,
- *  
- */           
+ *
+ * @throws Exception si les login
+ */
     function CtlAcceuil($login,$mdp){
         if(!empty($login) && !empty($mdp)){
             $employe=checkLogin($login,$mdp);
@@ -24,12 +25,10 @@
                 $idEmploye=$employe->IDEMPLOYE;
                 AfficherAcceuil($idEmploye,$employe->CATEGORIE);
                 return $idEmploye;
-            }else{
-                AfficherInterfaceLogin("Identifiants Incorrectes");
             }
-        }else{
-            AfficherInterfaceLogin("Identifiants Incorrectes");
         }
+        AfficherInterfaceLogin();
+        return null;
     }
 
 /***

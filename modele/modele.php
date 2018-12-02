@@ -199,4 +199,7 @@ function getRDV($numClient){
 	return $resultat ->fetchAll();
  }
 
-
+/** enregistrerClient($nom,$prenom,$dateNaiss,$numTel,$adresse,$situationFamilial,$idEmploye){}
+ * Cette fonction effectue une requete SQL à la base de donnée pour enregistrer un client champ par champ
+ *
+ */

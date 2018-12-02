@@ -51,9 +51,9 @@ function AfficherSyntheseClient($client,$compte,$contrat){
 					$contenuInterface.='<table>
 										<caption>Liste des contrats</caption>';
 									for($j=0;$j<count($contrat);$j++){
-										$contenuInterface.='<tr><td>'.$contrat[$j]->NOMCONTRAT.'</td></tr>';
+										$contenuInterface.='<tr><td>'.$contrat[$j]->LIBELLE.'</td></tr>';
 									}
-									//nomcontrat????
+									
 								$contenuInterface.='</table></fieldset></form>';
 	
 	}else{

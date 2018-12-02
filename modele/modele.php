@@ -30,8 +30,8 @@ function getConnect(){
  * @param string : $mdp
  * 		Correspond au mot de passe de l'employé à rechercher 
  * 
- * @return array
- * 		Correspond au résultat de la requête SQL sous forme de tableau contenant l'employé
+ * @return object
+ * 		Correspond au résultat de la requête SQL sous forme d'object contenant l'employé
  * 		recherché
  */
 
@@ -40,7 +40,7 @@ function checkLogin($login, $mdp){
 	$requete = "SELECT * FROM EMPLOYE WHERE '$login' = login AND '$mdp' = mdp";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
-	return $resultat->fetchAll();
+	return $resultat->fetch();
 }
 
 /**
@@ -50,17 +50,16 @@ function checkLogin($login, $mdp){
  * @param integer : $numClient
  * 		Correspond au numéro du client à rechercher
  * 
- * @return array
- * 		Correspond au résultat de la requête SQL sous forme de tableau contenant le client
+ * @return object
+ * 		Correspond au résultat de la requête SQL sous forme d'object contenant le client
  * 		recherché
  */
 
 function checkClient($numClient){
 	$connexion = getConnect();
-	$requete = "SELECT * FROM CLIENT WHERE numClient = $idClient";
+	$requete = "SELECT * FROM CLIENT WHERE numClient = $numClient";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
-	echo gettype($idClient);
 	return $resultat->fetch();
 }
 
@@ -94,8 +93,8 @@ function rechercherClient($nom, $dateNaissance){
  * @param string : $login
  * 		Correspond au login de l'employé
  * 
- * @return array
- * 		Correspond au résultat de la requête SQL sous forme de tableau contenant la catégorie
+ * @return object
+ * 		Correspond au résultat de la requête SQL sous forme d'object contenant la catégorie
  * 		de l'employé recherché
  */
 
@@ -104,7 +103,7 @@ function getCategorie($login){
 	$requete = "SELECT CATEGORIE FROM EMPLOYE WHERE login = '$login'";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
-	return $resultat ->fetchAll();
+	return $resultat ->fetch();
 }
 
 /**
@@ -114,8 +113,8 @@ function getCategorie($login){
  * @param integer : $numClient
  * 		Correspond au numéro du client
  * 
- * @return array
- * 		Correspond au résultat de la requête SQL sous forme de tableau contenant la synthèse du client
+ * @return object
+ * 		Correspond au résultat de la requête SQL sous forme d'object contenant la synthèse du client
  */
 
 function getSyntheseClient($numClient){
@@ -146,14 +145,58 @@ function getRDV($numClient){
 	return $resultat ->fetchAll();
 }
 
-/*** getEmploye($idEmploye)
- * Cette Fonction effectuer une requete SQL à la base de donnée pour obtenir un résultat
+/** 
+ * Cette fonction effectue une requete SQL à la base de donnée pour obtenir un résultat
  * correspondant à l'employé recherché à partir de son idEmploye
  * @param string : $idEmpoye
  *      Correspond au login de l'employé à rechercher
- * @return array
- * 		Correspond au résultat de la requête SQL sous forme de tableau contenant l'employé
+ * @return object
+ * 		Correspond au résultat de la requête SQL sous forme d'object contenant l'employé
  * 		recherché
  */
+
+ function getEmploye($idEmploye){
+	$connexion = getConnect();
+	$requete = "SELECT * FROM EMPLOYE WHERE idEmploye = '$idEmploye'";
+	$resultat = $connexion->query($requete);
+	$resultat->setFetchMode(PDO::FETCH_OBJ);
+	return $resultat ->fetch();
+ }
+
+ /** 
+ * Cette fonction effectue une requete SQL à la base de donnée pour obtenir un résultat
+ * correspondant aux comptes du client recherché
+ * @param integer : $numClient
+ *      Correspond au numéro du client
+ * @return array
+ * 		Correspond au résultat de la requête SQL sous forme d'object contenant les différents
+ * 		comptes du client
+ */
+
+ function getComptesClient($numClient){
+	$connexion = getConnect();
+	$requete = "SELECT * FROM COMPTE WHERE numClient = $numClient";
+	$resultat = $connexion->query($requete);
+	$resultat->setFetchMode(PDO::FETCH_OBJ);
+	return $resultat ->fetchAll();
+ }
+
+  /** 
+ * Cette fonction effectue une requete SQL à la base de donnée pour obtenir un résultat
+ * correspondant aux contrats du client recherché
+ * @param integer : $numClient
+ *      Correspond au numéro du client
+ * @return array
+ * 		Correspond au résultat de la requête SQL sous forme d'object contenant les différents
+ * 		contrats du client
+ */
+
+ function getContratsClient($numClient){
+	$connexion = getConnect();
+	$requete = "SELECT * FROM CONTRAT WHERE numClient = $numClient";
+	$resultat = $connexion->query($requete);
+	$resultat->setFetchMode(PDO::FETCH_OBJ);
+	return $resultat ->fetchAll();
+ }
 
 

@@ -4,7 +4,7 @@ function AfficherInterfaceLogin(){
 	require_once('gabaritLogin.php');
 }
 
-function AfficherAcceuil($numClient,$categorie){
+function AfficherAcceuil($categorie){
 	if($categorie='Agent'){
 		$contenuHeader='<strong>AGENT</strong>';
 		$contenuInterface='<form method="post" action="banque.php"><fieldset><p> Connexion réussie <br/> Bienvenue </p></fieldset></form>';
@@ -18,6 +18,7 @@ function AfficherAcceuil($numClient,$categorie){
 	}
 	if($categorie='Directeur'){
 		$contenuHeader='<strong>DIRECTEUR</strong>';
+		$contenuBis='';
 		$contenuInterface='<form method="post" action="banque.php"><fieldset><p> Connexion réussie <br/> Bienvenue </p></fieldset></form>';
 		require_once('gabaritDirecteur.php');
 	}
@@ -90,7 +91,7 @@ function AfficherModificationInfo($client){
 	require_once('gabaritAgent.php');
 }
 
-function AfficherModification($info){
+function AfficherInfoAmodifier($client,$info){
 	$contenuHeader='<strong>AGENT</strong>';
 	$contenuInterface='<form method="post" action="banque.php"><fieldset><p>Client n°:'.$client->NUMCLIENT.'</p>
 						<p><label>Nom :</label><input type="text" name="nom1" value="'.$client->NOM.'" readonly/></p>
@@ -112,7 +113,7 @@ function AfficherModification($info){
 	require_once('gabaritAgent.php');
 }
 
-function AfficherPriseRdv(){
+function AfficherPriseRdv($client){
 	$contenuHeader='<strong>AGENT</strong>';
 	$contenuInterface='<form method="post" action="banque.php"><fieldset><p>Conseiller n°:'.$client->IDEMPLOYE.'</p>';
 	//plage de rdv

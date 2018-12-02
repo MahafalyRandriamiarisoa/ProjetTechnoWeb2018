@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+require_once('controleur/controleur.php');
     try{
 
         if(isset($_POST['connexion'])){
@@ -10,7 +12,7 @@
 
         }
         else{
-            CtlAfficherInterfaceLogin();
+            CtlInterfaceLogin();
 
         }
 

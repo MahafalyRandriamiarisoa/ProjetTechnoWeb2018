@@ -1,0 +1,99 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body{
+    height: 100%;
+}
+
+.planning {
+    margin-left: 150px;
+    margin-top: 100px;
+}
+
+table {
+    text-align: center;
+    border-collapse: collapse;
+}
+
+table, th, td{
+    border: 1px solid black;
+}
+
+legend {
+    text-align: center;
+}
+
+td {
+    height: 50px;
+    width: 250px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+td:hover:not(.disabled) {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.showRDV_back {
+    background-color: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.showRDV_back::before {
+    height: 100%;
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.showRDV_modal {
+    background-color: whitesmoke;
+    display: inline-block;
+    vertical-align: middle;
+    width: 500px;
+    height: 500px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.showRDV_modal > img {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    margin-left: 190px;
+    margin-top: 10px;
+}
+
+.showRDV_modal > h1 {
+    text-decoration: underline;
+    margin-top: 20px;
+}
+
+.infos {
+    margin-top: 20px;
+}
+
+.infos > label {
+    float: left;
+    margin-left: 50px;
+    text-decoration: underline;
+}
+
+.infos > input, textarea {
+    float: right;
+    margin-right: 25px;
+}
+
+.infos > textarea {
+    float: left;
+    margin-left: 5px;
+}

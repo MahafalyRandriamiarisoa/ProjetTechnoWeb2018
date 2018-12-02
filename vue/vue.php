@@ -90,7 +90,7 @@ function AfficherModificationInfo($client){
 	require_once('gabaritAgent.php');
 }
 
-function AfficherModification($info){
+function AfficherModification($info,$client){ //j'ai rajouté le parametre client
 	$contenuHeader='<strong>AGENT</strong>';
 	$contenuInterface='<form method="post" action="banque.php"><fieldset><p>Client n°:'.$client->NUMCLIENT.'</p>
 						<p><label>Nom :</label><input type="text" name="nom1" value="'.$client->NOM.'" readonly/></p>
@@ -112,7 +112,7 @@ function AfficherModification($info){
 	require_once('gabaritAgent.php');
 }
 
-function AfficherPriseRdv(){
+function AfficherPriseRdv($client){ ////j'ai rajouté le parametre client
 	$contenuHeader='<strong>AGENT</strong>';
 	$contenuInterface='<form method="post" action="banque.php"><fieldset><p>Conseiller n°:'.$client->IDEMPLOYE.'</p>';
 	//plage de rdv

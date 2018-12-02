@@ -29,7 +29,8 @@ require_once('controleur/controleur.php');
 
                 case 'rdv':
 
-                AfficherPriseRdv();
+               //CtlPriseRdv($_POST['numClient']);
+               CtlPriseRdv('3');
                     break;
 
         }

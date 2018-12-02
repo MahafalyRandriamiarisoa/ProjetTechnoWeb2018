@@ -35,7 +35,7 @@ function CtlnumClientExiste($numClient){
 
             if(!empty($employe)){
 
-                AfficherAcceuil($employe,$employe->CATEGORIE);
+                AfficherAcceuil($employe->CATEGORIE);
                 return $employe;
             }
         }
@@ -57,7 +57,7 @@ function CtlnumClientExiste($numClient){
 
 		enregistrerClient($nom,$prenom,$dateNaiss,$numTel,$adresse,$situationFamilial,$idEmploye);
 
-		AfficherAcceuil($idEmploye,getEmploye($idEmploye)->CATEGORIE);
+		AfficherAcceuil(getEmploye($idEmploye)->CATEGORIE);
 	}
 
 

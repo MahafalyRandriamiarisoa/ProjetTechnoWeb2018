@@ -4,7 +4,7 @@ function AfficherInterfaceLogin(){
 	require_once('gabaritLogin.php');
 }
 
-function AfficherAcceuil($numClient,$categorie){
+function AfficherAcceuil($categorie){
 	if($categorie='Agent'){
 		$contenuHeader='<strong>AGENT</strong>';
 		$contenuInterface='<form method="post" action="banque.php"><fieldset><p> Connexion réussie <br/> Bienvenue </p></fieldset></form>';
@@ -18,6 +18,7 @@ function AfficherAcceuil($numClient,$categorie){
 	}
 	if($categorie='Directeur'){
 		$contenuHeader='<strong>DIRECTEUR</strong>';
+		$contenuBis='';
 		$contenuInterface='<form method="post" action="banque.php"><fieldset><p> Connexion réussie <br/> Bienvenue </p></fieldset></form>';
 		require_once('gabaritDirecteur.php');
 	}
@@ -41,7 +42,7 @@ function AfficherSyntheseClient($client,$compte,$contrat){
 
 				if(count($compte)<=1) {
                     $contenuInterface .= '<table>
-										<caption>Liste des comptes</caption>';
+					<caption>Liste des comptes</caption>';
                     for ($j = 0; $j < count($compte); $j++) {
                         $contenuInterface .= '<tr><td>' . $compte[$j]->NOMCOMPTE . '</td><td>' . $compte[$j]->SOLDE . '</td></tr>';
                     }
@@ -50,7 +51,7 @@ function AfficherSyntheseClient($client,$compte,$contrat){
 
 				if(count($contrat)<=1) {
                     $contenuInterface .= '<table>
-										<caption>Liste des contrats</caption>';
+					<caption>Liste des contrats</caption>';
                     for ($j = 0; $j < count($contrat); $j++) {
                         $contenuInterface .= '<tr><td>' . $contrat[$j]->LIBELLE . '</td></tr>';
                     }
@@ -62,7 +63,7 @@ function AfficherSyntheseClient($client,$compte,$contrat){
 		if(count($client)<1){
 			$contenuInterface='<form method="post" action="banque.php"><fieldset><table><tr><td></td><td>Nom</td><td>Prénom</td><td>Tel</td><td>Date de naissance</td></tr>';
 			for($i=0;$i<count($client);$i++){
-				$contenuInterface.='<tr><td><input type="radio" name="leclient"/></td><td>'.$client[$i]->NOM.'</td><td>'.$client[$i]->PRENOM.'</td><td>'.$client[$i]->NUMEROTELEPHONE.'</td><td>'.$client[$i]->DATEDENAISSANCE.'</td></tr>';
+				$contenuInterface.='<tr><td><input type="radio" name="leclient" value="'.$client[$i]->NUMCLIENT.'"/></td><td>'.$client[$i]->NOM.'</td><td>'.$client[$i]->PRENOM.'</td><td>'.$client[$i]->NUMEROTELEPHONE.'</td><td>'.$client[$i]->DATEDENAISSANCE.'</td></tr>';
 			}
 			$contenuInterface.='</table><p><input type="submit" name="synthese" value="Synthèse client"/></p></fieldset></form>';
 		}else{
@@ -90,7 +91,7 @@ function AfficherModificationInfo($client){
 	require_once('gabaritAgent.php');
 }
 
-function AfficherModification($info,$client){ //j'ai rajouté le parametre client
+function AfficherInfoAmodifier($client,$info){
 	$contenuHeader='<strong>AGENT</strong>';
 	$contenuInterface='<form method="post" action="banque.php"><fieldset><p>Client n°:'.$client->NUMCLIENT.'</p>
 						<p><label>Nom :</label><input type="text" name="nom1" value="'.$client->NOM.'" readonly/></p>
@@ -112,7 +113,7 @@ function AfficherModification($info,$client){ //j'ai rajouté le parametre clien
 	require_once('gabaritAgent.php');
 }
 
-function AfficherPriseRdv($client){ ////j'ai rajouté le parametre client
+function AfficherPriseRdv($client){
 	$contenuHeader='<strong>AGENT</strong>';
 	$contenuInterface='<form method="post" action="banque.php"><fieldset><p>Conseiller n°:'.$client->IDEMPLOYE.'</p>';
 	//plage de rdv

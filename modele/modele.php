@@ -146,4 +146,14 @@ function getRDV($numClient){
 	return $resultat ->fetchAll();
 }
 
+/*** getEmploye($idEmploye)
+ * Cette Fonction effectuer une requete SQL à la base de donnée pour obtenir un résultat
+ * correspondant à l'employé recherché à partir de son idEmploye
+ * @param string : $idEmpoye
+ *      Correspond au login de l'employé à rechercher
+ * @return array
+ * 		Correspond au résultat de la requête SQL sous forme de tableau contenant l'employé
+ * 		recherché
+ */
+
 

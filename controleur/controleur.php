@@ -18,10 +18,12 @@
  *  
  */           
     function CtlAcceuil($login,$mdp){
-        if(!emty($login) && !empty($mdp)){
+        if(!empty($login) && !empty($mdp)){
             $employe=checkLogin($login,$mdp);
             if(!empty($employe)){
-                AfficherAcceuil(checkLogin($employe,$employe[0]->CATEGORIE));
+                $idEmploye=$employe->IDEMPLOYE;
+                AfficherAcceuil($idEmploye,$employe->CATEGORIE);
+                return $idEmploye;
             }else{
                 AfficherInterfaceLogin("Identifiants Incorrectes");
             }
@@ -29,13 +31,19 @@
             AfficherInterfaceLogin("Identifiants Incorrectes");
         }
     }
-/**
-	*Fonction pour la Gestion d'enregistrement d'un client
-	*@param attributClient c'est parametre sont recuperés via un formulaire
-	*
-	*/
-	function CtlEnregistrerClient($nom,$prenom,$dateNaiss,$numTel,$adresse,$situationFamilial){
-		
+
+/***
+ * @param $nom
+ * @param $prenom
+ * @param $dateNaiss
+ * @param $numTel
+ * @param $adresse
+ * @param $situationFamilial
+ * @param $idEmploye
+ */
+	function CtlEnregistrerClient($nom,$prenom,$dateNaiss,$numTel,$adresse,$situationFamilial,$idEmploye){
+		enregistrerClient($nom,$prenom,$dateNaiss,$numTel,$adresse,$situationFamilial,$idEmploye);
+		AfficherAcceuil($idEmploye,getEmploye($idEmploye)->CATEGORIE);
 	}
 	/**
 	*Fonction 

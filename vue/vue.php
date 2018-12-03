@@ -154,12 +154,12 @@ function AfficherErreur ($erreur){
 	require_once('gabaritLogin.php');
 }
 
-function AfficherPlanning($rdvEmploye){
+function AfficherPlanning($rdvEmploye, $semaineSelection){
 	$nbRDV = count($rdvEmploye);
 	$time = array();
 
 	for($i = 0; $i < $nbRDV; $i++){
-		$time[$i] = strtotime($rdvEmploye[$i]->DATEHEURE);
+		$time[$i] = strtotime($rdvEmploye[$i]->DATEHEURERDV);
 	}
 
 	$datesRDV = array();
@@ -195,11 +195,12 @@ function AfficherPlanning($rdvEmploye){
 			if($semaine[$j] == $jourMoisRDV){
 				$planning[$heureRDV - 8][$j] = array(
 					"RDV",
-					$rdvEmploye[$i]->IDRDV,
+					$rdvEmploye[$i]->NOM,
+					$rdvEmploye[$i]->PRENOM,
 					$rdvEmploye[$i]->IDEMPLOYE,
-					$rdvEmploye[$i]->MOTIF,
-					$rdvEmploye[$i]->NUMCLIENT,
-					$rdvEmploye[$i]->DATEHEURE
+					$rdvEmploye[$i]->LIBELLEMOTIF,
+					$rdvEmploye[$i]->LIBELLE_PIECES_A_FOURNIR,
+					$rdvEmploye[$i]->DATEHEURERDV
 				);
 			}
 		}
@@ -211,7 +212,9 @@ function AfficherPlanning($rdvEmploye){
 					<table>
 						<legend>Vos RDV</legend>
 						<tr>
-							<th colspan="6" style="text-align: center;">Semaine du '.getDate()['mday'].'/'.getDate()['mon'].'/'. getDate()['year'].'</th>
+							<td><input name="prec">Semaine précédente</input></td>
+							<th colspan="4" style="text-align: center;">Semaine du '.$semaine[0].'/'. getDate()['year'].'</th>
+							<td><input name="suiv">Semaine suivante</input></td>
 						</tr>
 						<tr>
 							<td class="disabled"></td>';
@@ -226,9 +229,9 @@ function AfficherPlanning($rdvEmploye){
 							<th>8H</th>';
 	for($j = 0; $j < count($planning[0]); $j++){
 		if($planning[0][$j][0] != ""){
-			$contenuBis .= '<td onClick="showRDV(\''.$planning[0][$j][3].'\', \''.$planning[0][$j][4].'\', \''.$planning[0][$j][5].'\')">'.$planning[0][$j][0].'</td>';
+			$contenuBis .= '<td onClick="showRDV(\''.$planning[0][$j][1].'\', \''.$planning[0][$j][2].'\', \''.$planning[0][$j][4].'\', \''.$planning[0][$j][5].'\', \''.$planning[0][$j][6].'\')">'.$planning[0][$j][0].'</td>';
 		}else{
-			$contenuBis .= '<td></td>';
+			$contenuBis .= '<td class="disabled"></td>';
 		}
 	}
 	$contenuBis .= '	</tr>
@@ -236,9 +239,9 @@ function AfficherPlanning($rdvEmploye){
 							<th>9H</th>';
 	for($j = 0; $j < count($planning[0]); $j++){
 		if($planning[1][$j][0] != null){
-			$contenuBis .= '<td onClick="showRDV(\''.$planning[1][$j][3].'\', \''.$planning[1][$j][4].'\', \''.$planning[1][$j][5].'\')">'.$planning[1][$j][0].'</td>';
+			$contenuBis .= '<td onClick="showRDV(\''.$planning[1][$j][1].'\', \''.$planning[1][$j][2].'\', \''.$planning[1][$j][4].'\', \''.$planning[1][$j][5].'\', \''.$planning[1][$j][6].'\')">'.$planning[1][$j][0].'</td>';
 		}else{
-			$contenuBis .= '<td></td>';
+			$contenuBis .= '<td class="disabled"></td>';
 		}
 	}
 	$contenuBis .= '	</tr>
@@ -246,9 +249,9 @@ function AfficherPlanning($rdvEmploye){
 							<th>10H</th>';
 	for($j = 0; $j < count($planning[0]); $j++){
 		if($planning[2][$j][0] != null){
-			$contenuBis .= '<td onClick="showRDV(\''.$planning[2][$j][3].'\', \''.$planning[2][$j][4].'\', \''.$planning[2][$j][5].'\')">'.$planning[2][$j][0].'</td>';
+			$contenuBis .= '<td onClick="showRDV(\''.$planning[2][$j][1].'\', \''.$planning[2][$j][2].'\', \''.$planning[2][$j][4].'\', \''.$planning[2][$j][5].'\', \''.$planning[2][$j][6].'\')">'.$planning[2][$j][0].'</td>';
 		}else{
-			$contenuBis .= '<td></td>';
+			$contenuBis .= '<td class="disabled"></td>';
 		}
 	}
 	$contenuBis .= '	</tr>
@@ -256,9 +259,9 @@ function AfficherPlanning($rdvEmploye){
 							<th>11H</th>';
 	for($j = 0; $j < count($planning[0]); $j++){
 		if($planning[3][$j][0] != null){
-			$contenuBis .= '<td onClick="showRDV(\''.$planning[3][$j][3].'\', \''.$planning[3][$j][4].'\', \''.$planning[3][$j][5].'\')">'.$planning[3][$j][0].'</td>';
+			$contenuBis .= '<td onClick="showRDV(\''.$planning[3][$j][1].'\', \''.$planning[3][$j][2].'\', \''.$planning[3][$j][4].'\', \''.$planning[3][$j][5].'\', \''.$planning[3][$j][6].'\')">'.$planning[3][$j][0].'</td>';
 		}else{
-			$contenuBis .= '<td></td>';
+			$contenuBis .= '<td class="disabled"></td>';
 		}
 	}
 	$contenuBis .= '	</tr>
@@ -266,9 +269,9 @@ function AfficherPlanning($rdvEmploye){
 							<th>12H</th>';
 	for($j = 0; $j < count($planning[0]); $j++){
 		if($planning[4][$j][0] != null){
-			$contenuBis .= '<td onClick="showRDV(\''.$planning[4][$j][3].'\', \''.$planning[4][$j][4].'\', \''.$planning[4][$j][5].'\')">'.$planning[4][$j][0].'</td>';
+			$contenuBis .= '<td onClick="showRDV(\''.$planning[4][$j][1].'\', \''.$planning[4][$j][2].'\', \''.$planning[4][$j][4].'\', \''.$planning[4][$j][5].'\', \''.$planning[4][$j][6].'\')">'.$planning[4][$j][0].'</td>';
 		}else{
-			$contenuBis .= '<td></td>';
+			$contenuBis .= '<td class="disabled"></td>';
 		}
 	}
 	$contenuBis .= '	</tr>
@@ -276,9 +279,9 @@ function AfficherPlanning($rdvEmploye){
 							<th>13H</th>';
 	for($j = 0; $j < count($planning[0]); $j++){
 		if($planning[5][$j][0] != null){
-			$contenuBis .= '<td onClick="showRDV(\''.$planning[5][$j][3].'\', \''.$planning[5][$j][4].'\', \''.$planning[5][$j][5].'\')">'.$planning[5][$j][0].'</td>';
+			$contenuBis .= '<td onClick="showRDV(\''.$planning[5][$j][1].'\', \''.$planning[5][$j][2].'\', \''.$planning[5][$j][4].'\', \''.$planning[5][$j][5].'\', \''.$planning[5][$j][6].'\')">'.$planning[5][$j][0].'</td>';
 		}else{
-			$contenuBis .= '<td></td>';
+			$contenuBis .= '<td class="disabled"></td>';
 		}
 	}
 	$contenuBis .= '	
@@ -287,9 +290,9 @@ function AfficherPlanning($rdvEmploye){
 							<th>14H</th>';
 	for($j = 0; $j < count($planning[0]); $j++){
 		if($planning[6][$j][0] != null){
-			$contenuBis .= '<td onClick="showRDV(\''.$planning[6][$j][3].'\', \''.$planning[6][$j][4].'\', \''.$planning[6][$j][5].'\')">'.$planning[6][$j][0].'</td>';
+			$contenuBis .= '<td onClick="showRDV(\''.$planning[6][$j][1].'\', \''.$planning[6][$j][2].'\', \''.$planning[6][$j][4].'\', \''.$planning[6][$j][5].'\', \''.$planning[6][$j][6].'\')">'.$planning[6][$j][0].'</td>';
 		}else{
-			$contenuBis .= '<td></td>';
+			$contenuBis .= '<td class="disabled"></td>';
 		}
 	}
 	$contenuBis .= '	</tr>
@@ -297,9 +300,9 @@ function AfficherPlanning($rdvEmploye){
 							<th>15H</th>';
 	for($j = 0; $j < count($planning[0]); $j++){
 		if($planning[7][$j][0] != null){
-			$contenuBis .= '<td onClick="showRDV(\''.$planning[7][$j][3].'\', \''.$planning[7][$j][4].'\', \''.$planning[7][$j][5].'\')">'.$planning[7][$j][0].'</td>';
+			$contenuBis .= '<td onClick="showRDV(\''.$planning[7][$j][1].'\', \''.$planning[7][$j][2].'\', \''.$planning[7][$j][4].'\', \''.$planning[7][$j][5].'\', \''.$planning[7][$j][6].'\')">'.$planning[7][$j][0].'</td>';
 		}else{
-			$contenuBis .= '<td></td>';
+			$contenuBis .= '<td class="disabled"></td>';
 		}
 	}
 	$contenuBis .= '	</tr>
@@ -307,9 +310,9 @@ function AfficherPlanning($rdvEmploye){
 							<th>16H</th>';
 	for($j = 0; $j < count($planning[0]); $j++){
 		if($planning[8][$j][0] != null){
-			$contenuBis .= '<td onClick="showRDV(\''.$planning[8][$j][3].'\', \''.$planning[8][$j][4].'\', \''.$planning[8][$j][5].'\')">'.$planning[8][$j][0].'</td>';
+			$contenuBis .= '<td onClick="showRDV(\''.$planning[8][$j][1].'\', \''.$planning[8][$j][2].'\', \''.$planning[8][$j][4].'\', \''.$planning[8][$j][5].'\', \''.$planning[8][$j][6].'\')">'.$planning[8][$j][0].'</td>';
 		}else{
-			$contenuBis .= '<td></td>';
+			$contenuBis .= '<td class="disabled"></td>';
 		}
 	}
 	$contenuBis .= '	</tr>
@@ -317,9 +320,9 @@ function AfficherPlanning($rdvEmploye){
 							<th>17H</th>';
 	for($j = 0; $j < count($planning[0]); $j++){
 		if($planning[9][$j][0] != null){
-			$contenuBis .= '<td onClick="showRDV(\''.$planning[9][$j][3].'\', \''.$planning[9][$j][4].'\', \''.$planning[9][$j][5].'\')">'.$planning[9][$j][0].'</td>';
+			$contenuBis .= '<td onClick="showRDV(\''.$planning[9][$j][1].'\', \''.$planning[9][$j][2].'\', \''.$planning[9][$j][4].'\', \''.$planning[9][$j][5].'\', \''.$planning[9][$j][6].'\')">'.$planning[9][$j][0].'</td>';
 		}else{
-			$contenuBis .= '<td></td>';
+			$contenuBis .= '<td class="disabled"></td>';
 		}
 	}
 	$contenuBis .= '	</tr>
@@ -327,17 +330,18 @@ function AfficherPlanning($rdvEmploye){
 							<th>18H</th>';
 	for($j = 0; $j < count($planning[0]); $j++){
 		if($planning[10][$j][0] != ""){
-			$contenuBis .= '<td onClick="showRDV(\''.$planning[10][$j][3].'\', \''.$planning[10][$j][4].'\', \''.$planning[10][$j][5].'\')">'.$planning[10][$j][0].'</td>';
+			$contenuBis .= '<td onClick="showRDV(\''.$planning[10][$j][1].'\', \''.$planning[10][$j][2].'\', \''.$planning[10][$j][4].'\', \''.$planning[10][$j][5].'\', \''.$planning[10][$j][6].'\')">'.$planning[10][$j][0].'</td>';
 		}else{
-			$contenuBis .= '<td></td>';
+			$contenuBis .= '<td class="disabled"></td>';
 		}
 	}
 	$contenuBis .= '	</tr>
 					</table>
 				</div>';
-				require_once('gabaritAgent.php');
+	require_once('gabaritAgent.php');
+
 }
 
 require_once('../modele/modele.php');
-$rdv = getRDV('dupont');
-AfficherPlanning($rdv);
+$rdv = getRDV(3);
+AfficherPlanning($rdv, 0);

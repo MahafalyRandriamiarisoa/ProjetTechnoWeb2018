@@ -228,3 +228,22 @@ function getRDV($idEmploye){
 	$requete = "INSERT INTO CLIENTS values ('$idEmploye', '$nom', '$prenom', '$dateNaissance', '$email', '$numTel', '$adresse', '$situationFamiliale', '$profession')";
 	$resultat = $connexion->query($requete);
  }
+
+ //todo : fonction récup login employes
+
+ //todo : fonction modifier login / mdp employes
+
+ //todo : créditer compte
+
+ //todo : débiter compte
+
+ //todo : get solde
+
+ //todo : montant decouvert autorisé
+
+ //todo : get tous contrats
+
+ //todo : get all type comptes
+
+ //todo : get all motif
+

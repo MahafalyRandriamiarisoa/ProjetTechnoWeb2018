@@ -341,7 +341,7 @@ function AfficherPlanning($rdvEmploye, $semaineSelection){
 	require_once('gabaritAgent.php');
 
 }
-
+/*
 require_once('../modele/modele.php');
 $rdv = getRDV(3);
 AfficherPlanning($rdv, 0);

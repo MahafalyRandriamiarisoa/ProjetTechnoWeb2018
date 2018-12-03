@@ -162,10 +162,92 @@ function CtlRechercherClientNum($numClient){
     }
 }
 
-function CtlVendreContrat($numClient,$DATEOUVERTURECONTRAT,$TARIFMENSUEL,$){
-    enregistrerContrat($numClient,$DATEOUVERTURECONTRAT,$TARIFMENSUEL,);
+
+/**
+ * Fonction qui permet à un conseiller de proposer des contrats à un client qu'il ne possède pas déjà
+ * @param $numClient
+ *      correspond au numèro permettant d'accéder à un unique Client
+ */
+function CtlContratDisponible($numClient){
+    $contrats=getContratsDisponible();
+    AfficherContratsDisponibles($contrats);
 }
 
+/**
+ * Fonction pour la gestion de la vente d'un contrat à un client
+ *
+ * @param $numClient
+ *      correspond au numèro permettant d'accéder à un unique Client
+ * @param $DATEOUVERTURECONTRAT //todo ; remplacer par un getDate dans la fonction
+ * @param $TARIFMENSUEL
+ *      montant débité chaque mois
+ * @param $LIBELLE
+ *      correspond au nom du contrat
+ */
+function CtlVendreContrat($numClient, $DATEOUVERTURECONTRAT, $TARIFMENSUEL, $LIBELLE){
+    enregistrerContrat($numClient,$DATEOUVERTURECONTRAT,$TARIFMENSUEL,$LIBELLE);
+}
+function CtlResilierContrat($numClient,$IDCONTRAT){
+    //todo : vérifier quelles précautions sont à prendre
+    resilierContrat($IDCONTRAT);
+}
+/**Fonction qui permet de proposer à un client d'ouvrir un compte qu'il ne possède pas déjà
+ * @param $numClient
+ *      correspond au numèro permettant d'accéder à un unique Client
+ */
+function CtlCompteDisponible($numClient){
+
+    $comptes=getComptesPotentiellesClient($numClient);
+
+    AfficherComptesDisponibles($comptes);
+}
+
+/**
+ * Fonction pour ouvrir un compte champ par champ
+ * @param $NUMCLIENT
+ *      correspond au numèro permettant d'accéder à un unique Client
+ * @param $NOMCOMPTE
+ *      correspond au type de compte
+ * @param $DATEOUVERTURE //todo : remplacer par un getDate dans la fonction
+ * @param $MONTANTDECOUVERT
+ *      à 0 si non autorisé, il peut être modifier par le conseiller
+ */
+function CtlOuvrirCompte($NUMCLIENT, $NOMCOMPTE, $DATEOUVERTURE, $MONTANTDECOUVERT){
+    //todo : $DATEOUVERTURE= fonction pour getDateNOW();
+    ouvertureCompte($NUMCLIENT,$NOMCOMPTE,$DATEOUVERTURE,$MONTANTDECOUVERT);
+}
+
+/**
+ * Fonction qui ferme le compte d'un Client
+ * @param $numClient
+ *      correspond au numèro permettant d'accéder à un unique Client
+ * @param $nomCompte
+ *      correspond au type de compte
+ */
+function CtlFermerCompte($numClient, $nomCompte){
+
+    fermerCompte($numClient,$nomCompte);
+}
+
+/**
+ * Fonction qui modifie le Montant du découvert d'un compte appartenant à un client
+ * @param $montant
+ *      correspond au nouveau montant du montant
+ * @param $numClient
+ *      correspond au numèro permettant d'accéder à un unique Client
+ * @param $nomCompte
+ *      correspond au type de compte
+ */
+function CtlModifierMontantDecouvert($montant,$numClient,$nomCompte){
+
+    setMontantDecouvert($montant,$numClient,$nomCompte);
+}
+
+
+/**
+ * Fonction affichant un message d'erreur permettant de revenir sur la page login
+ * @param $msg
+ */
 function CtlErreur($msg){
     AfficherErreur($msg);
 }

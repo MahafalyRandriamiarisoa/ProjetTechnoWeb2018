@@ -199,7 +199,51 @@ function getRDV($idEmploye){
 	return $resultat ->fetchAll();
  }
 
-/** enregistrerClient($nom,$prenom,$dateNaiss,$numTel,$adresse,$situationFamilial,$idEmploye){}
- * Cette fonction effectue une requete SQL à la base de donnée pour enregistrer un client champ par champ
+/**
+ * Cette fonction effectue une requete SQL à la base de donnée pour enregistrer un 
+ * client champ par champ
  *
+ * @param string : $idEmploye
+ * 		Correspond au conseiller du client
+ * @param string : $nom
+ * 		Correspond au nom du client
+ * @param string : $prenom
+ * 		Correspond au prénom du client
+ * @param string : $dateNaissance
+ * 		Correspond à la date de naissance du client
+ * @param string : $adresse
+ * 		Correspond à l'adresse postale du client
+ * @param string : $email
+ * 		Correspond à l'adresse eMail du client
+ * @param string : $numTel
+ * 		Correspond au numéro de téléphone du client
+ * @param string : $situationFamiliale
+ *		Correspond à la situation familiale du client
+ * @param string : $profession
+ * 		Correspond à la profession du client
  */
+
+ function enregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adresse, $email, $numTel, $situationFamiliale, $profession){
+	$connexion = getConnect();
+	$requete = "INSERT INTO CLIENTS values ('$idEmploye', '$nom', '$prenom', '$dateNaissance', '$email', '$numTel', '$adresse', '$situationFamiliale', '$profession')";
+	$resultat = $connexion->query($requete);
+ }
+
+ //todo : fonction récup login employes
+
+ //todo : fonction modifier login / mdp employes
+
+ //todo : créditer compte
+
+ //todo : débiter compte
+
+ //todo : get solde
+
+ //todo : montant decouvert autorisé
+
+ //todo : get tous contrats
+
+ //todo : get all type comptes
+
+ //todo : get all motif
+

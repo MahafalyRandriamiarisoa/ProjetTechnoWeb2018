@@ -38,6 +38,10 @@ require_once('controleur/controleur.php');
         }elseif(isset($_POST['validerRecherche'])){
 
         }
+        elseif(isset($_POST['ValiderRDV'])){
+
+            CtlConfirmationRdv($_POST['IdEMPLOYERDV'],);
+        }
         else{
 
             CtlInterfaceLogin();

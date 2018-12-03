@@ -67,7 +67,7 @@ function CtlnumClientExiste($numClient){
  *      Correspond à la profession du client
  */
 function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adresse, $email, $numTel, $situationFamiliale, $profession){
-
+ //todo : verifier si le client n'existe pas déjà
         enregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adresse, $email, $numTel, $situationFamiliale, $profession);
 
 		AfficherAcceuil(getEmploye($idEmploye)->CATEGORIE);
@@ -119,19 +119,41 @@ function CtlPriseRdv($numclient){
 }
 
 /**
+ * Fonction pour enregistrer un RDV champ par champ
+ * @param $IDEMPLOYE
+ * @param $IDMOTIF
+ * @param $NUMCLIENT
+ * @param $DATEHEURERDV
+ */
+function CtlConfirmationRdv($IDEMPLOYE, $IDMOTIF, $NUMCLIENT, $DATEHEURERDV){
+    enregistrerRDV($IDEMPLOYE,$IDMOTIF,$NUMCLIENT,$DATEHEURERDV);//$rdv a comme attribut (IDEMPLOYE,IDMOTIF,NUMCLIENT, DATEHEURERDV
+}
+
+/**
  * Fonction pour effectuer le debit d'un compte avec controle
- * @param $debit montant à débiter sur le compte spécifié
+ * @param $valeur montant à débiter sur le compte spécifié
  * @param $numClient numéro du client auquel appartient le compte mentionné ci-dessous
  * @param $nomCompte type de compte
  */
-function CtldebiterCompte($debit, $numClient, $nomCompte){
+function CtlDebiterCompte($valeur, $numClient, $nomCompte){
     $compte=getCompte($numClient,$nomCompte);
     $soldeFinal=$compte->SOLDE+$compte->MONTANTDECOUVERT;
-    if(($debit>=0)&&($debit>=$soldeFinal)){
+    if(($valeur>=0)&&($valeur>=$soldeFinal)){
         debiterCompte($compte);
     }
+    else CtlErreur("Fond Insuffisant pour un débit de : (".$valeur.")");
 }
 
+/**
+ * Fonction pour crediter un compte d'une certaine somme
+ * @param $valeur montant à créditer sur le compte spécifié
+ * @param $numClient numéro du client auquel appartient le compte mentionné ci-dessous
+ * @param $nomCompte type de compte
+ */
+function CtlCrediterCompte($valeur, $numClient, $nomCompte){
+    $compte=getCompte($numClient,$nomCompte);
+    crediterCompte($valeur,$compte);
+}
 
 
 function CtlRechercherClientNum($numClient){
@@ -140,6 +162,18 @@ function CtlRechercherClientNum($numClient){
     }
 }
 
+function CtlVendreContrat($numClient,$DATEOUVERTURECONTRAT,$TARIFMENSUEL,$){
+    enregistrerContrat($numClient,$DATEOUVERTURECONTRAT,$TARIFMENSUEL,);
+}
+
+function CtlErreur($msg){
+    AfficherErreur($msg);
+}
+
+function CtlGestionClient($numClient){
+    //todo : reflechir à quelle vue mettre
+    //après avoir "log" un Client
+}
 	/**
 	*Fonction 
 	*

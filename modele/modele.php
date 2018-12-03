@@ -139,7 +139,7 @@ function getSyntheseClient($numClient){
 
 function getRDV($idEmploye){
 	$connexion = getConnect();
-	$requete = "SELECT * FROM RENDEZVOUS WHERE idEmploye = '$idEmploye'";
+	$requete = "SELECT * FROM RENDEZVOUS NATURAL JOIN CLIENT NATURAL JOIN TYPEMOTIF NATURAL JOIN PIECES_A_FOURNIR WHERE idEmploye = $idEmploye";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat ->fetchAll();
@@ -157,7 +157,7 @@ function getRDV($idEmploye){
 
  function getEmploye($idEmploye){
 	$connexion = getConnect();
-	$requete = "SELECT * FROM EMPLOYE WHERE idEmploye = '$idEmploye'";
+	$requete = "SELECT * FROM EMPLOYE WHERE idEmploye = $idEmploye";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat ->fetch();
@@ -225,7 +225,7 @@ function getRDV($idEmploye){
 
  function enregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adresse, $email, $numTel, $situationFamiliale, $profession){
 	$connexion = getConnect();
-	$requete = "INSERT INTO CLIENTS values ('$idEmploye', '$nom', '$prenom', '$dateNaissance', '$email', '$numTel', '$adresse', '$situationFamiliale', '$profession')";
+	$requete = "INSERT INTO CLIENTS values ($idEmploye, '$nom', '$prenom', '$dateNaissance', '$adresse', '$email', '$numTel', '$situationFamiliale', '$profession')";
 	$resultat = $connexion->query($requete);
  }
 

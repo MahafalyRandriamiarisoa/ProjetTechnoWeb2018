@@ -20,7 +20,7 @@ function afficherNomDate(){
 	document.getElementById('idP').innerHTML='<p><label>Nom du client : <label><input type="text" name="nomClient" required /></p><p><label>Date de naissance : <label><input type="text" name="birthday" required /></p>';
 }
 
-function showRDV(dataMotif, dataNumEmploye, dataDateHeure){
+function showRDV(dataNom, dataPrenom, dataMotif, dataPieceAFournir, dataDateHeure){
     var divBack = document.createElement("div");
     var divModal = document.createElement("div");
     var quit = document.createElement("img");
@@ -71,19 +71,27 @@ function showRDV(dataMotif, dataNumEmploye, dataDateHeure){
     infos.appendChild(paf);
     infos.appendChild(listePaf);
 
+    var dateRAW = dataDateHeure.split('-');
+    var mois = dateRAW[1];
+    var annee = dateRAW[0];
+    var jour = dateRAW[2].split(' ')[0];
+    var heureRAW = dateRAW[2].split(' ')[1];
+    var heureSplit = heureRAW.split(':');
+    var heurePropre = heureSplit[0] + "H" + heureSplit[1];
+    var datePropre = "Le " + jour + "/" + mois + "/" + annee + " à " + heurePropre;
     quit.src = "style/cross.png";
     title.textContent = "Plus d'information";
     nomClient.textContent = "Nom du client : ";
-    inputNomClient.value = "DUPONT Martin";
+    inputNomClient.value = dataNom.toUpperCase() + " " + dataPrenom;
     inputNomClient.readOnly = "readOnly";
     motif.textContent = "Motif : ";
     nomMotif.value = dataMotif;
     nomMotif.readOnly = "readOnly";
     date.textContent = "Date : ";
-    nomDate.value = dataDateHeure;
+    nomDate.value = datePropre;
     nomDate.readOnly = "readOnly";
     paf.textContent = "Liste des pièces à fournir : ";
-    listePaf.value = "Pièce d'identité, Fiche de salaire, Fiche d'imposition";
+    listePaf.value = dataPieceAFournir;
     listePaf.readOnly = "readOnly";
 
     quit.addEventListener('click', handler, false);
@@ -98,5 +106,8 @@ function showRDV(dataMotif, dataNumEmploye, dataDateHeure){
         event.preventDefault();
         document.body.removeChild(divBack);
     }
+}
+
+function incrementPHP(){
 }
 

@@ -5,18 +5,19 @@ function AfficherInterfaceLogin(){
 }
 
 function AfficherAcceuil($categorie){
-	if($categorie='Agent'){
+	if($categorie=='Agent'){
+		echo "coucou agent";
 		$contenuHeader='<strong>AGENT</strong>';
 		$contenuInterface='<form method="post" action="banque.php"><fieldset><p> Connexion réussie <br/> Bienvenue </p></fieldset></form>';
 		$contenuBis='';
 		require_once('gabaritAgent.php');
 	}
-	if($categorie='Conseiller'){
+	if($categorie=='Conseiller'){
 		$contenuHeader='<strong>CONSEILLER</strong>';
 		$contenuInterface='<form method="post" action="banque.php"><fieldset><p> Connexion réussie <br/> Bienvenue </p></fieldset></form>';
 		require_once('gabaritConseiller.php');
 	}
-	if($categorie='Directeur'){
+	if($categorie=='Directeur'){
 		$contenuHeader='<strong>DIRECTEUR</strong>';
 		$contenuBis='';
 		$contenuInterface='<form method="post" action="banque.php"><fieldset><p> Connexion réussie <br/> Bienvenue </p></fieldset></form>';
@@ -336,7 +337,3 @@ function AfficherPlanning($rdvEmploye){
 				</div>';
 				require_once('gabaritAgent.php');
 }
-
-require_once('../modele/modele.php');
-$rdv = getRDV('Dupont');
-AfficherPlanning($rdv);

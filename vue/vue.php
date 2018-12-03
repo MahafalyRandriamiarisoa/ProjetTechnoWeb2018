@@ -5,18 +5,19 @@ function AfficherInterfaceLogin(){
 }
 
 function AfficherAcceuil($categorie){
-	if($categorie='Agent'){
+	if($categorie=='Agent'){
+		echo "coucou agent";
 		$contenuHeader='<strong>AGENT</strong>';
 		$contenuInterface='<form method="post" action="banque.php"><fieldset><p> Connexion réussie <br/> Bienvenue </p></fieldset></form>';
 		$contenuBis='';
 		require_once('gabaritAgent.php');
 	}
-	if($categorie='Conseiller'){
+	if($categorie=='Conseiller'){
 		$contenuHeader='<strong>CONSEILLER</strong>';
 		$contenuInterface='<form method="post" action="banque.php"><fieldset><p> Connexion réussie <br/> Bienvenue </p></fieldset></form>';
 		require_once('gabaritConseiller.php');
 	}
-	if($categorie='Directeur'){
+	if($categorie=='Directeur'){
 		$contenuHeader='<strong>DIRECTEUR</strong>';
 		$contenuBis='';
 		$contenuInterface='<form method="post" action="banque.php"><fieldset><p> Connexion réussie <br/> Bienvenue </p></fieldset></form>';
@@ -225,7 +226,7 @@ function AfficherPlanning($rdvEmploye){
 							<th>8H</th>';
 	for($j = 0; $j < count($planning[0]); $j++){
 		if($planning[0][$j][0] != ""){
-			$contenuBis .= '<td onClick="showRDV(\''.$planning[0][0][3].'\', \''.$planning[0][0][4].'\', \''.$planning[0][0][5].'\')">'.$planning[0][$j][0].'</td>';
+			$contenuBis .= '<td onClick="showRDV(\''.$planning[0][$j][3].'\', \''.$planning[0][$j][4].'\', \''.$planning[0][$j][5].'\')">'.$planning[0][$j][0].'</td>';
 		}else{
 			$contenuBis .= '<td></td>';
 		}
@@ -235,7 +236,7 @@ function AfficherPlanning($rdvEmploye){
 							<th>9H</th>';
 	for($j = 0; $j < count($planning[0]); $j++){
 		if($planning[1][$j][0] != null){
-			$contenuBis .= '<td>'.$planning[1][$j][0].'</td>';
+			$contenuBis .= '<td onClick="showRDV(\''.$planning[1][$j][3].'\', \''.$planning[1][$j][4].'\', \''.$planning[1][$j][5].'\')">'.$planning[1][$j][0].'</td>';
 		}else{
 			$contenuBis .= '<td></td>';
 		}
@@ -245,7 +246,7 @@ function AfficherPlanning($rdvEmploye){
 							<th>10H</th>';
 	for($j = 0; $j < count($planning[0]); $j++){
 		if($planning[2][$j][0] != null){
-			$contenuBis .= '<td>'.$planning[2][$j][0].'</td>';
+			$contenuBis .= '<td onClick="showRDV(\''.$planning[2][$j][3].'\', \''.$planning[2][$j][4].'\', \''.$planning[2][$j][5].'\')">'.$planning[2][$j][0].'</td>';
 		}else{
 			$contenuBis .= '<td></td>';
 		}
@@ -255,7 +256,7 @@ function AfficherPlanning($rdvEmploye){
 							<th>11H</th>';
 	for($j = 0; $j < count($planning[0]); $j++){
 		if($planning[3][$j][0] != null){
-			$contenuBis .= '<td>'.$planning[3][$j][0].'</td>';
+			$contenuBis .= '<td onClick="showRDV(\''.$planning[3][$j][3].'\', \''.$planning[3][$j][4].'\', \''.$planning[3][$j][5].'\')">'.$planning[3][$j][0].'</td>';
 		}else{
 			$contenuBis .= '<td></td>';
 		}
@@ -265,7 +266,7 @@ function AfficherPlanning($rdvEmploye){
 							<th>12H</th>';
 	for($j = 0; $j < count($planning[0]); $j++){
 		if($planning[4][$j][0] != null){
-			$contenuBis .= '<td>'.$planning[4][$j][0].'</td>';
+			$contenuBis .= '<td onClick="showRDV(\''.$planning[4][$j][3].'\', \''.$planning[4][$j][4].'\', \''.$planning[4][$j][5].'\')">'.$planning[4][$j][0].'</td>';
 		}else{
 			$contenuBis .= '<td></td>';
 		}
@@ -275,7 +276,7 @@ function AfficherPlanning($rdvEmploye){
 							<th>13H</th>';
 	for($j = 0; $j < count($planning[0]); $j++){
 		if($planning[5][$j][0] != null){
-			$contenuBis .= '<td>'.$planning[5][$j][0].'</td>';
+			$contenuBis .= '<td onClick="showRDV(\''.$planning[5][$j][3].'\', \''.$planning[5][$j][4].'\', \''.$planning[5][$j][5].'\')">'.$planning[5][$j][0].'</td>';
 		}else{
 			$contenuBis .= '<td></td>';
 		}
@@ -286,7 +287,7 @@ function AfficherPlanning($rdvEmploye){
 							<th>14H</th>';
 	for($j = 0; $j < count($planning[0]); $j++){
 		if($planning[6][$j][0] != null){
-			$contenuBis .= '<td>'.$planning[6][$j][0].'</td>';
+			$contenuBis .= '<td onClick="showRDV(\''.$planning[6][$j][3].'\', \''.$planning[6][$j][4].'\', \''.$planning[6][$j][5].'\')">'.$planning[6][$j][0].'</td>';
 		}else{
 			$contenuBis .= '<td></td>';
 		}
@@ -296,7 +297,7 @@ function AfficherPlanning($rdvEmploye){
 							<th>15H</th>';
 	for($j = 0; $j < count($planning[0]); $j++){
 		if($planning[7][$j][0] != null){
-			$contenuBis .= '<td>'.$planning[7][$j][0].'</td>';
+			$contenuBis .= '<td onClick="showRDV(\''.$planning[7][$j][3].'\', \''.$planning[7][$j][4].'\', \''.$planning[7][$j][5].'\')">'.$planning[7][$j][0].'</td>';
 		}else{
 			$contenuBis .= '<td></td>';
 		}
@@ -306,7 +307,7 @@ function AfficherPlanning($rdvEmploye){
 							<th>16H</th>';
 	for($j = 0; $j < count($planning[0]); $j++){
 		if($planning[8][$j][0] != null){
-			$contenuBis .= '<td>'.$planning[8][$j][0].'</td>';
+			$contenuBis .= '<td onClick="showRDV(\''.$planning[8][$j][3].'\', \''.$planning[8][$j][4].'\', \''.$planning[8][$j][5].'\')">'.$planning[8][$j][0].'</td>';
 		}else{
 			$contenuBis .= '<td></td>';
 		}
@@ -316,7 +317,7 @@ function AfficherPlanning($rdvEmploye){
 							<th>17H</th>';
 	for($j = 0; $j < count($planning[0]); $j++){
 		if($planning[9][$j][0] != null){
-			$contenuBis .= '<td>'.$planning[9][$j][0].'</td>';
+			$contenuBis .= '<td onClick="showRDV(\''.$planning[9][$j][3].'\', \''.$planning[9][$j][4].'\', \''.$planning[9][$j][5].'\')">'.$planning[9][$j][0].'</td>';
 		}else{
 			$contenuBis .= '<td></td>';
 		}
@@ -326,7 +327,7 @@ function AfficherPlanning($rdvEmploye){
 							<th>18H</th>';
 	for($j = 0; $j < count($planning[0]); $j++){
 		if($planning[10][$j][0] != ""){
-			$contenuBis .= '<td>'.$planning[10][$j][0].'</td>';
+			$contenuBis .= '<td onClick="showRDV(\''.$planning[10][$j][3].'\', \''.$planning[10][$j][4].'\', \''.$planning[10][$j][5].'\')">'.$planning[10][$j][0].'</td>';
 		}else{
 			$contenuBis .= '<td></td>';
 		}
@@ -336,3 +337,7 @@ function AfficherPlanning($rdvEmploye){
 				</div>';
 				require_once('gabaritAgent.php');
 }
+
+require_once('../modele/modele.php');
+$rdv = getRDV('dupont');
+AfficherPlanning($rdv);

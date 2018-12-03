@@ -44,18 +44,31 @@ function CtlnumClientExiste($numClient){
         return null;
     }
 
-/***
- * @param $nom
- * @param $prenom
- * @param $dateNaiss
- * @param $numTel
- * @param $adresse
- * @param $situationFamilial
- * @param $idEmploye
- */
-	function CtlEnregistrerClient($nom,$prenom,$dateNaiss,$numTel,$adresse,$situationFamilial,$idEmploye){
 
-		enregistrerClient($nom,$prenom,$dateNaiss,$numTel,$adresse,$situationFamilial,$idEmploye);
+/**
+ * Fonction pour enregistrer un client champ par champ
+ * @param $idEmploye
+ *      Correspond au conseiller du client
+ * @param $nom
+ *      Correspond au nom du client
+ * @param $prenom
+ *      Correspond au prénom du client
+ * @param $dateNaissance
+ *      Correspond à la date de naissance du client
+ * @param $adresse
+ *      Correspond à l'adresse postale du client
+ * @param $email
+ *      Correspond à l'adresse eMail du client
+ * @param $numTel
+ *      Correspond au numéro de téléphone du client
+ * @param $situationFamiliale
+ *      Correspond à la situation familiale du client
+ * @param $profession
+ *      Correspond à la profession du client
+ */
+function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adresse, $email, $numTel, $situationFamiliale, $profession){
+
+        enregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adresse, $email, $numTel, $situationFamiliale, $profession);
 
 		AfficherAcceuil(getEmploye($idEmploye)->CATEGORIE);
 	}
@@ -103,6 +116,28 @@ function CtlnumClientExiste($numClient){
 function CtlPriseRdv($numclient){
         $client=checkClient($numclient);
         AfficherPriseRdv($client);
+}
+
+/**
+ * Fonction pour effectuer le debit d'un compte avec controle
+ * @param $debit montant à débiter sur le compte spécifié
+ * @param $numClient numéro du client auquel appartient le compte mentionné ci-dessous
+ * @param $nomCompte type de compte
+ */
+function CtldebiterCompte($debit, $numClient, $nomCompte){
+    $compte=getCompte($numClient,$nomCompte);
+    $soldeFinal=$compte->SOLDE+$compte->MONTANTDECOUVERT;
+    if(($debit>=0)&&($debit>=$soldeFinal)){
+        debiterCompte($compte);
+    }
+}
+
+
+
+function CtlRechercherClientNum($numClient){
+    if(CtlnumClientExiste()){
+//todo : reflechir à quelle vue mettre
+    }
 }
 
 	/**

@@ -247,3 +247,4 @@ function getRDV($idEmploye){
 
  //todo : get all motif
 
+ //todo : getCompte($numClient,$nomCompte) --new--

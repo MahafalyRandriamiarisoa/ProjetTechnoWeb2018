@@ -46,7 +46,7 @@ function AfficherSyntheseClient($client,$compte,$contrat){
 										$contenuInterface.='<tr><td>'.$compte[$j]->NOMCOMPTE.'</td><td>'.$compte[$j]->SOLDE.'</td></tr>';
 									}
 								$contenuInterface.='</table>';
-								
+				}				
 				if(count($contrat)<=1){
 					$contenuInterface.='<table>
 										<caption>Liste des contrats</caption>';
@@ -55,6 +55,7 @@ function AfficherSyntheseClient($client,$compte,$contrat){
 									}
 									
 								$contenuInterface.='</table></fieldset></form>';
+				}
 	
 	}else{
 		if(count($client)<1){
@@ -125,7 +126,7 @@ function AfficherOperationCompte($compte){
 						<p>
 						<select name="actionCompte">';
 						
-						for($k=;$k<count($compte);$k++){
+						for($k=0;$k<count($compte);$k++){
 							$contenuInterface.='<option value="'.$compte[$k]->NOMCOMPTE.'">'.$compte[$k]->NOMCOMPTE.'</option>';
 						}
 							
@@ -148,3 +149,191 @@ function AfficherErreur ($erreur){
 			  </fieldset>';
 	require_once('gabaritLogin.php');		  
 }
+
+function AfficherPlanning($rdvEmploye){
+	$nbRDV = count($rdvEmploye);
+	$time = array();
+
+	for($i = 0; $i < $nbRDV; $i++){
+		$time[$i] = strtotime($rdvEmploye[$i]->DATEHEURE);
+	}
+
+	$datesRDV = array();
+
+	for($i = 0; $i < $nbRDV; $i++){
+		$datesRDV[$i] = date("j/m/G/i", $time[$i]);
+	}
+
+	$semaine = array();
+
+	$semaineCourante = date('W');
+	$anneeCourante = date('Y');
+
+	for($i = 0; $i < 6; $i++){
+		$semaine[$i] = date('j/m', strtotime($anneeCourante."W".$semaineCourante.($i+2)));
+	}
+
+	$planning = array();
+
+	for($i = 0; $i < 11; $i++){
+		for($j = 0; $j < 5; $j++){
+			$planning[$i][$j][0] = "";
+		}
+	}
+
+
+
+	for($i = 0; $i < $nbRDV; $i++){
+		$rdv = explode('/', $datesRDV[$i]);
+		$jourMoisRDV =  $rdv[0].'/'.$rdv[1];
+		$heureRDV = $rdv[2];
+		for($j = 0; $j < count($semaine); $j++){
+			if($semaine[$j] == $jourMoisRDV){
+				$planning[$heureRDV - 8][$j] = array(
+					"RDV",
+					$rdvEmploye[$i]->IDRDV,
+					$rdvEmploye[$i]->IDEMPLOYE,
+					$rdvEmploye[$i]->MOTIF,
+					$rdvEmploye[$i]->NUMCLIENT,
+					$rdvEmploye[$i]->DATEHEURE
+				);
+			}
+		}
+	}
+
+	$contenuInterface = '';
+	$contenuBis = '
+				<div class="planning">
+					<table>
+						<legend>Vos RDV</legend>
+						<tr>
+							<th colspan="6" style="text-align: center;">Semaine du '.getDate()['mday'].'/'.getDate()['mon'].'/'. getDate()['year'].'</th>
+						</tr>
+						<tr>
+							<td class="disabled"></td>';
+	$contenuBis .='
+							<th>Mardi '.$semaine[0].'</th>
+							<th>Mercredi '.$semaine[1].'</th>
+							<th>Jeudi '.$semaine[2].'</th>
+							<th>Vendredi '.$semaine[3].'</th>
+							<th>Samedi '.$semaine[4].'</th>
+						</tr>
+						<tr>
+							<th>8H</th>';
+	for($j = 0; $j < count($planning[0]); $j++){
+		if($planning[0][$j][0] != ""){
+			$contenuBis .= '<td onClick="showRDV(\''.$planning[0][0][3].'\', \''.$planning[0][0][4].'\', \''.$planning[0][0][5].'\')">'.$planning[0][$j][0].'</td>';
+		}else{
+			$contenuBis .= '<td></td>';
+		}
+	}
+	$contenuBis .= '	</tr>
+						<tr>
+							<th>9H</th>';
+	for($j = 0; $j < count($planning[0]); $j++){
+		if($planning[1][$j][0] != null){
+			$contenuBis .= '<td>'.$planning[1][$j][0].'</td>';
+		}else{
+			$contenuBis .= '<td></td>';
+		}
+	}
+	$contenuBis .= '	</tr>
+						<tr>
+							<th>10H</th>';
+	for($j = 0; $j < count($planning[0]); $j++){
+		if($planning[2][$j][0] != null){
+			$contenuBis .= '<td>'.$planning[2][$j][0].'</td>';
+		}else{
+			$contenuBis .= '<td></td>';
+		}
+	}
+	$contenuBis .= '	</tr>
+						<tr>
+							<th>11H</th>';
+	for($j = 0; $j < count($planning[0]); $j++){
+		if($planning[3][$j][0] != null){
+			$contenuBis .= '<td>'.$planning[3][$j][0].'</td>';
+		}else{
+			$contenuBis .= '<td></td>';
+		}
+	}
+	$contenuBis .= '	</tr>
+						<tr>
+							<th>12H</th>';
+	for($j = 0; $j < count($planning[0]); $j++){
+		if($planning[4][$j][0] != null){
+			$contenuBis .= '<td>'.$planning[4][$j][0].'</td>';
+		}else{
+			$contenuBis .= '<td></td>';
+		}
+	}
+	$contenuBis .= '	</tr>
+						<tr>
+							<th>13H</th>';
+	for($j = 0; $j < count($planning[0]); $j++){
+		if($planning[5][$j][0] != null){
+			$contenuBis .= '<td>'.$planning[5][$j][0].'</td>';
+		}else{
+			$contenuBis .= '<td></td>';
+		}
+	}
+	$contenuBis .= '	
+						</tr>
+						<tr>
+							<th>14H</th>';
+	for($j = 0; $j < count($planning[0]); $j++){
+		if($planning[6][$j][0] != null){
+			$contenuBis .= '<td>'.$planning[6][$j][0].'</td>';
+		}else{
+			$contenuBis .= '<td></td>';
+		}
+	}
+	$contenuBis .= '	</tr>
+						<tr>
+							<th>15H</th>';
+	for($j = 0; $j < count($planning[0]); $j++){
+		if($planning[7][$j][0] != null){
+			$contenuBis .= '<td>'.$planning[7][$j][0].'</td>';
+		}else{
+			$contenuBis .= '<td></td>';
+		}
+	}
+	$contenuBis .= '	</tr>
+						<tr>
+							<th>16H</th>';
+	for($j = 0; $j < count($planning[0]); $j++){
+		if($planning[8][$j][0] != null){
+			$contenuBis .= '<td>'.$planning[8][$j][0].'</td>';
+		}else{
+			$contenuBis .= '<td></td>';
+		}
+	}
+	$contenuBis .= '	</tr>
+						<tr>
+							<th>17H</th>';
+	for($j = 0; $j < count($planning[0]); $j++){
+		if($planning[9][$j][0] != null){
+			$contenuBis .= '<td>'.$planning[9][$j][0].'</td>';
+		}else{
+			$contenuBis .= '<td></td>';
+		}
+	}
+	$contenuBis .= '	</tr>
+						<tr>
+							<th>18H</th>';
+	for($j = 0; $j < count($planning[0]); $j++){
+		if($planning[10][$j][0] != ""){
+			$contenuBis .= '<td>'.$planning[10][$j][0].'</td>';
+		}else{
+			$contenuBis .= '<td></td>';
+		}
+	}
+	$contenuBis .= '	</tr>
+					</table>
+				</div>';
+				require_once('gabaritAgent.php');
+}
+
+require_once('../modele/modele.php');
+$rdv = getRDV('Dupont');
+AfficherPlanning($rdv);

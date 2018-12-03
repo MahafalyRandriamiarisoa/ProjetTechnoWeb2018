@@ -3,7 +3,7 @@
     <head>
       <title>Ma page</title>
       <meta charset="utf-8">
-	  <link rel="stylesheet"  href="vue/style/styl.css" />
+	  <link rel="stylesheet"  href="style/style.css" />
 	  <script type="text/javascript" src="fonction.js"></script>
     </head>
     

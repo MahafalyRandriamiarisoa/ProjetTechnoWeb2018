@@ -13,7 +13,7 @@ function getConnect(){
 		try{
 				$connexion = new PDO('mysql:host='.SERVEUR.';dbname='.BDD, USER, PASSWORD);
 				$connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$connexion->query("SET NAMES UTF8");
+				$connexion->query("SET NAMES 'utf8'");
 				return $connexion;
 			}catch(PDOException $e){
 				echo 'Il y a eu une erreur de connexion : ' . $e->getMessage();
@@ -127,19 +127,19 @@ function getSyntheseClient($numClient){
 
 /**
  * Cette fonction effectue une requete SQL à la base de donnée pour obtenir un resultat
- * correspondant aux rendez-vous du client passé en paramètre
+ * correspondant aux rendez-vous de l'employé passé en paramètre
  * 
  * @param integer : $numClient
  * 		Correspond au numéro du client
  * 
  * @return array
  * 		Correspond au résultat de la requête SQL sous forme de tableau contenant tous les rendez-vous
- * 		du client
+ * 		de l'employé
  */
 
-function getRDV($numClient){
+function getRDV($idEmploye){
 	$connexion = getConnect();
-	$requete = "SELECT * FROM RENDEZVOUS WHERE numClient = $numClient";
+	$requete = "SELECT * FROM RENDEZVOUS WHERE idEmploye = '$idEmploye'";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat ->fetchAll();

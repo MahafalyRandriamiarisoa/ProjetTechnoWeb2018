@@ -336,7 +336,3 @@ function AfficherPlanning($rdvEmploye){
 				</div>';
 				require_once('gabaritAgent.php');
 }
-
-require_once('../modele/modele.php');
-$rdv = getRDV('Dupont');
-AfficherPlanning($rdv);

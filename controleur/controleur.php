@@ -169,7 +169,7 @@ function CtlRechercherClientNum($numClient){
  *      correspond au numèro permettant d'accéder à un unique Client
  */
 function CtlContratDisponible($numClient){
-    $contrats=getContratsDisponible();
+    $contrats=getContratsPotentielClient($numClient);
     AfficherContratsDisponibles($contrats);
 }
 
@@ -197,7 +197,7 @@ function CtlResilierContrat($numClient,$IDCONTRAT){
  */
 function CtlCompteDisponible($numClient){
 
-    $comptes=getComptesPotentiellesClient($numClient);
+    $comptes=getComptesPotentielsClient($numClient);
 
     AfficherComptesDisponibles($comptes);
 }

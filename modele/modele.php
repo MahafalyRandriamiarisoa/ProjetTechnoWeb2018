@@ -247,4 +247,19 @@ function getRDV($idEmploye){
 
  //todo : get all motif
 
- //todo : getCompte($numClient,$nomCompte) --new--
+ //todo : getCompte($numClient,$nomCompte)
+
+ //todo :  getContratsPotentielClient($numClient)
+ //               par potentiel j'entends les contrats que le client peut potentiellement acheter (ce qu'ils n'a pas déjà)
+
+ //todo :  enregistrerContrat($numClient,$DATEOUVERTURECONTRAT,$TARIFMENSUEL,$LIBELLE);
+
+ //todo : resilierContrat($IDCONTRAT)
+
+ //todo : getComptesPotentielsClient($numClient);
+ //                     même explication que pour les contrats potentiels client
+
+ //todo : ouvertureCompte($NUMCLIENT,$NOMCOMPTE,$DATEOUVERTURE,$MONTANTDECOUVERT)
+
+ //todo :  fermerCompte($numClient,$nomCompte)
+

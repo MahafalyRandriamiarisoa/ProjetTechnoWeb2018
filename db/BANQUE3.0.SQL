@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS BANQUE3.0;
+DROP DATABASE IF EXISTS BANQUE3;
 
-CREATE DATABASE IF NOT EXISTS BANQUE3.0;
-USE BANQUE3.0;
+CREATE DATABASE IF NOT EXISTS BANQUE3;
+USE BANQUE3;
 # -----------------------------------------------------------------------------
 #       TABLE : TYPEMOTIF
 # -----------------------------------------------------------------------------

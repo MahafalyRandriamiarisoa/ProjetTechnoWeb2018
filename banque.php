@@ -4,7 +4,9 @@ require_once('controleur/controleur.php');
     try{
 
         if(isset($_POST['connexion'])){
-            $idEmploye=(CtlAcceuil($_POST['identifiant'],$_POST['motDePasse']))->IDEMPLOYE;
+            //todo : verifier si la data base est vide
+            //$idEmploye=(CtlAcceuil($_POST['identifiant'],$_POST['motDePasse']))->IDEMPLOYE;
+            var_dump(CtlAcceuil($_POST['identifiant'],$_POST['motDePasse']));
             $client=checkClient('3'); // temporaire
 
 
@@ -18,7 +20,7 @@ require_once('controleur/controleur.php');
 
                 case 'modif':
 
-                CtlModificationInfo('3');//temporaire
+                CtlModificationInfo($_POST['numClient']);
                     break;
 
                 case 'opCompte':
@@ -30,20 +32,25 @@ require_once('controleur/controleur.php');
                 case 'rdv':
 
                //CtlPriseRdv($_POST['numClient']);
-               CtlPriseRdv('3');
+               CtlPriseRdv($_POST['numClient']);
                     break;
 
         }
 
         }elseif(isset($_POST['validerRecherche'])){
 
-        }
-        elseif(isset($_POST['ValiderRDV'])){
+        }elseif(isset($_POST['ValiderRDV'])){
 
             CtlConfirmationRdv($_POST['IdEMPLOYERDV']);
 
-        }
-        else{
+        }elseif(isset($_POST['suiv'])){
+
+            $rdvEmploye=getRDV($idEmploye);
+            AfficherPlanning($rdvEmploye,0);
+
+        }elseif(isset($_POST['prec'])){
+
+        }else{
 
             CtlInterfaceLogin();
 

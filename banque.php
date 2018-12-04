@@ -26,15 +26,16 @@ require_once('controleur/controleur.php');
                 case 'opCompte':
 
                 //CtlOperationCompte($_POST['compte']);//temporaire
-                CtlOperationCompte($numCompte);//temporaire
+                CtlOperationCompte($numClient,$nomCompte);//temporaire
                     break;
 
                 case 'rdv':
 
-               //CtlPriseRdv($_POST['numClient']);
-               $idEmploye=CtlPriseRdv($_POST['numClient']);
-               AfficherPlanning($idEmploye,0);
-               var_dump($idEmploye);
+               $idEmploye = CtlPriseRdv($_POST['numClient']);
+               $rdvEmploye  = getRDV($idEmploye);
+               echo 'AfficherPlanning'; //todo : keep going
+               AfficherPlanning($rdvEmploye,0);
+               echo 'idEmploye'.var_dump($idEmploye);
                     break;
 
         }

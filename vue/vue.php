@@ -123,6 +123,7 @@ function AfficherPriseRdv($client){
 }
 
 function AfficherOperationCompte($compte){
+
 	$contenuHeader='<strong>AGENT</strong>';
 	$contenuInterface='<form method="post" action="banque.php"><fieldset>
 						<p><label>Sélectionner le compte :<label></p>

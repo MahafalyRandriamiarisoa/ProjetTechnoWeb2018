@@ -86,10 +86,10 @@ function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adress
         $contrat=getContratsClient($client->NUMCLIENT);*/
         $compte = array();
         $contrats = array();
-
+        $comptes = getComptesClient($numclient);
         $synthese = getSyntheseClient($client[0]->NUMCLIENT);
 
-        AfficherSyntheseClient($client,$compte,$contrats);
+        AfficherSyntheseClient($client,$comptes,$contrats);
     }
 
 /***
@@ -108,8 +108,9 @@ function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adress
  * Fonction qui controle les operations sur le compte d'un client, la restriction de choix de compte se fait par Affichage au préalable des comptes du client
  * @param $compte le compte d'un client sous forme d'objet
  */
-    function CtlOperationCompte($numCompte){
-        $compte=getCompte($numCompte);
+    function CtlOperationCompte($numClient,$nomCompte){
+
+        $compte = getCompte($numClient,$nomCompte);
         AfficherOperationCompte($compte);
     }
 
@@ -122,6 +123,7 @@ function CtlPriseRdv($numClient){
         $client=checkClient($numClient);
         var_dump($client);
         AfficherPriseRdv($client);
+        echo 'a '.var_dump($client->IDEMPLOYE);
         return getRDV($client[0]->IDEMPLOYE);
 }
 

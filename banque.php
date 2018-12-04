@@ -6,8 +6,8 @@ require_once('controleur/controleur.php');
         if(isset($_POST['connexion'])){
             //todo : verifier si la data base est vide
             //$idEmploye=(CtlAcceuil($_POST['identifiant'],$_POST['motDePasse']))->IDEMPLOYE;
-            var_dump(CtlAcceuil($_POST['identifiant'],$_POST['motDePasse']));
-            $client=checkClient('3'); // temporaire
+            $idEmploye=CtlAcceuil($_POST['identifiant'],$_POST['motDePasse']);
+
 
 
         }elseif(isset($_POST['valider'])){
@@ -33,13 +33,9 @@ require_once('controleur/controleur.php');
                 case 'rdv':
 
                $idEmploye = CtlPriseRdv($_POST['numClient']);
-               echo 'idEmploye'.var_dump($idEmploye);
-                    $idEmploye=intval($idEmploye);
-                    echo 'intval idemploye'.var_dump($idEmploye);
+               $idEmploye=intval($idEmploye);
                $rdvEmploye  = getRDV(3);
-               var_dump($rdvEmploye); //todo : keep going
                 CtlPlanning($rdvEmploye,0);
-               echo 'idEmploye'.var_dump(intval($idEmploye));
                     break;
 
         }

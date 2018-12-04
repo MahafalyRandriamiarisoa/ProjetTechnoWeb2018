@@ -367,3 +367,6 @@ function getRDV($idEmploye){
 //todo : 
 
 
+//todo : refaire function getComptesClient($numClient)
+
+//todo : refaire function getContratsClient($numClient)

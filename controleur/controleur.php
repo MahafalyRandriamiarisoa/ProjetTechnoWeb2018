@@ -32,7 +32,6 @@ function CtlnumClientExiste($numClient){
         if(!empty($login) && !empty($mdp)){
 
             $employe=checkLogin($login,$mdp);
-            var_dump($employe);
             if(!empty($employe)){
 
                 AfficherAcceuil($employe->CATEGORIE);
@@ -78,12 +77,14 @@ function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adress
  * Fonction qui controle l'affichage de la synthese du client par son numClient
  * @param $numclient parametre déjà controllé via "rechercher un client" ou par saisie interactive
  */
-	function CtlSyntheseClient($numClient){
-        var_dump($numClient);
+	function CtlSyntheseClient($numClient1){
+        $numClient = intval($numClient1);
         $client = checkClient($numClient);
+        echo 'WTF';
         $contrats = getContratsClient($numClient);
+
         $comptes = getComptesClient($numClient);
-        $synthese = getSyntheseClient($client[0]->NUMCLIENT); //todo :
+        $synthese = getSyntheseClient($numClient); //todo :
 
         AfficherSyntheseClient($client,$comptes,$contrats);
     }
@@ -124,9 +125,7 @@ function CtlPriseRdv($numClient){
 
 
         $client=checkClient($numClient);
-        var_dump($client);
         AfficherPriseRdv($client);
-        echo 'a '.var_dump($client[0]->IDEMPLOYE);
         return getRDV($client[0]->IDEMPLOYE);
 }
 

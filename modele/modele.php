@@ -139,7 +139,7 @@ function getSyntheseClient($numClient){
 
 function getRDV($idEmploye){
 	$connexion = getConnect();
-	$requete = "SELECT * FROM RENDEZVOUS NATURAL JOIN CLIENT NATURAL JOIN TYPEMOTIF NATURAL JOIN PIECES_A_FOURNIR WHERE idEmploye = $idEmploye";
+	$requete = "SELECT * FROM RENDEZVOUS NATURAL JOIN CLIENT NATURAL JOIN TYPEMOTIF NATURAL JOIN PIECES_A_FOURNIR NATURAL JOIN PIECES_A_FOURNIRMOTIF WHERE idEmploye = $idEmploye";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat ->fetchAll();
@@ -231,35 +231,97 @@ function getRDV($idEmploye){
 
  //todo : fonction récup login employes
 
- function getAllLoginEmployes(){
+ function getAllEmployes(){
 	$connexion = getConnect();
 	$requete = "SELECT * FROM EMPLOYE";
 	$resultat = $connexion->query($requete);
+	return $resultat->fetchAll();
  }
-
- var_dump(getAllLoginEmployes());
-
 
  //todo : fonction modifier login / mdp employes
 
+ //todo : get solde
+
+ function getSolde($numClient, $nomCompte){
+	$connexion = getConnect();
+	$requete = "SELECT montant FROM COMPTE WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
+	$resultat = $connexion->query($requete);
+	return $resultat->fetch();
+ }
+
  //todo : créditer compte
 
+ function crediterCompte($montant, $numClient, $nomCompte){
+	$connexion = getConnect();
+	$soldeActuel = getSolde($numClient, $nomCompte)->MONTANT;
+	$soldeCredite = $soldeActuel + $montant;
+	$requete = "INSERT INTO COMPTE (montant) VALUES $soldeCredite WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
+	$resultat = $connexion->query($requete);
+ }
  //todo : débiter compte
 
- //todo : get solde
+ function debiterCompte($montant, $numClient, $nomCompte){
+	$connexion = getConnect();
+	$soldeActuel = getSolde($numClient, $nomCompte)->MONTANT;
+	$soldeDebite = $soldeActuel - $montant;
+	$requete = "INSERT INTO COMPTE (montant) VALUES $soldeDebite WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
+	$resultat = $connexion->query($requete);
+ }
 
  //todo : montant decouvert autorisé
 
+ function getMontantDecourvertAutorise($numClient, $nomCompte){
+	$connexion = getConnect();
+	$requete = "SELECT montantDecouvert FROM COMPTECLIENT numClient = $numClient AND nomCompte = '$nomCompte'";
+	$resultat = $connexion->query($requete);
+	return $resultat->fetch();
+ }
+
  //todo : get tous contrats
+
+ function getAllContrats(){
+	$connexion = getConnect();
+	$requete = "SELECT * FROM CONTRAT";
+	$resultat = $connexion->query($requete);
+	return $resultat->fetchAll();
+ }
 
  //todo : get all type comptes
 
+ function allTypeCompte(){
+	$connexion = getConnect();
+	$requete = "SELECT * FROM COMPTE";
+	$resultat = $connexion->query($requete);
+	return $resultat->fetchAll();
+ }
+
  //todo : get all motif
+
+ function allMotif(){
+	$connexion = getConnect();
+	$requete = "SELECT * FROM TYPEMOTIF";
+	$resultat = $connexion->query($requete);
+	return $resultat->fetchAll();
+ }
 
  //todo : getCompte($numClient,$nomCompte)
 
+ function getCompte($numClient, $nomCompte){
+	$connexion = getConnect();
+	$requete = "SELECT * FROM COMPTECLIENT WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
+	$resultat = $connexion->query($requete);
+	return $resultat->fetch();
+ }
+
  //todo :  getContratsPotentielClient($numClient)
  //               par potentiel j'entends les contrats que le client peut potentiellement acheter (ce qu'ils n'a pas déjà)
+
+ function getContratsPotentielsClient($numClient){
+	$connexion = getConnect();
+	$requete = "SELECT IDCONTRAT FROM CONTRAT WHERE IDCONTRAT NOT IN (SELECT IDCONTRAT FROM CONTRATCLIENT)";
+	$resultat = $connexion->query($requete);
+	return $resultat->fetchAll();
+ }
 
  //todo :  enregistrerContrat($numClient,$DATEOUVERTURECONTRAT,$TARIFMENSUEL,$LIBELLE);
 

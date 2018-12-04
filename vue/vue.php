@@ -6,7 +6,6 @@ function AfficherInterfaceLogin(){
 
 function AfficherAcceuil($categorie){
 	if($categorie=='Agent'){
-		echo "coucou agent";
 		$contenuHeader='<strong>AGENT</strong>';
 		$contenuInterface='<form method="post" action="banque.php"><fieldset><p> Connexion réussie <br/> Bienvenue </p></fieldset></form>';
 		$contenuBis='';

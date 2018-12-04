@@ -231,6 +231,15 @@ function getRDV($idEmploye){
 
  //todo : fonction récup login employes
 
+ function getAllLoginEmployes(){
+	$connexion = getConnect();
+	$requete = "SELECT * FROM EMPLOYE";
+	$resultat = $connexion->query($requete);
+ }
+
+ var_dump(getAllLoginEmployes());
+
+
  //todo : fonction modifier login / mdp employes
 
  //todo : créditer compte

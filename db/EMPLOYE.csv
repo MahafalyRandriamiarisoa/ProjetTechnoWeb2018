@@ -1,8 +1,5 @@
-IDPIECE_A_FOURNIR,LIBELLE_PIECES_A_FOURNIR
-1,Pièce d’identité
-2,Avis d’imposition
-3,Fiches de salaire
-4,Quittances de loyer
-5,Passeport
-6,Assurance de responsabilité civile
-7,Justificatif de domicile
+1,agent,azerty,Agent,Dubois
+2,conseiller,azerty,Conseiller,Dupont
+3,conseiller,azerty,Conseiller,Durand
+4,conseiller,azerty,Conseiller,Duchene
+5,directeur,azerty,Directeur,Dubouleau

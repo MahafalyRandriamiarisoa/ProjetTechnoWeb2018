@@ -32,7 +32,9 @@ require_once('controleur/controleur.php');
                 case 'rdv':
 
                //CtlPriseRdv($_POST['numClient']);
-               CtlPriseRdv($_POST['numClient']);
+               $idEmploye=CtlPriseRdv($_POST['numClient']);
+               AfficherPlanning($idEmploye,0);
+               var_dump($idEmploye);
                     break;
 
         }

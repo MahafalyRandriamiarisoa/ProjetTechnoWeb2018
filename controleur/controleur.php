@@ -41,7 +41,7 @@ function CtlnumClientExiste($numClient){
         }
 
         AfficherInterfaceLogin();
-        return null;
+        throw new Exception("login non trouvé");
     }
 
 
@@ -116,18 +116,23 @@ function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adress
 /**
  * Fonction pour controller la prise d'un rendez-vous
  * @param $numclient  parametre déjà controllé via "rechercher un client" ou par saisie interactive
+ * @return array : rdvq
  */
-function CtlPriseRdv($numclient){
-        $client=checkClient($numclient);
+function CtlPriseRdv($numClient){
+        $client=checkClient($numClient);
+        var_dump($client);
         AfficherPriseRdv($client);
+        return getRDV($client[0]->IDEMPLOYE);
 }
 
 /**
  * Fonction pour enregistrer un RDV champ par champ
+ *
  * @param $IDEMPLOYE
  * @param $IDMOTIF
  * @param $NUMCLIENT
  * @param $DATEHEURERDV
+ *
  */
 function CtlConfirmationRdv($IDEMPLOYE, $IDMOTIF, $NUMCLIENT, $DATEHEURERDV){
     enregistrerRDV($IDEMPLOYE,$IDMOTIF,$NUMCLIENT,$DATEHEURERDV);//$rdv a comme attribut (IDEMPLOYE,IDMOTIF,NUMCLIENT, DATEHEURERDV

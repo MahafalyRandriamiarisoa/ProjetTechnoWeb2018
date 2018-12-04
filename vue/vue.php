@@ -115,7 +115,7 @@ function AfficherInfoAmodifier($client,$info){
 
 function AfficherPriseRdv($client){
 	$contenuHeader='<strong>AGENT</strong>';
-	$contenuInterface='<form method="post" action="banque.php"><fieldset><p>Conseiller n°:'.$client->IDEMPLOYE.'</p>';
+	$contenuInterface='<form method="post" action="banque.php"><fieldset><p>Conseiller n°:'.$client[0]->IDEMPLOYE.'</p>';
 	//plage de rdv
 	$contenuBis='';
 

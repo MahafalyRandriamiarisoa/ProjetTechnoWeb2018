@@ -32,7 +32,7 @@ function CtlnumClientExiste($numClient){
         if(!empty($login) && !empty($mdp)){
 
             $employe=checkLogin($login,$mdp);
-
+            var_dump($employe);
             if(!empty($employe)){
 
                 AfficherAcceuil($employe->CATEGORIE);
@@ -78,16 +78,12 @@ function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adress
  * Fonction qui controle l'affichage de la synthese du client par son numClient
  * @param $numclient parametre déjà controllé via "rechercher un client" ou par saisie interactive
  */
-	function CtlSyntheseClient($numclient){
-
-        $client = checkClient(3);
-
-        /*$compte=getComptesClient($client->NUMCLIENT);
-        $contrat=getContratsClient($client->NUMCLIENT);*/
-        $compte = array();
-        $contrats = array();
-        $comptes = getComptesClient($numclient);
-        $synthese = getSyntheseClient($client[0]->NUMCLIENT);
+	function CtlSyntheseClient($numClient){
+        var_dump($numClient);
+        $client = checkClient($numClient);
+        $contrats = getContratsClient($numClient);
+        $comptes = getComptesClient($numClient);
+        $synthese = getSyntheseClient($client[0]->NUMCLIENT); //todo :
 
         AfficherSyntheseClient($client,$comptes,$contrats);
     }
@@ -114,16 +110,23 @@ function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adress
         AfficherOperationCompte($compte);
     }
 
+
+    function CtlPlanning($rdvEmploye,$int){
+        AfficherPlanning($rdvEmploye,$int);
+    }
+
 /**
  * Fonction pour controller la prise d'un rendez-vous
  * @param $numclient  parametre déjà controllé via "rechercher un client" ou par saisie interactive
  * @return array : rdvq
  */
 function CtlPriseRdv($numClient){
+
+
         $client=checkClient($numClient);
         var_dump($client);
         AfficherPriseRdv($client);
-        echo 'a '.var_dump($client->IDEMPLOYE);
+        echo 'a '.var_dump($client[0]->IDEMPLOYE);
         return getRDV($client[0]->IDEMPLOYE);
 }
 

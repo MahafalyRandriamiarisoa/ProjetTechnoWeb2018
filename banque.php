@@ -12,8 +12,8 @@ require_once('controleur/controleur.php');
             switch ($_POST['action']) {
                 case 'syntese':
 
-                //CtlSyntheseClient($_POST['numClient']);
-                CtlSyntheseClient('3');//temporaire
+                CtlSyntheseClient($_POST['numClient']);
+                //CtlSyntheseClient('3');//temporaire
                     break;
 
                 case 'modif':
@@ -40,7 +40,7 @@ require_once('controleur/controleur.php');
         }
         elseif(isset($_POST['ValiderRDV'])){
 
-            CtlConfirmationRdv($_POST['IdEMPLOYERDV'],);
+            CtlConfirmationRdv($_POST['IdEMPLOYERDV']);
         }
         else{
 

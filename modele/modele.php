@@ -50,17 +50,17 @@ function checkLogin($login, $mdp){
  * @param integer : $numClient
  * 		Correspond au numéro du client à rechercher
  * 
- * @return object
- * 		Correspond au résultat de la requête SQL sous forme d'object contenant le client
+ * @return array
+ * 		Correspond au résultat de la requête SQL sous forme de tableau contenant le client
  * 		recherché
  */
 
 function checkClient($numClient){
 	$connexion = getConnect();
-	$requete = "SELECT * FROM CLIENT WHERE numClient = $numClient";
+	$requete = "SELECT * FROM CLIENT WHERE $numClient = NUMCLIENT";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
-	return $resultat->fetch();
+	return $resultat->fetchAll();
 }
 
 /**
@@ -119,7 +119,7 @@ function getCategorie($login){
 
 function getSyntheseClient($numClient){
 	$connexion = getConnect();
-	$requete = "SELECT * FROM CLIENT WHERE numClient = $numClient";
+	$requete = "SELECT * FROM CLIENT WHERE NUMCLIENT = $numClient";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat ->fetch();
@@ -262,4 +262,7 @@ function getRDV($idEmploye){
  //todo : ouvertureCompte($NUMCLIENT,$NOMCOMPTE,$DATEOUVERTURE,$MONTANTDECOUVERT)
 
  //todo :  fermerCompte($numClient,$nomCompte)
+
+
+
 

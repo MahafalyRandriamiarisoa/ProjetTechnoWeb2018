@@ -80,12 +80,16 @@ function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adress
  */
 	function CtlSyntheseClient($numclient){
 
-        $client =checkClient($numclient);
+        $client = checkClient(3);
 
-        $compte=getComptesClient($client->NUMCLIENT);
-        $contrat=getContratsClient($client->NUMCLIENT);
+        /*$compte=getComptesClient($client->NUMCLIENT);
+        $contrat=getContratsClient($client->NUMCLIENT);*/
+        $compte = array();
+        $contrats = array();
 
-        AfficherSyntheseClient($client,$compte,$contrat);
+        $synthese = getSyntheseClient($client[0]->NUMCLIENT);
+
+        AfficherSyntheseClient($client,$compte,$contrats);
     }
 
 /***

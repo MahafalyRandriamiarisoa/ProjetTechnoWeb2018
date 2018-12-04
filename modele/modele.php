@@ -325,15 +325,45 @@ function getRDV($idEmploye){
 
  //todo :  enregistrerContrat($numClient,$DATEOUVERTURECONTRAT,$TARIFMENSUEL,$LIBELLE);
 
- //todo : resilierContrat($IDCONTRAT)
+ function enregistrerContrat($numClient, $dateOuvertureContrat, $tarifMensuel, $idContrat){
+	$connexion = getConnect();
+	$requete = "INSERT INTO CONTRATCLIENT VALUES ($numClient, '$dateOuvertureContrat', $tarifMensuel, $idContrat) WHERE numClient = $numClient ";
+	$resultat = $connexion->query($requete);
+ }
+
+ //todo : resilierContrat($idContrat, $numClient)
+ function resilierContrat($numClient, $idContrat){
+	$connexion = getConnect();
+	$requete = "DELETE * FROM CONTRATCLIENT WHERE numClient = $numClient AND idContrat = $idContrat";
+	$resultat = $connexion->query($requete);
+ }
+
 
  //todo : getComptesPotentielsClient($numClient);
  //                     même explication que pour les contrats potentiels client
 
+ function getComptesPotentielsClient($numClient){
+	$connexion = getConnect();
+	$requete = "SELECT nomCompte FROM COMPTE WHERE nomCompte NOT IN (SELECT nomCompte FROM COMPTECLIENT)";
+	$resultat = $connexion->query($requete);
+	return $resultat->fetchAll();
+ }
+
  //todo : ouvertureCompte($NUMCLIENT,$NOMCOMPTE,$DATEOUVERTURE,$MONTANTDECOUVERT)
+
+ function ouvertureCompte($numClient, $nomCompte, $dateOuverture, $montantDecouvert){
+	$connexion = getConnect();
+	$requete = "INSERT INTO COMPTECLIENT VALUES ($numClient, $nomCompte, '$dateOuverture', 0, $montantDecouvert)";
+	$resultat = $connexion->query($requete);
+ }
 
  //todo :  fermerCompte($numClient,$nomCompte)
 
+ function fermerCompte($numClient, $nomCompte){
+	$connexion = getConnect();
+	$requete = "DELETE * FROM COMPTECLIENT WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
+	$resultat = $connexion->query($requete);
+ }
 //todo : 
 
 

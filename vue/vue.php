@@ -155,6 +155,7 @@ function AfficherErreur ($erreur){
 }
 
 function AfficherPlanning($rdvEmploye, $semaineSelection){
+    $contenuHeader='';
 	$nbRDV = count($rdvEmploye);
 	$time = array();
 
@@ -170,7 +171,7 @@ function AfficherPlanning($rdvEmploye, $semaineSelection){
 
 	$semaine = array();
 
-	$semaineCourante = date('W');
+	$semaineCourante = date('W')+$semaineSelection;
 	$anneeCourante = date('Y');
 
 	for($i = 0; $i < 6; $i++){
@@ -212,9 +213,13 @@ function AfficherPlanning($rdvEmploye, $semaineSelection){
 					<table>
 						<legend>Vos RDV</legend>
 						<tr>
-							<td><input name="prec">Semaine précédente</input></td>
-							<th colspan="4" style="text-align: center;">Semaine du '.$semaine[0].'/'. getDate()['year'].'</th>
-							<td><input name="suiv">Semaine suivante</input></td>
+						    <form method="post" action="banque.php">
+						    <input type="text" class="invisible" name="idEmp" value="'.$rdvEmploye[0]->IDEMPLOYE.'" style="display:none" />
+						    <input type="text" class="invisible" name="semCourante" value="'.$semaineSelection.'" style="display:none" />
+                                <td><input type="submit" name="prec" value="Semaine précédente" /></td>
+                                <th colspan="4" style="text-align: center;">Semaine du '.$semaine[0].'/'. getDate()['year'].'</th>
+                                <td><input type="submit" name="suiv" value="Semaine suivante" /></td>
+							</form>
 						</tr>
 						<tr>
 							<td class="disabled"></td>';

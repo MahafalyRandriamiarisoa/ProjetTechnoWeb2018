@@ -32,9 +32,7 @@ require_once('controleur/controleur.php');
 
                 case 'rdv':
 
-               $idEmploye = CtlPriseRdv($_POST['numClient']);
-               $idEmploye=intval($idEmploye);
-               $rdvEmploye  = getRDV(3);
+               $rdvEmploye = CtlPriseRdv($_POST['numClient']);
                 CtlPlanning($rdvEmploye,0);
                     break;
 
@@ -47,11 +45,14 @@ require_once('controleur/controleur.php');
             CtlConfirmationRdv($_POST['IdEMPLOYERDV']);
 
         }elseif(isset($_POST['suiv'])){
-
+            $idEmploye=intval($_POST['idEmp']);
             $rdvEmploye=getRDV($idEmploye);
-            AfficherPlanning($rdvEmploye,0);
+            AfficherPlanning($rdvEmploye,(intval($_POST['semCourante'])+1));
 
         }elseif(isset($_POST['prec'])){
+            $idEmploye=intval($_POST['idEmp']);
+            $rdvEmploye=getRDV($idEmploye);
+            AfficherPlanning($rdvEmploye,(intval($_POST['semCourante'])-1));
 
         }else{
 

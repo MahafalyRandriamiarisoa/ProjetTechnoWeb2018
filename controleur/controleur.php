@@ -125,7 +125,7 @@ function CtlPriseRdv($numClient){
 
 
         $client=checkClient($numClient);
-        AfficherPriseRdv($client);
+        //AfficherPriseRdv($client);
         return getRDV($client[0]->IDEMPLOYE);
 }
 

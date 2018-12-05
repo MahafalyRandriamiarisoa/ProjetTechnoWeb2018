@@ -13,8 +13,8 @@
 		</header>
 		<aside>
 			<form id="numCli" method="post" action="banque.php">
-				
-			
+
+                <?php echo '<p><input type="text" name="categorie" value="'.'Agent'.'"style="display:none" /></p>' ?>
 				<fieldset id="f1">
 					<legend> Rechercher un client </legend>
 					<p><input type="radio" name="choix" onClick="afficherNumCli()"/>Par le numéro </p>

@@ -5,23 +5,29 @@ function AfficherInterfaceLogin(){
 }
 
 function AfficherAcceuil($categorie){
-	if($categorie=='Agent'){
-		$contenuHeader='<strong>AGENT</strong>';
-		$contenuInterface='<form method="post" action="banque.php"><fieldset><p> Connexion réussie <br/> Bienvenue </p></fieldset></form>';
-		$contenuBis='';
-		require_once('gabaritAgent.php');
-	}
-	if($categorie=='Conseiller'){
-		$contenuHeader='<strong>CONSEILLER</strong>';
-		$contenuInterface='<form method="post" action="banque.php"><fieldset><p> Connexion réussie <br/> Bienvenue </p></fieldset></form>';
-		require_once('gabaritConseiller.php');
-	}
-	if($categorie=='Directeur'){
-		$contenuHeader='<strong>DIRECTEUR</strong>';
-		$contenuBis='';
-		$contenuInterface='<form method="post" action="banque.php"><fieldset><p> Connexion réussie <br/> Bienvenue </p></fieldset></form>';
-		require_once('gabaritDirecteur.php');
-	}
+    $contenuInterface='<form method="post" action="banque.php"><fieldset><p> Connexion réussie <br/> Bienvenue </p></fieldset></form>';
+    $contenuBis='';
+
+    switch ($categorie) {
+        case 'Agent':
+
+            $contenuHeader = '<strong>AGENT</strong>';
+            require_once ('gabaritAgent.php');
+                break;
+
+        case 'Conseiller':
+
+            $contenuHeader = '<strong>CONSEILLER</strong>';
+            require_once('gabaritConseiller.php');
+                break;
+
+        case 'Directeur' :
+
+            $contenuHeader = '<strong>DIRECTEUR</strong>';
+            require_once('gabaritDirecteur.php');
+                break;
+
+    }
 	
 }
 

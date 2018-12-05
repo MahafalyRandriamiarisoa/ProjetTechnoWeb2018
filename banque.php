@@ -5,38 +5,44 @@ require_once('controleur/controleur.php');
 
         if(isset($_POST['connexion'])){
             //todo : verifier si la data base est vide
-            //$idEmploye=(CtlAcceuil($_POST['identifiant'],$_POST['motDePasse']))->IDEMPLOYE;
             $idEmploye=CtlAcceuil($_POST['identifiant'],$_POST['motDePasse']);
 
 
 
         }elseif(isset($_POST['valider'])){
-            switch ($_POST['action']) {
-                case 'syntese':
 
-                CtlSyntheseClient($_POST['numClient']);
-                //CtlSyntheseClient('3');//temporaire
-                    break;
+            if(!empty($_POST['numClient'])){
 
-                case 'modif':
+                switch ($_POST['action']) {
 
-                CtlModificationInfo($_POST['numClient']);
-                    break;
+                    case 'syntese':
 
-                case 'opCompte':
+                        CtlSyntheseClient($_POST['numClient']);
+                        echo 'FIN CASE SYNTESE';
+                        break;
 
+                    case 'modif':
 
-                //CtlOperationCompte($_POST['compte']);//temporaire
-                CtlOperationCompte($_POST['numClient'],$_POST['nomCompte']);
-                    break;
+                        CtlModificationInfo($_POST['numClient']);
+                        break;
 
-                case 'rdv':
+                    case 'opCompte':
 
-               $rdvEmploye = CtlPriseRdv($_POST['numClient']);
-                CtlPlanning($rdvEmploye,0);
-                    break;
+                        CtlOperationCompte($_POST['numClient'], $_POST['nomCompte']);
+                        break;
 
-        }
+                    case 'rdv':
+
+                        $rdvEmploye = CtlPriseRdv($_POST['numClient']);
+                        CtlPlanning($rdvEmploye, 0);
+                        break;
+
+                }
+            }
+            else{
+                echo 'DEBUT RETOUR ACCEUIL';
+                CtlRetourAcceuil($_POST['categorie']);
+            }
 
         }elseif(isset($_POST['validerRecherche'])){
 
@@ -61,5 +67,5 @@ require_once('controleur/controleur.php');
         }
 
     }catch(Exception $e1){
-        echo $e1->getMessage();
+         CtlErreur($e1->getMessage());
     }

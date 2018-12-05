@@ -14,12 +14,16 @@
  * Fonction pour verifier si un client, fonction particulierement importante lors de la saisie interactive directe du numClient
  * @param $numClient numero potentiellement rattaché à un client
  * @return bool retourne true si le client est dans la base de donnée, false si non
+ * @throws Exception
+ *      correspond au cas où le numèro client n'existe pas ou non spécifié lors d'une saisie
  */
 function CtlnumClientExiste($numClient){
-        if(checkClient($numClient))
+        if(checkClient($numClient)) {
+            //(checkClient($numClient));
             return true;
+        }
 
-        return false;
+        throw new Exception("num client inexistant");
 }
 /**
  * Fonction pour le contrôle de l'Acceuil
@@ -38,11 +42,12 @@ function CtlnumClientExiste($numClient){
                 return $employe;
             }
         }
-
-        AfficherInterfaceLogin();
         throw new Exception("login non trouvé");
     }
+    function CtlRetourAcceuil($categorie){
 
+        AfficherAcceuil($categorie);
+    }
 
 /**
  * Fonction pour enregistrer un client champ par champ
@@ -80,25 +85,28 @@ function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adress
 	function CtlSyntheseClient($numClient1){
         $numClient = intval($numClient1);
         $client = checkClient($numClient);
-        echo 'WTF';
         $contrats = getContratsClient($numClient);
 
         $comptes = getComptesClient($numClient);
         $synthese = getSyntheseClient($numClient); //todo :
 
         AfficherSyntheseClient($client,$comptes,$contrats);
+        echo 'FIN CTL SYNTHESE CLIENT';
     }
 
 /***
  * Fonction de controle des modifications des données d'un client via son numClient
  * @param $numclient parametre déjà controllé via "rechercher un client" ou par saisie interactive
+ * @throws Exception
+ *      correspond à une exception concernant l'existence du client par rapport au numClient
+ *
  */
-    function CtlModificationInfo($numclient){
+    function CtlModificationInfo($numClient){
 
-        $client =checkClient($numclient);
+        CtlnumClientExiste($numClient);
+        $client = checkClient($numClient);
 
-        AfficherModificationInfo($client);
-        //AfficherModification($info,$client);
+        AfficherModificationInfo($client[0]);
     }
 
 /***
@@ -123,6 +131,7 @@ function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adress
  */
 function CtlPriseRdv($numClient){
 
+    CtlnumClientExiste($numClient);
 
         $client=checkClient($numClient);
         //AfficherPriseRdv($client);

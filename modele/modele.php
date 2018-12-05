@@ -119,7 +119,7 @@ function getCategorie($login){
 
 function getSyntheseClient($numClient){
 	$connexion = getConnect();
-	$requete = "SELECT * FROM CLIENT WHERE NUMCLIENT = $numClient";
+	$requete = "SELECT * FROM CLIENT WHERE numClient = $numClient";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat ->fetch();

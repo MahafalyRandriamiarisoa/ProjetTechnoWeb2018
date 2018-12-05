@@ -13,8 +13,8 @@ require_once('controleur/controleur.php');
         }elseif(isset($_POST['valider'])){
             switch ($_POST['action']) {
                 case 'syntese':
-
                 CtlSyntheseClient($_POST['numClient']);
+                
                 //CtlSyntheseClient('3');//temporaire
                     break;
 

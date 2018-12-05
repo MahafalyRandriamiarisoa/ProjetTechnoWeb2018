@@ -80,7 +80,6 @@ function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adress
 	function CtlSyntheseClient($numClient1){
         $numClient = intval($numClient1);
         $client = checkClient($numClient);
-        echo 'WTF';
         $contrats = getContratsClient($numClient);
 
         $comptes = getComptesClient($numClient);

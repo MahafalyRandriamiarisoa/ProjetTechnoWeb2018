@@ -172,12 +172,22 @@ function AfficherPlanning($rdvEmploye, $semaineSelection){
 	$semaine = array();
 
 	$semaineCourante = date('W')+$semaineSelection;
-	$anneeCourante = date('Y');
 
-	for($i = 0; $i < 6; $i++){
-		$semaine[$i] = date('j/m', strtotime($anneeCourante."W".$semaineCourante.($i+2)));
+	if($semaineCourante > 52){
+
+		$anneeCourante = date('Y') + 1;
+		$semaineCouranteNext = date('W', date('Y',strtotime($anneeCourante)) + ($semaineCourante - 52));
+
+		for($i = 0; $i < 6; $i++){
+			$semaine[$i] = date('j/m', strtotime($anneeCourante."W".$semaineCouranteNext.($i+2)));
+		}
+	}else{
+		$anneeCourante = date('Y');
+
+		for($i = 0; $i < 6; $i++){
+			$semaine[$i] = date('j/m', strtotime($anneeCourante."W".$semaineCourante.($i+2)));
+		}
 	}
-
 	$planning = array();
 
 	for($i = 0; $i < 11; $i++){

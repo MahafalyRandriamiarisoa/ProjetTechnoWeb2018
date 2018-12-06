@@ -119,7 +119,7 @@ function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adress
 
 
     function CtlPlanning($rdvEmploye,$int){
-        AfficherPlanning($rdvEmploye,$int, 'Conseiller');
+        AfficherPlanning($rdvEmploye,$int, 'Agent');
     }
 
 /**

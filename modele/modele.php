@@ -365,9 +365,25 @@ function getRDV($idEmploye){
 	$requete = "DELETE * FROM COMPTECLIENT WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
 	$resultat = $connexion->query($requete);
  }
-//todo : 
 
+/**
+ * Cette fonction effectue une requete SQL à la base de donnée pour modifier les informations 
+ * d'un client
+ * 
+ * @param string : $adresse
+ * 		Correspond à l'adresse postale du client
+ * @param string : $email
+ * 		Correspond à l'adresse eMail du client
+ * @param string : $numTel
+ * 		Correspond au numéro de téléphone du client
+ * @param string : $situationFamiliale
+ *		Correspond à la situation familiale du client
+ * @param string : $profession
+ * 		Correspond à la profession du client
+ */
 
-//todo : refaire function getComptesClient($numClient)
-
-//todo : refaire function getContratsClient($numClient)
+function modifierInfosClient($adresse, $email, $numTel, $situationFamiliale, $profession){
+	$connexion = getConnect();
+	$requete = "UPDATE CLIENT SET adresse = '$adresse', email = '$email', numeroTelephone = '$numTel', situationFamiliale = '$situationFamiliale', profession = '$profession')";
+	$resultat = $connexion->query($requete);
+}

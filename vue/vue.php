@@ -160,7 +160,7 @@ function AfficherErreur ($erreur){
 	require_once('gabaritLogin.php');
 }
 
-function AfficherPlanning($rdvEmploye, $semaineSelection){
+function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie){
     $contenuHeader='';
 	$nbRDV = count($rdvEmploye);
 	$time = array();
@@ -172,28 +172,15 @@ function AfficherPlanning($rdvEmploye, $semaineSelection){
 	$datesRDV = array();
 
 	for($i = 0; $i < $nbRDV; $i++){
-		$datesRDV[$i] = date("j/m/G/i", $time[$i]);
+		$datesRDV[$i] = date("j/m/Y/G/i", $time[$i]);
 	}
 
 	$semaine = array();
 
-	$semaineCourante = date('W')+$semaineSelection;
-
-	if($semaineCourante > 52){
-
-		$anneeCourante = date('Y') + 1;
-		$semaineCouranteNext = date('W', date('Y',strtotime($anneeCourante)) + ($semaineCourante - 52));
-
-		for($i = 0; $i < 6; $i++){
-			$semaine[$i] = date('j/m', strtotime($anneeCourante."W".$semaineCouranteNext.($i+2)));
-		}
-	}else{
-		$anneeCourante = date('Y');
-
-		for($i = 0; $i < 6; $i++){
-			$semaine[$i] = date('j/m', strtotime($anneeCourante."W".$semaineCourante.($i+2)));
-		}
+	for($i = 0; $i < 6; $i++){
+		$semaine[$i] = date('j/m/Y', strtotime('+'.($i+5).' day +'.($semaineSelection - 1).' week'));
 	}
+
 	$planning = array();
 
 	for($i = 0; $i < 11; $i++){
@@ -202,12 +189,10 @@ function AfficherPlanning($rdvEmploye, $semaineSelection){
 		}
 	}
 
-
-
 	for($i = 0; $i < $nbRDV; $i++){
 		$rdv = explode('/', $datesRDV[$i]);
-		$jourMoisRDV =  $rdv[0].'/'.$rdv[1];
-		$heureRDV = $rdv[2];
+		$jourMoisRDV =  $rdv[0].'/'.$rdv[1].'/'.$rdv[2];
+		$heureRDV = $rdv[3];
 		for($j = 0; $j < count($semaine); $j++){
 			if($semaine[$j] == $jourMoisRDV){
 				$planning[$heureRDV - 8][$j] = array(
@@ -225,140 +210,64 @@ function AfficherPlanning($rdvEmploye, $semaineSelection){
 
 	$contenuInterface = '';
 	$contenuBis = '
-				<div class="planning">
-					<table>
-						<legend>Vos RDV</legend>
-						<tr>
-						    <form method="post" action="banque.php">
-						    <input type="text" class="invisible" name="idEmp" value="'.$rdvEmploye[0]->IDEMPLOYE.'" style="display:none" />
-						    <input type="text" class="invisible" name="semCourante" value="'.$semaineSelection.'" style="display:none" />
-                                <td><input type="submit" name="prec" value="Semaine précédente" /></td>
-                                <th colspan="4" style="text-align: center;">Semaine du '.$semaine[0].'/'. getDate()['year'].'</th>
-                                <td><input type="submit" name="suiv" value="Semaine suivante" /></td>
-							</form>
-						</tr>
-						<tr>
-							<td class="disabled"></td>';
+			<fieldset>
+				<legend>Planning</legend>
+					<div class="planning">
+						<table>
+							<tr>
+								<form method="post" action="banque.php">
+									<input type="text" class="invisible" name="idEmp" value="'.$rdvEmploye[0]->IDEMPLOYE.'" style="display:none" />
+									<input type="text" class="invisible" name="semCourante" value="'.$semaineSelection.'" style="display:none" />
+										<td><input type="submit" name="prec" value="Semaine précédente" /></td>
+										<th colspan="4" style="text-align: center;">Semaine du '.$semaine[0].'</th>
+										<td><input type="submit" name="suiv" value="Semaine suivante" /></td>
+								</form>
+							</tr>
+							<tr>
+								<td class="disabled"></td>';
 	$contenuBis .='
-							<th>Mardi '.$semaine[0].'</th>
-							<th>Mercredi '.$semaine[1].'</th>
-							<th>Jeudi '.$semaine[2].'</th>
-							<th>Vendredi '.$semaine[3].'</th>
-							<th>Samedi '.$semaine[4].'</th>
-						</tr>
-						<tr>
-							<th>8H</th>';
-	for($j = 0; $j < count($planning[0]); $j++){
-		if($planning[0][$j][0] != ""){
-			$contenuBis .= '<td onClick="showRDV(\''.$planning[0][$j][1].'\', \''.$planning[0][$j][2].'\', \''.$planning[0][$j][4].'\', \''.$planning[0][$j][5].'\', \''.$planning[0][$j][6].'\')">'.$planning[0][$j][0].'</td>';
-		}else{
-			$contenuBis .= '<td class="disabled"></td>';
+								<th>Mardi '.$semaine[0].'</th>
+								<th>Mercredi '.$semaine[1].'</th>
+								<th>Jeudi '.$semaine[2].'</th>
+								<th>Vendredi '.$semaine[3].'</th>
+								<th>Samedi '.$semaine[4].'</th>
+							</tr>';
+
+	if($categorie == 'Conseiller'){
+		for($k = 0; $k < 11; $k++){
+			$heure = 8 + $k;
+			$contenuBis .= '<tr>
+								<th>'.$heure.'H</th>';
+			for($j = 0; $j < count($planning[0]); $j++){
+				if($planning[$k][$j][0] != ""){
+					$contenuBis .= '<td onClick="showRDV(\''.$planning[$k][$j][1].'\', \''.$planning[$k][$j][2].'\', \''.$planning[$k][$j][4].'\', \''.$planning[$k][$j][5].'\', \''.$planning[$k][$j][6].'\')">'.$planning[$k][$j][0].'</td>';
+				}else{
+					$contenuBis .= '<td onClick="checkRDV(\''.($k).($j).'\')"><input type="checkbox" id="'.($k).($j).'"/></td>';
+				}
+			}
 		}
-	}
-	$contenuBis .= '	</tr>
-						<tr>
-							<th>9H</th>';
-	for($j = 0; $j < count($planning[0]); $j++){
-		if($planning[1][$j][0] != null){
-			$contenuBis .= '<td onClick="showRDV(\''.$planning[1][$j][1].'\', \''.$planning[1][$j][2].'\', \''.$planning[1][$j][4].'\', \''.$planning[1][$j][5].'\', \''.$planning[1][$j][6].'\')">'.$planning[1][$j][0].'</td>';
-		}else{
-			$contenuBis .= '<td class="disabled"></td>';
+		$contenuBis .= '</table>
+					</div>
+					<input type="submit" value="Valider les disponiblités">
+				</fieldset>';
+	}elseif($categorie == 'Agent'){
+		for($k = 0; $k < 11; $k++){
+			$heure = 8 + $k;
+			$contenuBis .= '<tr>
+								<th>'.$heure.'H</th>';
+			for($j = 0; $j < count($planning[0]); $j++){
+				if($planning[$k][$j][0] != ""){
+					$contenuBis .= '<td class="disabled">EN RDV</td>';
+				}else{
+					$contenuBis .= '<td onClick="checkRDV(\''.($k).($j).'\')"><input type="radio" name="choixRDV" id="'.($k).($j).'"/></td>';
+				}
+			}
 		}
+		$contenuBis .= '</table>
+					</div>
+					<input type="submit" value="Valider le RDV">
+				</fieldset>';
 	}
-	$contenuBis .= '	</tr>
-						<tr>
-							<th>10H</th>';
-	for($j = 0; $j < count($planning[0]); $j++){
-		if($planning[2][$j][0] != null){
-			$contenuBis .= '<td onClick="showRDV(\''.$planning[2][$j][1].'\', \''.$planning[2][$j][2].'\', \''.$planning[2][$j][4].'\', \''.$planning[2][$j][5].'\', \''.$planning[2][$j][6].'\')">'.$planning[2][$j][0].'</td>';
-		}else{
-			$contenuBis .= '<td class="disabled"></td>';
-		}
-	}
-	$contenuBis .= '	</tr>
-						<tr>
-							<th>11H</th>';
-	for($j = 0; $j < count($planning[0]); $j++){
-		if($planning[3][$j][0] != null){
-			$contenuBis .= '<td onClick="showRDV(\''.$planning[3][$j][1].'\', \''.$planning[3][$j][2].'\', \''.$planning[3][$j][4].'\', \''.$planning[3][$j][5].'\', \''.$planning[3][$j][6].'\')">'.$planning[3][$j][0].'</td>';
-		}else{
-			$contenuBis .= '<td class="disabled"></td>';
-		}
-	}
-	$contenuBis .= '	</tr>
-						<tr>
-							<th>12H</th>';
-	for($j = 0; $j < count($planning[0]); $j++){
-		if($planning[4][$j][0] != null){
-			$contenuBis .= '<td onClick="showRDV(\''.$planning[4][$j][1].'\', \''.$planning[4][$j][2].'\', \''.$planning[4][$j][4].'\', \''.$planning[4][$j][5].'\', \''.$planning[4][$j][6].'\')">'.$planning[4][$j][0].'</td>';
-		}else{
-			$contenuBis .= '<td class="disabled"></td>';
-		}
-	}
-	$contenuBis .= '	</tr>
-						<tr>
-							<th>13H</th>';
-	for($j = 0; $j < count($planning[0]); $j++){
-		if($planning[5][$j][0] != null){
-			$contenuBis .= '<td onClick="showRDV(\''.$planning[5][$j][1].'\', \''.$planning[5][$j][2].'\', \''.$planning[5][$j][4].'\', \''.$planning[5][$j][5].'\', \''.$planning[5][$j][6].'\')">'.$planning[5][$j][0].'</td>';
-		}else{
-			$contenuBis .= '<td class="disabled"></td>';
-		}
-	}
-	$contenuBis .= '	
-						</tr>
-						<tr>
-							<th>14H</th>';
-	for($j = 0; $j < count($planning[0]); $j++){
-		if($planning[6][$j][0] != null){
-			$contenuBis .= '<td onClick="showRDV(\''.$planning[6][$j][1].'\', \''.$planning[6][$j][2].'\', \''.$planning[6][$j][4].'\', \''.$planning[6][$j][5].'\', \''.$planning[6][$j][6].'\')">'.$planning[6][$j][0].'</td>';
-		}else{
-			$contenuBis .= '<td class="disabled"></td>';
-		}
-	}
-	$contenuBis .= '	</tr>
-						<tr>
-							<th>15H</th>';
-	for($j = 0; $j < count($planning[0]); $j++){
-		if($planning[7][$j][0] != null){
-			$contenuBis .= '<td onClick="showRDV(\''.$planning[7][$j][1].'\', \''.$planning[7][$j][2].'\', \''.$planning[7][$j][4].'\', \''.$planning[7][$j][5].'\', \''.$planning[7][$j][6].'\')">'.$planning[7][$j][0].'</td>';
-		}else{
-			$contenuBis .= '<td class="disabled"></td>';
-		}
-	}
-	$contenuBis .= '	</tr>
-						<tr>
-							<th>16H</th>';
-	for($j = 0; $j < count($planning[0]); $j++){
-		if($planning[8][$j][0] != null){
-			$contenuBis .= '<td onClick="showRDV(\''.$planning[8][$j][1].'\', \''.$planning[8][$j][2].'\', \''.$planning[8][$j][4].'\', \''.$planning[8][$j][5].'\', \''.$planning[8][$j][6].'\')">'.$planning[8][$j][0].'</td>';
-		}else{
-			$contenuBis .= '<td class="disabled"></td>';
-		}
-	}
-	$contenuBis .= '	</tr>
-						<tr>
-							<th>17H</th>';
-	for($j = 0; $j < count($planning[0]); $j++){
-		if($planning[9][$j][0] != null){
-			$contenuBis .= '<td onClick="showRDV(\''.$planning[9][$j][1].'\', \''.$planning[9][$j][2].'\', \''.$planning[9][$j][4].'\', \''.$planning[9][$j][5].'\', \''.$planning[9][$j][6].'\')">'.$planning[9][$j][0].'</td>';
-		}else{
-			$contenuBis .= '<td class="disabled"></td>';
-		}
-	}
-	$contenuBis .= '	</tr>
-						<tr>
-							<th>18H</th>';
-	for($j = 0; $j < count($planning[0]); $j++){
-		if($planning[10][$j][0] != ""){
-			$contenuBis .= '<td onClick="showRDV(\''.$planning[10][$j][1].'\', \''.$planning[10][$j][2].'\', \''.$planning[10][$j][4].'\', \''.$planning[10][$j][5].'\', \''.$planning[10][$j][6].'\')">'.$planning[10][$j][0].'</td>';
-		}else{
-			$contenuBis .= '<td class="disabled"></td>';
-		}
-	}
-	$contenuBis .= '	</tr>
-					</table>
-				</div>';
 	require_once('gabaritAgent.php');
 
 }

@@ -86,12 +86,10 @@ function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adress
         $numClient = intval($numClient1);
         $client = checkClient($numClient);
         $contrats = getContratsClient($numClient);
-
         $comptes = getComptesClient($numClient);
         $synthese = getSyntheseClient($numClient); //todo :
-
+        
         AfficherSyntheseClient($client,$comptes,$contrats);
-        echo 'FIN CTL SYNTHESE CLIENT';
     }
 
 /***
@@ -121,7 +119,7 @@ function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adress
 
 
     function CtlPlanning($rdvEmploye,$int){
-        AfficherPlanning($rdvEmploye,$int);
+        AfficherPlanning($rdvEmploye,$int, 'Conseiller');
     }
 
 /**
@@ -133,9 +131,9 @@ function CtlPriseRdv($numClient){
 
     CtlnumClientExiste($numClient);
 
-        $client=checkClient($numClient);
-        //AfficherPriseRdv($client);
-        return getRDV($client[0]->IDEMPLOYE);
+    $client=checkClient($numClient);
+   //AfficherPriseRdv($client);
+    return getRDV($client[0]->IDEMPLOYE);
 }
 
 /**

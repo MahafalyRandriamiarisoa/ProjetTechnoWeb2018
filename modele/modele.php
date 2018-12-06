@@ -139,9 +139,10 @@ function getSyntheseClient($numClient){
 
 function getRDV($idEmploye){
 	$connexion = getConnect();
-	$requete = "SELECT * FROM RENDEZVOUS NATURAL JOIN CLIENT NATURAL JOIN TYPEMOTIF NATURAL JOIN PIECES_A_FOURNIR NATURAL JOIN PIECES_A_FOURNIRMOTIF WHERE idEmploye = $idEmploye";
+	$requete = "SELECT * FROM RENDEZVOUS NATURAL JOIN CLIENT NATURAL JOIN TYPEMOTIF NATURAL JOIN PIECES_A_FOURNIRMOTIF NATURAL JOIN PIECES_A_FOURNIR WHERE idEmploye = $idEmploye";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
+
 	return $resultat ->fetchAll();
 }
 
@@ -175,7 +176,7 @@ function getRDV($idEmploye){
 
  function getComptesClient($numClient){
 	$connexion = getConnect();
-	$requete = "SELECT * FROM COMPTE WHERE numClient = $numClient";
+	$requete = "SELECT * FROM COMPTECLIENT WHERE numClient = $numClient";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat ->fetchAll();
@@ -193,7 +194,7 @@ function getRDV($idEmploye){
 
  function getContratsClient($numClient){
 	$connexion = getConnect();
-	$requete = "SELECT * FROM CONTRAT WHERE numClient = $numClient";
+	$requete = "SELECT * FROM CONTRATCLIENT WHERE numClient = $numClient";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat ->fetchAll();

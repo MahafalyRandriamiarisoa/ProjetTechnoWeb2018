@@ -79,7 +79,7 @@ function showRDV(dataNom, dataPrenom, dataMotif, dataPieceAFournir, dataDateHeur
     var heureSplit = heureRAW.split(':');
     var heurePropre = heureSplit[0] + "H" + heureSplit[1];
     var datePropre = "Le " + jour + "/" + mois + "/" + annee + " à " + heurePropre;
-    quit.src = "style/cross.png";
+    quit.src = "vue/style/cross.png";
     title.textContent = "Plus d'information";
     nomClient.textContent = "Nom du client : ";
     inputNomClient.value = dataNom.toUpperCase() + " " + dataPrenom;
@@ -93,6 +93,7 @@ function showRDV(dataNom, dataPrenom, dataMotif, dataPieceAFournir, dataDateHeur
     paf.textContent = "Liste des pièces à fournir : ";
     listePaf.value = dataPieceAFournir;
     listePaf.readOnly = "readOnly";
+    listePaf.style = "resize : none;";
 
     quit.addEventListener('click', handler, false);
 
@@ -108,6 +109,12 @@ function showRDV(dataNom, dataPrenom, dataMotif, dataPieceAFournir, dataDateHeur
     }
 }
 
-function incrementPHP(){
-}
+function checkRDV(c){
+    var b = document.getElementById(c).checked;
+    if(b){
+        document.getElementById(c).checked = false;
+    }else{
+        document.getElementById(c).checked = true;
+    }
 
+}

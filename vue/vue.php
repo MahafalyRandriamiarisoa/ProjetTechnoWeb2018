@@ -87,37 +87,16 @@ function AfficherModificationInfo($client){
 						<p><label>Nom :</label><input type="text" name="nom1" value="'.$client->NOM.'" readonly/></p>
 						<p><label>Prénom :</label><input type="text" name="prenom1" value="'.$client->PRENOM.'" readonly/></p>
 						<p><label>Date de naissance :</label><input type="text" name="birth" value="'.$client->DATEDENAISSANCE.'" readonly/></p>
-						<p><label><input type="checkbox" name="Email" value="'.$client->EMAIL.'" />Email :</label><input type="text" name="mail" value="'.$client->EMAIL.'" readonly/></p>
-						<p><label><input type="checkbox" name="N° téléphone" value="'.$client->NUMEROTELEPHONE.'" />N° téléphone :</label><input type="text" name="tel" value="'.$client->NUMEROTELEPHONE.'" readonly/></p>
-						<p><label><input type="checkbox" name="Adresse" value="'.$client->ADRESSE.'" />Adresse :</label><input type="text" name="adresse" value="'.$client->ADRESSE.'" readonly/></p>
-						<p><label><input type="checkbox" name="Situation familiale" value="'.$client->SITUATIONFAMILIALE.'" />Situation familiale :</label><input type="text" name="situation" value="'.$client->SITUATIONFAMILIALE.'" readonly/></p>
-						<p><label><input type="checkbox" name="Profession" value="'.$client->PROFESSION.'" />Profession :</label><input type="text" name="profession" value="'.$client->PROFESSION.'" readonly/></p>
+						<p><label>Email :</label><input type="text" name="mail" value="'.$client->EMAIL.'" /></p>
+						<p><label>N° téléphone :</label><input type="text" name="tel" value="'.$client->NUMEROTELEPHONE.'" /></p>
+						<p><label>Adresse :</label><input type="text" name="adresse" value="'.$client->ADRESSE.'" /></p>
+						<p><label>Situation familiale :</label><input type="text" name="situation" value="'.$client->SITUATIONFAMILIALE.'" /></p>
+						<p><label>Profession :</label><input type="text" name="profession" value="'.$client->PROFESSION.'" /></p>
 						<p><input type="submit" name="modifier" value="Modifier"/></p></fieldset></form>';
 
 	require_once('gabaritAgent.php');
 }
 
-function AfficherInfoAmodifier($client,$info){
-	$contenuHeader='<strong>AGENT</strong>';
-	$contenuInterface='<form method="post" action="banque.php"><fieldset><p>Client n°:'.$client->NUMCLIENT.'</p>
-						<p><label>Nom :</label><input type="text" name="nom1" value="'.$client->NOM.'" readonly/></p>
-						<p><label>Prénom :</label><input type="text" name="prenom1" value="'.$client->PRENOM.'" readonly/></p>
-						<p><label>Date de naissance :</label><input type="text" name="birth" value="'.$client->DATEDENAISSANCE.'" readonly/></p>
-						<p><label>Email :</label><input type="text" name="mail" value="'.$client->EMAIL.'" readonly/></p>
-						<p><label>N° téléphone :</label><input type="text" name="tel" value="'.$client->NUMEROTELEPHONE.'" readonly/></p>
-						<p><label>Adresse :</label><input type="text" name="adresse" value="'.$client->ADRESSE.'" readonly/></p>
-						<p><label>Situation familiale :</label><input type="text" name="situation" value="'.$client->SITUATIONFAMILIALE.'" readonly/></p>
-						<p><label>Profession :</label><input type="text" name="profession" value="'.$client->PROFESSION.'" readonly/></p>
-						</fieldset>';
-
-	$contenuBis='<fieldset>';
-	for($i=0;$i<count($info);$i++){
-		$contenuBis.='<p><label>'.$info->namecheckbox .' : </label><input type="text" name="'.$info->namecheckbox .'" placeholder="'.$info->ancienneval.'"/>';
-	}
-	$contenuBis.='<p><input type="submit" name="validerModif" value="Valider"/></p></fieldset></form>';
-
-	require_once('gabaritAgent.php');
-}
 
 function AfficherPriseRdv($client){
 	$contenuHeader='<strong>AGENT</strong>';

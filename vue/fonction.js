@@ -111,10 +111,10 @@ function showRDV(dataNom, dataPrenom, dataMotif, dataPieceAFournir, dataDateHeur
 
 function checkRDV(c){
     var b = document.getElementById(c).checked;
+
     if(b){
         document.getElementById(c).checked = false;
     }else{
         document.getElementById(c).checked = true;
     }
-
 }

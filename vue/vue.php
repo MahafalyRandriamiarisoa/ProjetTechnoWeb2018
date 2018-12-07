@@ -131,6 +131,80 @@ function AfficherOperationCompte($compte){
 	require_once('gabaritAgent.php');
 }
 
+function AfficherInscription($idconseiller){
+	$contenuHeader='<strong>CONSEILLER</strong>';
+	$contenuInterface='<form method="post" action="banque.php"><fieldset><legend>Nouveau client </legend>
+						<p><label>IdConseiller:</label><input type="text" name="idConseiller" value="'.$idConseiller.'" required /></p>
+						<p><label>Nom:</label><input type="text" name="lastName" required /></p>
+						<p><label>Prénom :</label><input type="text" name="firstName" required /></p>
+						<p><label>Date de naissance:</label><input type="text" name="bday" required /></p>
+						<p><label>Adresse:</label><input type="text" name="adresse" required /></p>
+						<p><label>Email:</label><input type="text" name="mail" required /></p>
+						<p><label>Numéro de téléphone :</label><input type="text" name="tel" required /></p>
+						<p><label>Situation familiale:</label><input type="text" name="situation" required /></p>
+						<p><label>Profession:</label><input type="text" name="profession" required /></p>
+						//compte
+						<p><input type="submit" name="ajouter" value="Ajouter"/></p></fieldset></form>';
+		require_once('gabaritConseiller.php');
+}
+
+function AfficherVendreContrat($contrat){
+	$contenuHeader='<strong>CONSEILLER</strong>';
+	$contenuInterface='<form method="post" action="banque.php"><fieldset><legend>Vendre un contrat </legend>
+						<p><label>Nom du client:</label><input type="text" name="lastName" required /></p>
+						<p><label>Prénom du client :</label><input type="text" name="firstName" required /></p>
+						<p><label>Sélectionner le contrat à vendre :</label></p>
+						<p>
+							<select name="actionContrat">';
+							for($i=0;$i<count($contrat);$i++){
+							$contenuInterface.='<option value="'.$contrat[$i]->LIBELLE.'">'.$contrat[$i]->LIBELLE.'</option>';
+							}
+							$contenuInterface.='</select>
+						</p><p><input type="submit" name="vendre" value="Vendre le contrat"/></p></fieldset></form>';
+						require_once('gabaritConseiller.php');
+}
+
+function AfficherOuvrirCompte($compte){
+	$contenuHeader='<strong>CONSEILLER</strong>';
+	$contenuInterface='<form method="post" action="banque.php"><fieldset><legend>Ouvrir un ou plusieurs comptes</legend>
+						<p><label>Nom du client:</label><input type="text" name="lastName" required /></p>
+						<p><label>Prénom du client :</label><input type="text" name="firstName" required /></p>
+						<p><label>Sélectionner le ou les comptes à ouvrir :<label></p>
+						<p>
+							<select name="actionOpenCompte" mutliple>';
+							
+							for($k=0;$k<count($compte);$k++){
+							$contenuInterface.='<option value="'.$compte[$k]->NOMCOMPTE.'">'.$compte[$k]->NOMCOMPTE.'</option>';
+						}
+						
+						$contenuInterface.='</select></p>
+											<p><input type="submit" name="ouvrir" value="Ouvrir Compte"/></p></fieldset></form>';	
+											require_once('gabaritConseiller.php');
+}
+
+function AfficherResilier($compte,$contrat){
+	$contenuHeader='<strong>CONSEILLER</strong>';
+	$contenuInterface='<form method="post" action="banque.php"><fieldset><legend>Résilier compte ou contrat</legend>
+						<p><label>Nom du client:</label><input type="text" name="lastName" required /></p>
+						<p><label>Prénom du client :</label><input type="text" name="firstName" required /></p>
+						<p><label>Sélectionner le ou les comptes à ouvrir :<label></p>
+						<p>
+							<select name="actionResilier"><optgroup label="Compte">';
+							
+							for($k=0;$k<count($compte);$k++){
+								$contenuInterface.='<option value="'.$compte[$k]->NOMCOMPTE.'">'.$compte[$k]->NOMCOMPTE.'</option>';
+							}
+							$contenuInterface.='</optgroup><optgroup label="Contrat">';
+							
+							for($i=0;$i<count($contrat);$i++){
+								$contenuInterface.='<option value="'.$contrat[$i]->LIBELLE.'">'.$contrat[$i]->LIBELLE.'</option>';
+							}
+							
+						$contenuInterface.='</optgroup></select></p>
+											<p><input type="submit" name="resilier" value="Résilier le compte ou le contrat"/></p></fieldset></form>';	
+											require_once('gabaritConseiller.php');
+}
+
 function AfficherErreur ($erreur){
 	$contenu='<fieldset>
 			   <legend> Erreurs détectées</legend>
@@ -139,7 +213,8 @@ function AfficherErreur ($erreur){
 	require_once('gabaritLogin.php');
 }
 
-function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie,$numClient){
+function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie){
+	echo "La catégorie appelée par le controleur est :" . $categorie;
     $contenuHeader='';
 	$nbRDV = count($rdvEmploye);
 	$time = array();
@@ -196,7 +271,7 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie,$numClient)
 							<tr>
 								<form method="post" action="banque.php">
 								    <input type="text" name="numClient" value="\''.$numClient.'\'"style="display:none" /></p>
-								    <input type="text" name="categorie" value="\''.$categorie.'\'"style="display:none" /></p>
+								    <input type="text" name="categorie" value="'.$categorie.'" style="display:none" /></p>
 									<input type="text" class="invisible" name="idEmp" value="'.$rdvEmploye[0]->IDEMPLOYE.'" style="display:none" />
 									<input type="text" class="invisible" name="semCourante" value="'.$semaineSelection.'" style="display:none" />
 										<td><input type="submit" name="prec" value="Semaine précédente" /></td>
@@ -240,7 +315,7 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie,$numClient)
 				if($planning[$k][$j][0] != ""){
 					$contenuBis .= '<td class="disabled">EN RDV</td>';
 				}else{
-					$contenuBis .= '<td onClick="checkRDV(\''.($k).($j).'\')"><input type="radio" name="choixRDV" id="'.($k).($j).'"/></td>';
+					$contenuBis .= '<td onClick="checkRDV(\''.($k).($j).'\')"><input type="radio" name="choixRDV" id="'.($k).($j).'" value="'.$semaine[$j].'/'.$heure.'"/></td>';
 				}
 			}
 		}

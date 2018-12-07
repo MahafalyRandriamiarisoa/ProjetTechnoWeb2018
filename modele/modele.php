@@ -387,3 +387,10 @@ function modifierInfosClient($adresse, $email, $numTel, $situationFamiliale, $pr
 	$requete = "UPDATE CLIENT SET adresse = '$adresse', email = '$email', numeroTelephone = '$numTel', situationFamiliale = '$situationFamiliale', profession = '$profession')";
 	$resultat = $connexion->query($requete);
 }
+
+function setMontantDecouvertAutorise($numClient, $nomCompte, $montant){
+	$connexion = getConnect();
+	$requete = "UPDATE COMPTECLIENT SET montantDecouvert = $montant WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
+	$resultat = $connexion->query($requete);
+	return $resultat->fetch();
+}

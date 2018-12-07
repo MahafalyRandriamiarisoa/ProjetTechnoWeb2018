@@ -23,8 +23,13 @@ require_once('controleur/controleur.php');
                         break;
 
                     case 'modif':
-
-                        CtlModificationInfo($_POST['numClient']);
+                        $numClient = $_POST['numClient'];
+                        $adresse = $_POST['adresse'];
+                        $email = $_POST['mail'];
+                        $numTel = $_POST['tel'];
+                        $situationFamiliale = $_POST['situation'];
+                        $profession = $_POST['profession'];
+                        CtlModificationInfo($numClient,$adresse, $email, $numTel, $situationFamiliale, $profession);
                         break;
 
                     case 'opCompte':

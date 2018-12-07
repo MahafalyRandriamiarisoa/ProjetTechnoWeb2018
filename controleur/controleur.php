@@ -125,10 +125,9 @@ function CtlAfficherModificationInfo($numClient){
  * Fonction qui controle les operations sur le compte d'un client, la restriction de choix de compte se fait par Affichage au préalable des comptes du client
  * @param $compte le compte d'un client sous forme d'objet
  */
-    function CtlOperationCompte($numClient,$nomCompte){
-
-        $compte = getCompte($numClient,$nomCompte);
-        AfficherOperationCompte($compte);
+    function CtlAfficherOperationCompte($numClient,$categorie){
+        $comptes = getComptesClient($numClient);
+        AfficherOperationCompte($comptes,$numClient,$categorie);
     }
 
 
@@ -174,10 +173,13 @@ function CtlConfirmationRdv($IDEMPLOYE, $IDMOTIF, $NUMCLIENT, $DATEHEURERDV){
  * @param $nomCompte type de compte
  */
 function CtlDebiterCompte($valeur, $numClient, $nomCompte){
+
     $compte=getCompte($numClient,$nomCompte);
     $soldeFinal=$compte->SOLDE+$compte->MONTANTDECOUVERT;
+
     if(($valeur>=0)&&($valeur>=$soldeFinal)){
-        debiterCompte($compte);
+
+        debiterCompte($valeur,$numClient,$compte);
     }
     else CtlErreur("Fond Insuffisant pour un débit de : (".$valeur.")");
 }
@@ -189,8 +191,9 @@ function CtlDebiterCompte($valeur, $numClient, $nomCompte){
  * @param $nomCompte type de compte
  */
 function CtlCrediterCompte($valeur, $numClient, $nomCompte){
+
     $compte=getCompte($numClient,$nomCompte);
-    crediterCompte($valeur,$compte);
+    crediterCompte($valeur,$numClient,$compte);
 }
 
 

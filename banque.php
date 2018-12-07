@@ -1,6 +1,7 @@
 <?php
 
 require_once('controleur/controleur.php');
+
     try{
 
         if(isset($_POST['connexion'])){
@@ -13,24 +14,25 @@ require_once('controleur/controleur.php');
         }elseif(isset($_POST['valider'])){
             $categorie= $_POST['categorie'];
             if(!empty($_POST['numClient'])){
+
+                CtlnumClientExiste($_POST['numClient']);
                 $numClient = $_POST['numClient'];
+
                 switch ($_POST['action']) {
 
                     case 'syntese':
 
                         CtlSyntheseClient($_POST['numClient']);
-                        echo 'FIN CASE SYNTESE';
                         break;
 
                     case 'modif':
+
                         CtlAfficherModificationInfo($_POST['numClient']);
-
-
                         break;
 
                     case 'opCompte':
 
-                        CtlOperationCompte($_POST['numClient'], $_POST['nomCompte']);
+                        CtlAfficherOperationCompte($_POST['numClient'],$_POST['categorie']);
                         break;
 
                     case 'rdv':
@@ -43,7 +45,6 @@ require_once('controleur/controleur.php');
             }
             else{
 
-                echo 'DEBUT RETOUR ACCEUIL';
                 $numClient = (isset($_POST['numClient']))?$_POST['numClient']:'';
                 CtlRetourAcceuil($_POST['categorie'],$numClient);
             }
@@ -67,6 +68,7 @@ require_once('controleur/controleur.php');
             AfficherPlanning($rdvEmploye,(intval($_POST['semCourante'])-1),$categorie,$_POST['numClient']);
 
         }elseif(isset($_POST['modifier'])){
+
             //log as
             $categorie = $_POST['categorie'];
             $numClient = $_POST['numClient'];
@@ -78,6 +80,40 @@ require_once('controleur/controleur.php');
 
             CtlValiderModificationInfo($numClient,$adresse, $email, $numTel, $situationFamiliale, $profession);
             CtlRetourAcceuil($categorie,$numClient);
+
+        }elseif(isset($_POST['validerOp'])){
+
+            $somme = $_POST['somme'];
+            $numClient = $_POST['numClient'];
+
+            //todo : verifier que la somme soit éligible pattern et que ce soit positif
+
+$operationCompte =(isset($operationCompte))? $_POST['operationcompte']:false;
+            if($operationCompte) {
+
+                switch ($_POST['operationcompte']) {
+
+                    case 'debit' :
+
+                        CtlDebiterCompte($somme, $numClient, $_POST['actionCompte']);
+                        break;
+
+                    case 'credit' :
+
+                        CtlCrediterCompte($somme, $numClient, $_POST['actionCompte']);
+                        break;
+
+                    default :
+
+                        CtlRetourAcceuil($_POST['categorie'], $_POST['numClient']);
+
+                }
+
+        }
+//todo : throw erreur, ou pas car vue gère
+            CtlRetourAcceuil($_POST['categorie'],$_POST['numClient']);
+
+
         }else{
 
             CtlInterfaceLogin();

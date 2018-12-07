@@ -88,7 +88,7 @@ require_once('controleur/controleur.php');
 
             //todo : verifier que la somme soit éligible pattern et que ce soit positif
 
-            $operationCompte = ( isset($operationCompte) )? $_POST['operationcompte']:false;
+            $operationCompte = ( isset($_POST['operationcompte']) )? $_POST['operationcompte']:false;
 
             if($operationCompte) {
 

@@ -141,7 +141,7 @@ function AfficherOperationCompte($compte,$numClient, $categorie){
 									<p><input type="radio" name="operationcompte" value="debit"/>Débiter</p>
 									<p><input type="radio" name="operationcompte"  value="credit"/>Créditer</p>
 									<p><label> Somme : </label><input type="text" name="somme" /></p>
-									<p><input type="submit" name="validerop" value="Valider opération"/></p>';
+									<p><input type="submit" name="validerOp" value="Valider opération"/></p>';
 			}						
 			
 			$contenuInterface.='</fieldset></form>';

@@ -88,7 +88,8 @@ require_once('controleur/controleur.php');
 
             //todo : verifier que la somme soit éligible pattern et que ce soit positif
 
-$operationCompte =(isset($operationCompte))? $_POST['operationcompte']:false;
+            $operationCompte = ( isset($operationCompte) )? $_POST['operationcompte']:false;
+
             if($operationCompte) {
 
                 switch ($_POST['operationcompte']) {
@@ -96,12 +97,12 @@ $operationCompte =(isset($operationCompte))? $_POST['operationcompte']:false;
                     case 'debit' :
 
                         CtlDebiterCompte($somme, $numClient, $_POST['actionCompte']);
-                        break;
+                            break;
 
                     case 'credit' :
 
                         CtlCrediterCompte($somme, $numClient, $_POST['actionCompte']);
-                        break;
+                            break;
 
                     default :
 
@@ -110,7 +111,8 @@ $operationCompte =(isset($operationCompte))? $_POST['operationcompte']:false;
                 }
 
         }
-//todo : throw erreur, ou pas car vue gère
+            var_dump($operationCompte);
+            //todo : throw erreur, ou pas car vue gère
             CtlRetourAcceuil($_POST['categorie'],$_POST['numClient']);
 
 

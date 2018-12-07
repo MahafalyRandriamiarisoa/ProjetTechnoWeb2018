@@ -36,8 +36,10 @@ function AfficherAcceuil($categorie,$numClient){
 }
 
 function AfficherSyntheseClient($client,$compte,$contrat,$conseiller){
+
 	$contenuHeader='<strong>AGENT</strong>';
 	$contenuBis='';
+
 	if(count($client)==1){
 	    $numClient = $client[0]->NUMCLIENT;
 	$contenuInterface='<form method="post" action="banque.php"><fieldset><p>Client n°:'.$numClient.'</p>
@@ -118,20 +120,27 @@ function AfficherPriseRdv($client){
 	require_once('gabaritAgent.php');
 }
 
-function AfficherOperationCompte($compte,$numClient){
+/**
+ * @param $comptes
+ * @param $numClient
+ * @param $categorie
+ */
+function AfficherOperationCompte($comptes, $numClient, $categorie){
 
 	$contenuHeader='<strong>AGENT</strong>';
-	$contenuInterface='<form method="post" action="banque.php"><fieldset>';
-	
-			if(count($compte)==0){
+	$contenuInterface='<form method="post" action="banque.php"><fieldset>
+	                   <input type="hidden" name="numClient" value="'.$numClient.'" />
+	                   <input type="hidden" name="categorie" value="'.$categorie.'" />';
+
+			if(count($comptes)==0){
 				$contenuInterface.='Aucun compte associé au client';
 			}else{
 				$contenuInterface.='<p><label>Sélectionner le compte :<label></p>
 									<p>
 									<select name="actionCompte">';
 
-									for($k=0;$k<count($compte);$k++){
-										$contenuInterface.='<option value="'.$compte[$k]->NOMCOMPTE.'">'.$compte[$k]->NOMCOMPTE.'</option>';
+									for($k=0;$k<count($comptes);$k++){
+										$contenuInterface.='<option value="'.$comptes[$k]->NOMCOMPTE.'">'.$comptes[$k]->NOMCOMPTE.'</option>';
 									}
 
 
@@ -139,11 +148,11 @@ function AfficherOperationCompte($compte,$numClient){
 									<p><input type="radio" name="operationcompte" value="debit"/>Débiter</p>
 									<p><input type="radio" name="operationcompte"  value="credit"/>Créditer</p>
 									<p><label> Somme : </label><input type="text" name="somme" /></p>
-									<p><input type="submit" name="validerop" value="Valider opération"/></p>';
+									<p><input type="submit" name="validerOp" value="Valider opération"/></p>';
 			}						
 			
 			$contenuInterface.='</fieldset></form>';
-	$contenuBis='';
+	        $contenuBis='';
 	
 	require_once('gabaritAgent.php');
 }

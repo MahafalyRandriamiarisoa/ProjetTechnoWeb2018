@@ -159,7 +159,11 @@ function AfficherVendreContrat($contrat){
 							$contenuInterface.='<option value="'.$contrat[$i]->LIBELLE.'">'.$contrat[$i]->LIBELLE.'</option>';
 							}
 							$contenuInterface.='</select>
-						</p><p><input type="submit" name="vendre" value="Vendre le contrat"/></p></fieldset></form>';
+						</p>
+						<p><label>Date du contrat:</label><input type="date" name="dateContrat" required /></p>
+						<p><label>Tarif mensuel:</label><input type="text" name="tarifMensuel" required /></p>
+						<p><input type="submit" name="vendre" value="Vendre le contrat"/></p>
+						</fieldset></form>';
 						require_once('gabaritConseiller.php');
 }
 

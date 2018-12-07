@@ -138,9 +138,9 @@ function AfficherOperationCompte($compte,$numClient, $categorie){
 
 
 				$contenuInterface.='</select></p>
-									<p><input type="radio" name="operationcompte" value="debit"/>Débiter</p>
-									<p><input type="radio" name="operationcompte"  value="credit"/>Créditer</p>
-									<p><label> Somme : </label><input type="text" name="somme" /></p>
+									<p><input type="radio" name="operationcompte" id="debit" value="debit"/><label for="debit">Débiter</label></p>
+									<p><input type="radio" name="operationcompte" id="credit" value="credit"/><label for="credit">Créditer</label></p>
+									<p><label for="somme"> Somme : </label><input type="text" id ="somme" name="somme" /></p>
 									<p><input type="submit" name="validerOp" value="Valider opération"/></p>';
 			}						
 			

@@ -226,7 +226,7 @@ function getRDV($idEmploye){
 
  function enregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adresse, $email, $numTel, $situationFamiliale, $profession){
 	$connexion = getConnect();
-	$requete = "INSERT INTO CLIENTS values ($idEmploye, '$nom', '$prenom', '$dateNaissance', '$adresse', '$email', '$numTel', '$situationFamiliale', '$profession')";
+	$requete = "INSERT INTO CLIENT values (0, $idEmploye, '$nom', '$prenom', STR_TO_DATE('$dateNaissance', '%d-%m-%Y'), '$adresse', '$email', '$numTel', '$situationFamiliale', '$profession')";
 	$connexion->query($requete);
  }
 
@@ -411,12 +411,24 @@ function resilierClient($numClient){
 
 function ajouterRDV($idEmploye, $idMotif, $numClient, $dateHeureRDV){
 	$connexion = getConnect();
-	$requete = "INSERT INTO RENDEZVOUS VALUES ($idMotif, $numClient, '$dateHeureRDV')";
+	$requete = "INSERT INTO RENDEZVOUS VALUES (0, $idMotif, $numClient, '$dateHeureRDV')";
 	$connexion->query($requete);
 }
 
 function modifierIdentifiants($categorie, $identifiant, $mdp){
 	$connexion = getConnect();
 	$requete = "UPDATE EMPLOYE SET login = '$identifiant', mdp = '$mdp' WHERE categorie = '$categorie'";
+	$connexion->query($requete);
+}
+
+function ajouterContrat($libelle){
+	$connexion = getConnect();
+	$requete = "INSERT INTO CONTRAT VALUES (0, '$libelle')";
+	$connexion->query($requete);
+}
+
+function ajouterPieceAFournir($libelle){
+	$connexion = getConnect();
+	$requete = "INSERT INTO PIECES_A_FOURNIR VALUES (0, '$libelle')";
 	$connexion->query($requete);
 }

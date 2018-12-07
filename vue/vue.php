@@ -214,7 +214,6 @@ function AfficherErreur ($erreur){
 }
 
 function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie){
-	echo "La catégorie appelée par le controleur est :" . $categorie;
     $contenuHeader='';
 	$nbRDV = count($rdvEmploye);
 	$time = array();

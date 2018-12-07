@@ -121,24 +121,30 @@ function AfficherPriseRdv($client){
 function AfficherOperationCompte($compte,$numClient){
 
 	$contenuHeader='<strong>AGENT</strong>';
-	$contenuInterface='<form method="post" action="banque.php"><fieldset>
-						<p><label>Sélectionner le compte :<label></p>
-						<p>
-						<select name="actionCompte">';
+	$contenuInterface='<form method="post" action="banque.php"><fieldset>';
+	
+			if(count($compte)==0){
+				$contenuInterface.='Aucun compte associé au client';
+			}else{
+				$contenuInterface.='<p><label>Sélectionner le compte :<label></p>
+									<p>
+									<select name="actionCompte">';
 
-						for($k=0;$k<count($compte);$k++){
-							$contenuInterface.='<option value="'.$compte[$k]->NOMCOMPTE.'">'.$compte[$k]->NOMCOMPTE.'</option>';
-						}
+									for($k=0;$k<count($compte);$k++){
+										$contenuInterface.='<option value="'.$compte[$k]->NOMCOMPTE.'">'.$compte[$k]->NOMCOMPTE.'</option>';
+									}
 
 
-						$contenuInterface.='</select></p>
-											<p><input type="radio" name="operationcompte" value="debit"/>Débiter</p>
-											<p><input type="radio" name="operationcompte"  value="credit"/>Créditer</p>
-											<p><label> Somme : </label><input type="text" name="somme" /></p>
-											<p><input type="submit" name="validerop" value="Valider opération"/></p>
-											</fieldset></form>';
+				$contenuInterface.='</select></p>
+									<p><input type="radio" name="operationcompte" value="debit"/>Débiter</p>
+									<p><input type="radio" name="operationcompte"  value="credit"/>Créditer</p>
+									<p><label> Somme : </label><input type="text" name="somme" /></p>
+									<p><input type="submit" name="validerop" value="Valider opération"/></p>';
+			}						
+			
+			$contenuInterface.='</fieldset></form>';
 	$contenuBis='';
-
+	
 	require_once('gabaritAgent.php');
 }
 

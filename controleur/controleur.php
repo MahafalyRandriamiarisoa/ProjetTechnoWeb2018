@@ -12,15 +12,17 @@
 
 /**
  * Fonction pour verifier si un client, fonction particulierement importante lors de la saisie interactive directe du numClient
- * @param $numClient numero potentiellement rattaché à un client
- * @return bool retourne true si le client est dans la base de donnée, false si non
+ * @param $numClient identifiant potentiellement rattaché à un client
+ * @return array [0]:
+ *      cette ligne correspond à un client identifiable par le numClient passé en paramètre
  * @throws Exception
- *      correspond au cas où le numèro client n'existe pas ou non spécifié lors d'une saisie
+ *      correspond au cas où le numèro client n'existe pas (ou non spécifié lors d'une saisie)?
  */
 function CtlnumClientExiste($numClient){
-        if(checkClient($numClient)) {
+    $client = checkClient($numClient);
+        if($client) {
             //(checkClient($numClient));
-            return true;
+            return $client[0];
         }
 
         throw new Exception("num client inexistant");

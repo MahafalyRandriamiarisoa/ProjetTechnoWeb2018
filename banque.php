@@ -4,10 +4,11 @@ require_once('controleur/controleur.php');
     try{
 
         if(isset($_POST['connexion'])){
+
             //todo : verifier si la data base est vide
-            $idEmploye=CtlAcceuil($_POST['identifiant'],$_POST['motDePasse']);
+            $employe=CtlAcceuil($_POST['identifiant'],$_POST['motDePasse']);
 
-
+            $categorie=$employe->CATEGORIE;
 
         }elseif(isset($_POST['valider'])){
 
@@ -40,6 +41,7 @@ require_once('controleur/controleur.php');
                 }
             }
             else{
+
                 echo 'DEBUT RETOUR ACCEUIL';
                 CtlRetourAcceuil($_POST['categorie']);
             }
@@ -48,17 +50,19 @@ require_once('controleur/controleur.php');
 
         }elseif(isset($_POST['ValiderRDV'])){
 
-            CtlConfirmationRdv($_POST['IdEMPLOYERDV']);
+            CtlConfirmationRdv($_POST['IdRDVEmploye'],);
 
         }elseif(isset($_POST['suiv'])){
-            $idEmploye=intval($_POST['idEmp']);
-            $rdvEmploye=getRDV($idEmploye);
-            AfficherPlanning($rdvEmploye,(intval($_POST['semCourante'])+1));
+            $employe=intval($_POST['idEmp']);
+            $rdvEmploye=getRDV($employe);
+            $categorie=(empty($_POST['categorie']))?$categorie:$_POST['categorie'];
+            AfficherPlanning($rdvEmploye,(intval($_POST['semCourante'])+1),$categorie,$_POST['numClient']);
 
         }elseif(isset($_POST['prec'])){
             $idEmploye=intval($_POST['idEmp']);
             $rdvEmploye=getRDV($idEmploye);
-            AfficherPlanning($rdvEmploye,(intval($_POST['semCourante'])-1));
+            $categorie=(empty($_POST['categorie']))?$categorie:$_POST['categorie'];
+            AfficherPlanning($rdvEmploye,(intval($_POST['semCourante'])-1),$categorie,$_POST['numClient']);
 
         }else{
 

@@ -113,8 +113,8 @@ function checkRDV(c){
     var b = document.getElementById(c).checked;
 
     if(b){
-        document.getElementById(c).checked = false;
+        document.getElementById(c).checked = "false";
     }else{
-        document.getElementById(c).checked = true;
+        document.getElementById(c).checked = "checked";
     }
 }

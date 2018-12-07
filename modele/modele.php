@@ -426,3 +426,9 @@ function ajouterContrat($libelle){
 	$requete = "INSERT INTO CONTRAT VALUES (0, '$libelle')";
 	$connexion->query($requete);
 }
+
+function ajouterPieceAFournir($libelle){
+	$connexion = getConnect();
+	$requete = "INSERT INTO PIECES_A_FOURNIR VALUES (0, '$libelle')";
+	$connexion->query($requete);
+}

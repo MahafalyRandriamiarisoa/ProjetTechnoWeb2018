@@ -206,12 +206,43 @@ function AfficherResilier($compte,$contrat){
 											require_once('gabaritConseiller.php');
 }
 
-function AfficherErreur ($erreur){
+	
+function AfficherErreurLogin ($erreur){
 	$contenu='<fieldset>
 			   <legend> Erreurs détectées</legend>
 			   <p>'.$erreur.'</p>
 			  </fieldset>';
-	require_once('gabaritLogin.php');
+	require_once('gabaritLogin.php');		  
+}
+
+	
+function AfficherErreurAgent ($erreur){
+	$contenuHeader='<strong>AGENT</strong>';
+	$contenuInterface='<fieldset>
+			   <legend> Erreurs détectées</legend>
+			   <p>'.$erreur.'</p>
+			  </fieldset>';
+	require_once('gabaritAgent.php');		  
+}
+
+	
+function AfficherErreurConseiller ($erreur){
+	$contenuHeader='<strong>CONSEILLER</strong>';
+	$contenuInterface='<fieldset>
+			   <legend> Erreurs détectées</legend>
+			   <p>'.$erreur.'</p>
+			  </fieldset>';
+	require_once('gabaritConseiller.php');		  
+}
+
+	
+function AfficherErreurDirecteur ($erreur){
+	$contenuHeader='<strong>DIRECTEUR</strong>';
+	$contenuInterface='<fieldset>
+			   <legend> Erreurs détectées</legend>
+			   <p>'.$erreur.'</p>
+			  </fieldset>';
+	require_once('gabaritDirecteur.php');		  
 }
 
 function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie){

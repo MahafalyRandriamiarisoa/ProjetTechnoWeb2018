@@ -315,7 +315,7 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie){
 				if($planning[$k][$j][0] != ""){
 					$contenuBis .= '<td class="disabled">EN RDV</td>';
 				}else{
-					$contenuBis .= '<td onClick="checkRDV(\''.($k).($j).'\')"><input type="radio" name="choixRDV" id="'.($k).($j).'"/></td>';
+					$contenuBis .= '<td onClick="checkRDV(\''.($k).($j).'\')"><input type="radio" name="choixRDV" id="'.($k).($j).'" value="'.$semaine[$j].'/'.$heure.'"/></td>';
 				}
 			}
 		}

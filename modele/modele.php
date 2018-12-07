@@ -227,7 +227,7 @@ function getRDV($idEmploye){
  function enregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adresse, $email, $numTel, $situationFamiliale, $profession){
 	$connexion = getConnect();
 	$requete = "INSERT INTO CLIENTS values ($idEmploye, '$nom', '$prenom', '$dateNaissance', '$adresse', '$email', '$numTel', '$situationFamiliale', '$profession')";
-	$resultat = $connexion->query($requete);
+	$connexion->query($requete);
  }
 
  //todo : fonction récup login employes
@@ -236,6 +236,7 @@ function getRDV($idEmploye){
 	$connexion = getConnect();
 	$requete = "SELECT * FROM EMPLOYE";
 	$resultat = $connexion->query($requete);
+	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat->fetchAll();
  }
 
@@ -247,6 +248,7 @@ function getRDV($idEmploye){
 	$connexion = getConnect();
 	$requete = "SELECT montant FROM COMPTE WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
 	$resultat = $connexion->query($requete);
+	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat->fetch();
  }
 
@@ -257,7 +259,7 @@ function getRDV($idEmploye){
 	$soldeActuel = getSolde($numClient, $nomCompte)->MONTANT;
 	$soldeCredite = $soldeActuel + $montant;
 	$requete = "INSERT INTO COMPTE (montant) VALUES $soldeCredite WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
-	$resultat = $connexion->query($requete);
+	$connexion->query($requete);
  }
  //todo : débiter compte
 
@@ -266,7 +268,7 @@ function getRDV($idEmploye){
 	$soldeActuel = getSolde($numClient, $nomCompte)->MONTANT;
 	$soldeDebite = $soldeActuel - $montant;
 	$requete = "INSERT INTO COMPTE (montant) VALUES $soldeDebite WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
-	$resultat = $connexion->query($requete);
+	$connexion->query($requete);
  }
 
  //todo : montant decouvert autorisé
@@ -275,6 +277,7 @@ function getRDV($idEmploye){
 	$connexion = getConnect();
 	$requete = "SELECT montantDecouvert FROM COMPTECLIENT numClient = $numClient AND nomCompte = '$nomCompte'";
 	$resultat = $connexion->query($requete);
+	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat->fetch();
  }
 
@@ -284,6 +287,7 @@ function getRDV($idEmploye){
 	$connexion = getConnect();
 	$requete = "SELECT * FROM CONTRAT";
 	$resultat = $connexion->query($requete);
+	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat->fetchAll();
  }
 
@@ -293,6 +297,7 @@ function getRDV($idEmploye){
 	$connexion = getConnect();
 	$requete = "SELECT * FROM COMPTE";
 	$resultat = $connexion->query($requete);
+	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat->fetchAll();
  }
 
@@ -302,6 +307,7 @@ function getRDV($idEmploye){
 	$connexion = getConnect();
 	$requete = "SELECT * FROM TYPEMOTIF";
 	$resultat = $connexion->query($requete);
+	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat->fetchAll();
  }
 
@@ -311,6 +317,7 @@ function getRDV($idEmploye){
 	$connexion = getConnect();
 	$requete = "SELECT * FROM COMPTECLIENT WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
 	$resultat = $connexion->query($requete);
+	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat->fetch();
  }
 
@@ -321,6 +328,7 @@ function getRDV($idEmploye){
 	$connexion = getConnect();
 	$requete = "SELECT IDCONTRAT FROM CONTRAT WHERE IDCONTRAT NOT IN (SELECT IDCONTRAT FROM CONTRATCLIENT)";
 	$resultat = $connexion->query($requete);
+	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat->fetchAll();
  }
 
@@ -329,14 +337,14 @@ function getRDV($idEmploye){
  function enregistrerContrat($numClient, $dateOuvertureContrat, $tarifMensuel, $idContrat){
 	$connexion = getConnect();
 	$requete = "INSERT INTO CONTRATCLIENT VALUES ($numClient, '$dateOuvertureContrat', $tarifMensuel, $idContrat) WHERE numClient = $numClient ";
-	$resultat = $connexion->query($requete);
+	$connexion->query($requete);
  }
 
  //todo : resilierContrat($idContrat, $numClient)
  function resilierContrat($numClient, $idContrat){
 	$connexion = getConnect();
 	$requete = "DELETE * FROM CONTRATCLIENT WHERE numClient = $numClient AND idContrat = $idContrat";
-	$resultat = $connexion->query($requete);
+	$connexion->query($requete);
  }
 
 
@@ -347,6 +355,7 @@ function getRDV($idEmploye){
 	$connexion = getConnect();
 	$requete = "SELECT nomCompte FROM COMPTE WHERE nomCompte NOT IN (SELECT nomCompte FROM COMPTECLIENT)";
 	$resultat = $connexion->query($requete);
+	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat->fetchAll();
  }
 
@@ -355,7 +364,7 @@ function getRDV($idEmploye){
  function ouvertureCompte($numClient, $nomCompte, $dateOuverture, $montantDecouvert){
 	$connexion = getConnect();
 	$requete = "INSERT INTO COMPTECLIENT VALUES ($numClient, $nomCompte, '$dateOuverture', 0, $montantDecouvert)";
-	$resultat = $connexion->query($requete);
+	$connexion->query($requete);
  }
 
  //todo :  fermerCompte($numClient,$nomCompte)
@@ -363,7 +372,7 @@ function getRDV($idEmploye){
  function fermerCompte($numClient, $nomCompte){
 	$connexion = getConnect();
 	$requete = "DELETE * FROM COMPTECLIENT WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
-	$resultat = $connexion->query($requete);
+	$connexion->query($requete);
  }
 
 /**
@@ -382,15 +391,32 @@ function getRDV($idEmploye){
  * 		Correspond à la profession du client
  */
 
-function modifierInfosClient($adresse, $email, $numTel, $situationFamiliale, $profession){
+function modifierInfosClient($numClient, $adresse, $email, $numTel, $situationFamiliale, $profession){
 	$connexion = getConnect();
-	$requete = "UPDATE CLIENT SET adresse = '$adresse', email = '$email', numeroTelephone = '$numTel', situationFamiliale = '$situationFamiliale', profession = '$profession')";
-	$resultat = $connexion->query($requete);
+	$requete = "UPDATE CLIENT SET adresse = '$adresse', email = '$email', numeroTelephone = '$numTel', situationFamiliale = '$situationFamiliale', profession = '$profession' WHERE numClient = $numClient";
+	$connexion->query($requete);
 }
 
 function setMontantDecouvertAutorise($numClient, $nomCompte, $montant){
 	$connexion = getConnect();
 	$requete = "UPDATE COMPTECLIENT SET montantDecouvert = $montant WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
+	$connexion->query($requete);
+}
+
+function resilierClient($numClient){
+	$connexion = getConnect();
+	$requete = "DELETE * FROM CLIENT WHERE numClient = $numClient";
 	$resultat = $connexion->query($requete);
-	return $resultat->fetch();
+}
+
+function ajouterRDV($idEmploye, $idMotif, $numClient, $dateHeureRDV){
+	$connexion = getConnect();
+	$requete = "INSERT INTO RENDEZVOUS VALUES ($idMotif, $numClient, '$dateHeureRDV')";
+	$connexion->query($requete);
+}
+
+function modifierIdentifiants($categorie, $identifiant, $mdp){
+	$connexion = getConnect();
+	$requete = "UPDATE EMPLOYE SET login = '$identifiant', mdp = '$mdp' WHERE categorie = '$categorie'";
+	$connexion->query($requete);
 }

@@ -40,15 +40,16 @@ function CtlnumClientExiste($numClient){
             $employe=checkLogin($login,$mdp);
             if(!empty($employe)){
 
-                AfficherAcceuil($employe->CATEGORIE);
+                AfficherAcceuil($employe->CATEGORIE,"");
                 return $employe;
             }
         }
         throw new Exception("login non trouvé");
     }
-    function CtlRetourAcceuil($categorie){
+    function CtlRetourAcceuil($categorie,$numClient){
 
-        AfficherAcceuil($categorie);
+        AfficherAcceuil($categorie,$numClient);
+
     }
 
 /**
@@ -108,9 +109,11 @@ function CtlAfficherModificationInfo($numClient){
 
         $client=checkClient($numClient);
 
-        AfficherModificationInfo($client[0]);
+        $categorie = $_POST['categorie'];
 
-       
+        AfficherModificationInfo($client[0],$categorie);
+
+
 
     }
 
@@ -129,8 +132,9 @@ function CtlAfficherModificationInfo($numClient){
     }
 
 
-    function CtlPlanning($rdvEmploye,$int){
-        AfficherPlanning($rdvEmploye,$int, 'Agent');
+    function CtlPlanning($rdvEmploye,$int,$categorie,$numClient){
+
+        AfficherPlanning($rdvEmploye,$int, $categorie,$numClient);
     }
 
 /**
@@ -231,9 +235,11 @@ function CtlResilierContrat($numClient,$IDCONTRAT){
  */
 function CtlCompteDisponible($numClient){
 
-    $comptes=getComptesPotentielsClient($numClient);
 
-    AfficherComptesDisponibles($comptes);
+
+    $comptes = getComptesPotentielsClient($numClient);
+
+    // AfficherComptesDisponibles($comptes,$categorie);
 }
 
 /**

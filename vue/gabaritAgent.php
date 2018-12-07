@@ -14,7 +14,12 @@
 		<aside>
 			<form id="numCli" method="post" action="banque.php">
 
-                <?php echo '<p><input type="text" name="categorie" value="Agent"style="display:none" /></p>' ?>
+                <?php
+
+                echo '<p><input type="hidden" name="categorie" value="Agent" /></p>';
+                echo '<p><input type="hidden" name="numClient" value="'.$numClient.'"/></p>';
+
+                ?>
 				<fieldset id="f1">
 					<legend> Rechercher un client </legend>
 					<p><input type="radio" name="choix" onClick="afficherNumCli()" id="r1" /><label for="r1">Par le numéro</label> </p>

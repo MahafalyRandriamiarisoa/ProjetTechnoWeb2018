@@ -123,5 +123,6 @@ require_once('controleur/controleur.php');
         }
 
     }catch(Exception $e1){
-         CtlErreur($e1->getMessage());
+        CtlErreur($e1->getMessage());
+
     }

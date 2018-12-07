@@ -11,9 +11,9 @@ require_once('controleur/controleur.php');
             $categorie=$employe->CATEGORIE;
 
         }elseif(isset($_POST['valider'])){
-
+            $categorie= $_POST['categorie'];
             if(!empty($_POST['numClient'])){
-
+                $numClient = $_POST['numClient'];
                 switch ($_POST['action']) {
 
                     case 'syntese':
@@ -23,13 +23,9 @@ require_once('controleur/controleur.php');
                         break;
 
                     case 'modif':
-                        $numClient = $_POST['numClient'];
-                        $adresse = $_POST['adresse'];
-                        $email = $_POST['mail'];
-                        $numTel = $_POST['tel'];
-                        $situationFamiliale = $_POST['situation'];
-                        $profession = $_POST['profession'];
-                        CtlModificationInfo($numClient,$adresse, $email, $numTel, $situationFamiliale, $profession);
+                        CtlAfficherModificationInfo($_POST['numClient']);
+
+
                         break;
 
                     case 'opCompte':
@@ -40,7 +36,7 @@ require_once('controleur/controleur.php');
                     case 'rdv':
 
                         $rdvEmploye = CtlPriseRdv($_POST['numClient']);
-                        CtlPlanning($rdvEmploye, 0);
+                        CtlPlanning($rdvEmploye, 0,$categorie,$numClient);
                         break;
 
                 }
@@ -48,7 +44,8 @@ require_once('controleur/controleur.php');
             else{
 
                 echo 'DEBUT RETOUR ACCEUIL';
-                CtlRetourAcceuil($_POST['categorie']);
+                $numClient = (isset($_POST['numClient']))?$_POST['numClient']:'';
+                CtlRetourAcceuil($_POST['categorie'],$numClient);
             }
 
         }elseif(isset($_POST['validerRecherche'])){
@@ -69,6 +66,18 @@ require_once('controleur/controleur.php');
             $categorie=(empty($_POST['categorie']))?$categorie:$_POST['categorie'];
             AfficherPlanning($rdvEmploye,(intval($_POST['semCourante'])-1),$categorie,$_POST['numClient']);
 
+        }elseif(isset($_POST['modifier'])){
+            //log as
+            $categorie = $_POST['categorie'];
+            $numClient = $_POST['numClient'];
+            $adresse = $_POST['adresse'];
+            $email = $_POST['mail'];
+            $numTel = $_POST['tel'];
+            $situationFamiliale = $_POST['situation'];
+            $profession = $_POST['profession'];
+
+            CtlValiderModificationInfo($numClient,$adresse, $email, $numTel, $situationFamiliale, $profession);
+            CtlRetourAcceuil($categorie,$numClient);
         }else{
 
             CtlInterfaceLogin();

@@ -139,7 +139,8 @@ function AfficherErreur ($erreur){
 	require_once('gabaritLogin.php');
 }
 
-function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie,$numClient){
+function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie){
+	echo "La catégorie appelée par le controleur est :" . $categorie;
     $contenuHeader='';
 	$nbRDV = count($rdvEmploye);
 	$time = array();
@@ -196,7 +197,7 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie,$numClient)
 							<tr>
 								<form method="post" action="banque.php">
 								    <input type="text" name="numClient" value="\''.$numClient.'\'"style="display:none" /></p>
-								    <input type="text" name="categorie" value="\''.$categorie.'\'"style="display:none" /></p>
+								    <input type="text" name="categorie" value="'.$categorie.'" style="display:none" /></p>
 									<input type="text" class="invisible" name="idEmp" value="'.$rdvEmploye[0]->IDEMPLOYE.'" style="display:none" />
 									<input type="text" class="invisible" name="semCourante" value="'.$semaineSelection.'" style="display:none" />
 										<td><input type="submit" name="prec" value="Semaine précédente" /></td>

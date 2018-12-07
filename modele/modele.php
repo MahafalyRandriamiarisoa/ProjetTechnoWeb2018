@@ -246,7 +246,7 @@ function getRDV($idEmploye){
 
  function getSolde($numClient, $nomCompte){
 	$connexion = getConnect();
-	$requete = "SELECT montant FROM COMPTE WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
+	$requete = "SELECT SOLDE FROM COMPTECLIENT WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat->fetch();
@@ -256,18 +256,18 @@ function getRDV($idEmploye){
 
  function crediterCompte($montant, $numClient, $nomCompte){
 	$connexion = getConnect();
-	$soldeActuel = getSolde($numClient, $nomCompte)->MONTANT;
+	$soldeActuel = getSolde($numClient, $nomCompte)->SOLDE;
 	$soldeCredite = $soldeActuel + $montant;
-	$requete = "INSERT INTO COMPTE (montant) VALUES $soldeCredite WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
+	$requete = "UPDATE COMPTECLIENT SET SOLDE = $soldeCredite WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
 	$connexion->query($requete);
  }
  //todo : débiter compte
 
  function debiterCompte($montant, $numClient, $nomCompte){
 	$connexion = getConnect();
-	$soldeActuel = getSolde($numClient, $nomCompte)->MONTANT;
+	$soldeActuel = getSolde($numClient, $nomCompte)->SOLDE;
 	$soldeDebite = $soldeActuel - $montant;
-	$requete = "INSERT INTO COMPTE (montant) VALUES $soldeDebite WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
+	$requete = "UPDATE COMPTECLIENT SET SOLDE = $soldeCredite WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
 	$connexion->query($requete);
  }
 

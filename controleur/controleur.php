@@ -177,6 +177,8 @@ function CtlDebiterCompte($valeur, $numClient, $nomCompte){
     $compte=getCompte($numClient,$nomCompte);
     $soldeFinal=$compte->SOLDE+$compte->MONTANTDECOUVERT;
 
+    var_dump($soldeFinal);
+
     if(($valeur>=0)&&($valeur>=$soldeFinal)){
 
         debiterCompte($valeur,$numClient,$compte);
@@ -192,8 +194,8 @@ function CtlDebiterCompte($valeur, $numClient, $nomCompte){
  */
 function CtlCrediterCompte($valeur, $numClient, $nomCompte){
 
-    $compte=getCompte($numClient,$nomCompte);
-    crediterCompte($valeur,$numClient,$compte);
+    crediterCompte($valeur,$numClient,$nomCompte);
+
 }
 
 
@@ -292,7 +294,8 @@ function CtlModifierMontantDecouvert($montant,$numClient,$nomCompte){
  * @param $msg
  */
 function CtlErreur($msg){
-    AfficherErreur($msg);
+    //AfficherErreur($msg);
+    var_dump($msg);
 }
 
 function CtlGestionClient($numClient){

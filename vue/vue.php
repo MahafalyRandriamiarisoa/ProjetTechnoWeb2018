@@ -36,13 +36,11 @@ function AfficherAcceuil($categorie,$numClient){
 }
 
 function AfficherSyntheseClient($client,$compte,$contrat,$conseiller){
-
 	$contenuHeader='<strong>AGENT</strong>';
 	$contenuBis='';
-
 	if(count($client)==1){
 	    $numClient = $client[0]->NUMCLIENT;
-	$contenuInterface='<form method="post" action="banque.php"><fieldset><p>Client n°:'.$numClient.'</p>
+	$contenuInterface='<form method="post" action="banque.php"><fieldset><label>Synthèse du client</label><p>Client n°:'.$numClient.'</p>
 						<p><label>Nom :</label><input type="text" name="nom1" value="'.$client[0]->NOM.'" readonly/></p>
 						<p><label>Prénom :</label><input type="text" name="prenom1" value="'.$client[0]->PRENOM.'" readonly/></p>
 						<p><label>Date de naissance :</label><input type="text" name="birth" value="'.$client[0]->DATEDENAISSANCE.'" readonly/></p>
@@ -93,7 +91,7 @@ function AfficherModificationInfo($client,$categorie){
 
     $numClient = $client->NUMCLIENT;
     var_dump($numClient);
-	$contenuInterface='<form method="post" action="banque.php"><fieldset><p>Client n°:'.$numClient.'</p>
+	$contenuInterface='<form method="post" action="banque.php"><fieldset><label>Modification des informations du client</label><p>Client n°:'.$numClient.'</p>
                         <p><input type="hidden" name="numClient" value="'.$numClient.'"</p>
                         <p><input type="hidden" name="categorie" value="'.$categorie.'"</p>
 						<p><label>Nom :</label><input type="text" name="nom1" value="'.$client->NOM.'" readonly/></p>
@@ -120,27 +118,22 @@ function AfficherPriseRdv($client){
 	require_once('gabaritAgent.php');
 }
 
-/**
- * @param $comptes
- * @param $numClient
- * @param $categorie
- */
-function AfficherOperationCompte($comptes, $numClient, $categorie){
+function AfficherOperationCompte($compte,$numClient, $categorie){
 
 	$contenuHeader='<strong>AGENT</strong>';
-	$contenuInterface='<form method="post" action="banque.php"><fieldset>
-	                   <input type="hidden" name="numClient" value="'.$numClient.'" />
-	                   <input type="hidden" name="categorie" value="'.$categorie.'" />';
-
-			if(count($comptes)==0){
+	$contenuInterface='<form method="post" action="banque.php"><fieldset><label>Opération sur le compte</label>
+                        <input type="hidden" name="numClient" value="'.$numClient.'" />
+	                    <input type="hidden" name="categorie" value="'.$categorie.'" />';
+	
+			if(count($compte)==0){
 				$contenuInterface.='Aucun compte associé au client';
 			}else{
 				$contenuInterface.='<p><label>Sélectionner le compte :<label></p>
 									<p>
 									<select name="actionCompte">';
 
-									for($k=0;$k<count($comptes);$k++){
-										$contenuInterface.='<option value="'.$comptes[$k]->NOMCOMPTE.'">'.$comptes[$k]->NOMCOMPTE.'</option>';
+									for($k=0;$k<count($compte);$k++){
+										$contenuInterface.='<option value="'.$compte[$k]->NOMCOMPTE.'">'.$compte[$k]->NOMCOMPTE.'</option>';
 									}
 
 
@@ -148,7 +141,7 @@ function AfficherOperationCompte($comptes, $numClient, $categorie){
 									<p><input type="radio" name="operationcompte" value="debit"/>Débiter</p>
 									<p><input type="radio" name="operationcompte"  value="credit"/>Créditer</p>
 									<p><label> Somme : </label><input type="text" name="somme" /></p>
-									<p><input type="submit" name="validerOp" value="Valider opération"/></p>';
+									<p><input type="submit" name="validerop" value="Valider opération"/></p>';
 			}						
 			
 			$contenuInterface.='</fieldset></form>';

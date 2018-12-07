@@ -4,15 +4,19 @@ function AfficherInterfaceLogin(){
 	require_once('gabaritLogin.php');
 }
 
-function AfficherAcceuil($categorie){
+function AfficherAcceuil($categorie,$numClient){
     $contenuInterface='<form method="post" action="banque.php"><fieldset><p> Connexion réussie <br/> Bienvenue </p></fieldset></form>';
     $contenuBis='';
+
 
     switch ($categorie) {
         case 'Agent':
 
             $contenuHeader = '<strong>AGENT</strong>';
+
             require_once ('gabaritAgent.php');
+            var_dump($numClient);
+
                 break;
 
         case 'Conseiller':
@@ -35,7 +39,8 @@ function AfficherSyntheseClient($client,$compte,$contrat,$conseiller){
 	$contenuHeader='<strong>AGENT</strong>';
 	$contenuBis='';
 	if(count($client)==1){
-	$contenuInterface='<form method="post" action="banque.php"><fieldset><p>Client n°:'.$client[0]->NUMCLIENT.'</p>
+	    $numClient = $client[0]->NUMCLIENT;
+	$contenuInterface='<form method="post" action="banque.php"><fieldset><p>Client n°:'.$numClient.'</p>
 						<p><label>Nom :</label><input type="text" name="nom1" value="'.$client[0]->NOM.'" readonly/></p>
 						<p><label>Prénom :</label><input type="text" name="prenom1" value="'.$client[0]->PRENOM.'" readonly/></p>
 						<p><label>Date de naissance :</label><input type="text" name="birth" value="'.$client[0]->DATEDENAISSANCE.'" readonly/></p>
@@ -80,10 +85,15 @@ function AfficherSyntheseClient($client,$compte,$contrat,$conseiller){
 }
 
 
-function AfficherModificationInfo($client){
+function AfficherModificationInfo($client,$categorie){
 	$contenuHeader='<strong>AGENT</strong>';
 	$contenuBis='';
-	$contenuInterface='<form method="post" action="banque.php"><fieldset><p>Client n°:'.$client->NUMCLIENT.'</p>
+
+    $numClient = $client->NUMCLIENT;
+    var_dump($numClient);
+	$contenuInterface='<form method="post" action="banque.php"><fieldset><p>Client n°:'.$numClient.'</p>
+                        <p><input type="hidden" name="numClient" value="'.$numClient.'"</p>
+                        <p><input type="hidden" name="categorie" value="'.$categorie.'"</p>
 						<p><label>Nom :</label><input type="text" name="nom1" value="'.$client->NOM.'" readonly/></p>
 						<p><label>Prénom :</label><input type="text" name="prenom1" value="'.$client->PRENOM.'" readonly/></p>
 						<p><label>Date de naissance :</label><input type="text" name="birth" value="'.$client->DATEDENAISSANCE.'" readonly/></p>
@@ -99,6 +109,7 @@ function AfficherModificationInfo($client){
 
 
 function AfficherPriseRdv($client){
+    $numClient = $client[0]->NUMCLIENT;
 	$contenuHeader='<strong>AGENT</strong>';
 	$contenuInterface='<form method="post" action="banque.php"><fieldset><p>Conseiller n°:'.$client[0]->IDEMPLOYE.'</p>';
 	//plage de rdv
@@ -107,7 +118,7 @@ function AfficherPriseRdv($client){
 	require_once('gabaritAgent.php');
 }
 
-function AfficherOperationCompte($compte){
+function AfficherOperationCompte($compte,$numClient){
 
 	$contenuHeader='<strong>AGENT</strong>';
 	$contenuInterface='<form method="post" action="banque.php"><fieldset>
@@ -131,7 +142,7 @@ function AfficherOperationCompte($compte){
 	require_once('gabaritAgent.php');
 }
 
-function AfficherInscription($idconseiller){
+function AfficherInscription($idConseiller){
 	$contenuHeader='<strong>CONSEILLER</strong>';
 	$contenuInterface='<form method="post" action="banque.php"><fieldset><legend>Nouveau client </legend>
 						<p><label>IdConseiller:</label><input type="text" name="idConseiller" value="'.$idConseiller.'" required /></p>
@@ -213,7 +224,7 @@ function AfficherErreur ($erreur){
 	require_once('gabaritLogin.php');
 }
 
-function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie){
+function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $numClient){
 	echo "La catégorie appelée par le controleur est :" . $categorie;
     $contenuHeader='';
 	$nbRDV = count($rdvEmploye);
@@ -270,10 +281,10 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie){
 						<table>
 							<tr>
 								<form method="post" action="banque.php">
-								    <input type="text" name="numClient" value="\''.$numClient.'\'"style="display:none" /></p>
-								    <input type="text" name="categorie" value="'.$categorie.'" style="display:none" /></p>
-									<input type="text" class="invisible" name="idEmp" value="'.$rdvEmploye[0]->IDEMPLOYE.'" style="display:none" />
-									<input type="text" class="invisible" name="semCourante" value="'.$semaineSelection.'" style="display:none" />
+								    <input type="hidden" name="numClient" value="'.$numClient.'" /></p>
+								    <input type="hidden" name="categorie" value="'.$categorie.'" /></p>
+									<input type="hidden" class="invisible" name="idEmp" value="'.$rdvEmploye[0]->IDEMPLOYE.' />
+									<input type="hidden" class="invisible" name="semCourante" value="'.$semaineSelection.' />
 										<td><input type="submit" name="prec" value="Semaine précédente" /></td>
 										<th colspan="4" style="text-align: center;">Semaine du '.$semaine[0].'</th>
 										<td><input type="submit" name="suiv" value="Semaine suivante" /></td>

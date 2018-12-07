@@ -267,7 +267,7 @@ function getRDV($idEmploye){
 	$connexion = getConnect();
 	$soldeActuel = getSolde($numClient, $nomCompte)->SOLDE;
 	$soldeDebite = $soldeActuel - $montant;
-	$requete = "UPDATE COMPTECLIENT SET SOLDE = $soldeCredite WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
+	$requete = "UPDATE COMPTECLIENT SET SOLDE = $soldeDebite WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
 	$connexion->query($requete);
  }
 

@@ -176,12 +176,13 @@ function CtlDebiterCompte($valeur, $numClient, $nomCompte){
 
     $compte=getCompte($numClient,$nomCompte);
     $soldeFinal=$compte->SOLDE+$compte->MONTANTDECOUVERT;
+    var_dump($soldeFinal);
 
     var_dump($soldeFinal);
 
-    if(($valeur>=0)&&($valeur>=$soldeFinal)){
+    if(($valeur>=0)&&($valeur<=$soldeFinal)){
 
-        debiterCompte($valeur,$numClient,$compte);
+        debiterCompte($valeur,$numClient,$nomCompte);
     }
     else CtlErreur("Fond Insuffisant pour un débit de : (".$valeur.")");
 }

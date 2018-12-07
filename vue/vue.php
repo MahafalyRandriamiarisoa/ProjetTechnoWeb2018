@@ -151,8 +151,7 @@ function AfficherInscription($idconseiller){
 function AfficherVendreContrat($contrat){
 	$contenuHeader='<strong>CONSEILLER</strong>';
 	$contenuInterface='<form method="post" action="banque.php"><fieldset><legend>Vendre un contrat </legend>
-						<p><label>Nom du client:</label><input type="text" name="lastName" required /></p>
-						<p><label>Prénom du client :</label><input type="text" name="firstName" required /></p>
+						<p><label>Numéro du client:</label><input type="text" name="numClient" required /></p>
 						<p><label>Sélectionner le contrat à vendre :</label></p>
 						<p>
 							<select name="actionContrat">';
@@ -167,8 +166,7 @@ function AfficherVendreContrat($contrat){
 function AfficherOuvrirCompte($compte){
 	$contenuHeader='<strong>CONSEILLER</strong>';
 	$contenuInterface='<form method="post" action="banque.php"><fieldset><legend>Ouvrir un ou plusieurs comptes</legend>
-						<p><label>Nom du client:</label><input type="text" name="lastName" required /></p>
-						<p><label>Prénom du client :</label><input type="text" name="firstName" required /></p>
+						<p><label>Numéro du client:</label><input type="text" name="numClient" required /></p>
 						<p><label>Sélectionner le ou les comptes à ouvrir :<label></p>
 						<p>
 							<select name="actionOpenCompte" mutliple>';
@@ -185,9 +183,8 @@ function AfficherOuvrirCompte($compte){
 function AfficherResilier($compte,$contrat){
 	$contenuHeader='<strong>CONSEILLER</strong>';
 	$contenuInterface='<form method="post" action="banque.php"><fieldset><legend>Résilier compte ou contrat</legend>
-						<p><label>Nom du client:</label><input type="text" name="lastName" required /></p>
-						<p><label>Prénom du client :</label><input type="text" name="firstName" required /></p>
-						<p><label>Sélectionner le ou les comptes à ouvrir :<label></p>
+						<p><label>Numéro du client:</label><input type="text" name="numClient" required /></p>
+						<p><label>Sélectionner le compte ou le contrat à résilier :<label></p>
 						<p>
 							<select name="actionResilier"><optgroup label="Compte">';
 							

@@ -91,7 +91,7 @@ function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adress
         $comptes = getComptesClient($numClient);
         $synthese = getSyntheseClient($numClient); //todo :
         
-        AfficherSyntheseClient($client,$comptes,$contrats);
+        AfficherSyntheseClient($client,$comptes,$contrats,getEmploye($client[0]->IDEMPLOYE)->NOM);
     }
 
 /***
@@ -127,7 +127,10 @@ function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adress
 /**
  * Fonction pour controller la prise d'un rendez-vous
  * @param $numclient  parametre déjà controllé via "rechercher un client" ou par saisie interactive
- * @return array : rdvq
+ * @return array : rdv
+ *      correspond à la demande d'un rdv
+ * @throws Exception
+ *      correspond à une exception liée au fait que le numClient  n'existe pas dans la dataBase
  */
 function CtlPriseRdv($numClient){
 

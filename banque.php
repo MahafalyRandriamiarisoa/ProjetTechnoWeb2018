@@ -50,7 +50,7 @@ require_once('controleur/controleur.php');
 
         }elseif(isset($_POST['ValiderRDV'])){
 
-            CtlConfirmationRdv($_POST['IdRDVEmploye'],);
+            CtlConfirmationRdv($_POST['IdRDVEmploye']);
 
         }elseif(isset($_POST['suiv'])){
             $employe=intval($_POST['idEmp']);

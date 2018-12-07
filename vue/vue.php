@@ -31,7 +31,7 @@ function AfficherAcceuil($categorie){
 	
 }
 
-function AfficherSyntheseClient($client,$compte,$contrat){
+function AfficherSyntheseClient($client,$compte,$contrat,$conseiller){
 	$contenuHeader='<strong>AGENT</strong>';
 	$contenuBis='';
 	if(count($client)==1){
@@ -44,7 +44,7 @@ function AfficherSyntheseClient($client,$compte,$contrat){
 						<p><label>Adresse :</label><input type="text" name="adresse" value="'.$client[0]->ADRESSE.'" readonly/></p>
 						<p><label>Situation familiale :</label><input type="text" name="situation" value="'.$client[0]->SITUATIONFAMILIALE.'" readonly/></p>
 						<p><label>Profession :</label><input type="text" name="profession" value="'.$client[0]->PROFESSION.'" readonly/></p>
-						<p><label>Nom du conseiller :</label><input type="text" name="nomconseiller" value="" readonly/></p>';//nomconseiller
+						<p><label>Nom du conseiller :</label><input type="text" name="nomconseiller" value="'.$conseiller.'" readonly/></p>';//nomconseiller
 
 				if(count($compte)<=1) {
                     $contenuInterface .= '<table>

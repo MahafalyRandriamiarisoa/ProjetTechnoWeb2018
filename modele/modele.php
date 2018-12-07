@@ -426,5 +426,3 @@ function ajouterContrat($libelle){
 	$requete = "INSERT INTO CONTRAT VALUES (0, '$libelle')";
 	$connexion->query($requete);
 }
-
-modifierInfosClient(105,"3 Allée des Saules", "samir.toulaBLABLArhmine@gmail.com", "8888888888", "Celibataire", "Cadre");

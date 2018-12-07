@@ -15,7 +15,7 @@ function AfficherAcceuil($categorie,$numClient){
             $contenuHeader = '<strong>AGENT</strong>';
 
             require_once ('gabaritAgent.php');
-
+            var_dump($numClient);
 
                 break;
 
@@ -90,7 +90,7 @@ function AfficherModificationInfo($client,$categorie){
 	$contenuBis='';
 
     $numClient = $client->NUMCLIENT;
-
+    var_dump($numClient);
 	$contenuInterface='<form method="post" action="banque.php"><fieldset><p>Client n°:'.$numClient.'</p>
                         <p><input type="hidden" name="numClient" value="'.$numClient.'"</p>
                         <p><input type="hidden" name="categorie" value="'.$categorie.'"</p>
@@ -118,30 +118,33 @@ function AfficherPriseRdv($client){
 	require_once('gabaritAgent.php');
 }
 
-function AfficherOperationCompte($comptes,$numClient,$categorie){
+function AfficherOperationCompte($compte,$numClient){
 
 	$contenuHeader='<strong>AGENT</strong>';
-	$contenuInterface='<form method="post" action="banque.php"><fieldset>
-                        <p><input type="hidden" name="numClient" value="'.$numClient.'"</p>
-                        <p><input type="hidden" name="categorie" value="'.$categorie.'"</p>
-                        
-						<p><label>Sélectionner le compte :<label></p>
-						<p>
-						<select name="actionCompte">';
+	$contenuInterface='<form method="post" action="banque.php"><fieldset>';
+	
+			if(count($compte)==0){
+				$contenuInterface.='Aucun compte associé au client';
+			}else{
+				$contenuInterface.='<p><label>Sélectionner le compte :<label></p>
+									<p>
+									<select name="actionCompte">';
 
-						for($k=0;$k<count($comptes);$k++){
-							$contenuInterface.='<option value="'.$comptes[$k]->NOMCOMPTE.'">'.$comptes[$k]->NOMCOMPTE.'</option>';
-						}
+									for($k=0;$k<count($compte);$k++){
+										$contenuInterface.='<option value="'.$compte[$k]->NOMCOMPTE.'">'.$compte[$k]->NOMCOMPTE.'</option>';
+									}
 
 
-						$contenuInterface.='</select></p>
-											<p><input type="radio" name="operationcompte" value="debit"/>Débiter</p>
-											<p><input type="radio" name="operationcompte"  value="credit"/>Créditer</p>
-											<p><label> Somme : </label><input type="text" name="somme" /></p>
-											<p><input type="submit" name="validerOp" value="Valider opération"/></p>
-											</fieldset></form>';
+				$contenuInterface.='</select></p>
+									<p><input type="radio" name="operationcompte" value="debit"/>Débiter</p>
+									<p><input type="radio" name="operationcompte"  value="credit"/>Créditer</p>
+									<p><label> Somme : </label><input type="text" name="somme" /></p>
+									<p><input type="submit" name="validerop" value="Valider opération"/></p>';
+			}						
+			
+			$contenuInterface.='</fieldset></form>';
 	$contenuBis='';
-
+	
 	require_once('gabaritAgent.php');
 }
 
@@ -165,8 +168,7 @@ function AfficherInscription($idConseiller){
 function AfficherVendreContrat($contrat){
 	$contenuHeader='<strong>CONSEILLER</strong>';
 	$contenuInterface='<form method="post" action="banque.php"><fieldset><legend>Vendre un contrat </legend>
-						<p><label>Nom du client:</label><input type="text" name="lastName" required /></p>
-						<p><label>Prénom du client :</label><input type="text" name="firstName" required /></p>
+						<p><label>Numéro du client:</label><input type="text" name="numClient" required /></p>
 						<p><label>Sélectionner le contrat à vendre :</label></p>
 						<p>
 							<select name="actionContrat">';
@@ -174,15 +176,18 @@ function AfficherVendreContrat($contrat){
 							$contenuInterface.='<option value="'.$contrat[$i]->LIBELLE.'">'.$contrat[$i]->LIBELLE.'</option>';
 							}
 							$contenuInterface.='</select>
-						</p><p><input type="submit" name="vendre" value="Vendre le contrat"/></p></fieldset></form>';
+						</p>
+						<p><label>Date du contrat:</label><input type="date" name="dateContrat" required /></p>
+						<p><label>Tarif mensuel:</label><input type="text" name="tarifMensuel" required /></p>
+						<p><input type="submit" name="vendre" value="Vendre le contrat"/></p>
+						</fieldset></form>';
 						require_once('gabaritConseiller.php');
 }
 
 function AfficherOuvrirCompte($compte){
 	$contenuHeader='<strong>CONSEILLER</strong>';
 	$contenuInterface='<form method="post" action="banque.php"><fieldset><legend>Ouvrir un ou plusieurs comptes</legend>
-						<p><label>Nom du client:</label><input type="text" name="lastName" required /></p>
-						<p><label>Prénom du client :</label><input type="text" name="firstName" required /></p>
+						<p><label>Numéro du client:</label><input type="text" name="numClient" required /></p>
 						<p><label>Sélectionner le ou les comptes à ouvrir :<label></p>
 						<p>
 							<select name="actionOpenCompte" mutliple>';
@@ -199,9 +204,8 @@ function AfficherOuvrirCompte($compte){
 function AfficherResilier($compte,$contrat){
 	$contenuHeader='<strong>CONSEILLER</strong>';
 	$contenuInterface='<form method="post" action="banque.php"><fieldset><legend>Résilier compte ou contrat</legend>
-						<p><label>Nom du client:</label><input type="text" name="lastName" required /></p>
-						<p><label>Prénom du client :</label><input type="text" name="firstName" required /></p>
-						<p><label>Sélectionner le ou les comptes à ouvrir :<label></p>
+						<p><label>Numéro du client:</label><input type="text" name="numClient" required /></p>
+						<p><label>Sélectionner le compte ou le contrat à résilier :<label></p>
 						<p>
 							<select name="actionResilier"><optgroup label="Compte">';
 							
@@ -219,16 +223,46 @@ function AfficherResilier($compte,$contrat){
 											require_once('gabaritConseiller.php');
 }
 
-function AfficherErreur ($erreur){
+	
+function AfficherErreurLogin ($erreur){
 	$contenu='<fieldset>
 			   <legend> Erreurs détectées</legend>
 			   <p>'.$erreur.'</p>
 			  </fieldset>';
-	require_once('gabaritLogin.php');
+	require_once('gabaritLogin.php');		  
+}
+
+	
+function AfficherErreurAgent ($erreur){
+	$contenuHeader='<strong>AGENT</strong>';
+	$contenuInterface='<fieldset>
+			   <legend> Erreurs détectées</legend>
+			   <p>'.$erreur.'</p>
+			  </fieldset>';
+	require_once('gabaritAgent.php');		  
+}
+
+	
+function AfficherErreurConseiller ($erreur){
+	$contenuHeader='<strong>CONSEILLER</strong>';
+	$contenuInterface='<fieldset>
+			   <legend> Erreurs détectées</legend>
+			   <p>'.$erreur.'</p>
+			  </fieldset>';
+	require_once('gabaritConseiller.php');		  
+}
+
+	
+function AfficherErreurDirecteur ($erreur){
+	$contenuHeader='<strong>DIRECTEUR</strong>';
+	$contenuInterface='<fieldset>
+			   <legend> Erreurs détectées</legend>
+			   <p>'.$erreur.'</p>
+			  </fieldset>';
+	require_once('gabaritDirecteur.php');		  
 }
 
 function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $numClient){
-	echo "La catégorie appelée par le controleur est :" . $categorie;
     $contenuHeader='';
 	$nbRDV = count($rdvEmploye);
 	$time = array();

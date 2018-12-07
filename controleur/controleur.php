@@ -91,7 +91,7 @@ function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adress
         $comptes = getComptesClient($numClient);
         $synthese = getSyntheseClient($numClient); //todo :
         
-        AfficherSyntheseClient($client,$comptes,$contrats,getEmploye($client[0]->IDEMPLOYE)->NOM);
+        AfficherSyntheseClient($client,$comptes,$contrats,getEmploye($client[0]->IDEMPLOYE)->NOMEMPLOYE);
     }
 
 /***
@@ -101,12 +101,21 @@ function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adress
  *      correspond à une exception concernant l'existence du client par rapport au numClient
  *
  */
-    function CtlModificationInfo($numClient){
+function CtlAfficherModificationInfo($numClient){
+
 
         CtlnumClientExiste($numClient);
-        $client = checkClient($numClient);
+
+        $client=checkClient($numClient);
 
         AfficherModificationInfo($client[0]);
+
+       
+
+    }
+
+    function CtlValiderModificationInfo($numClient,$adresse, $email, $numTel, $situationFamiliale, $profession){
+        modifierInfosClient($numClient,$adresse, $email, $numTel, $situationFamiliale, $profession);
     }
 
 /***

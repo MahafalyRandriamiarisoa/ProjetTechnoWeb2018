@@ -264,6 +264,45 @@ function AfficherErreurDirecteur ($erreur){
 	require_once('gabaritDirecteur.php');		  
 }
 
+
+
+function AfficherErreur($categorie,$erreur){
+
+    $contenuHeader = '<strong>'.strtoupper($categorie).'</strong>';
+    $contenuInterface = '<fieldset>
+                            <legend>Erreurs détectées</legend>
+                            <p>'.$erreur.'</p>
+                         </fieldset>';
+
+    $contenu = $contenuInterface;
+
+
+    switch ($categorie){
+
+        case 'Agent' :
+
+            require_once('gabaritAgent.php');
+            break;
+
+        case 'Conseiller' :
+
+            require_once('gabaritConseiller.php');
+            break;
+
+        case 'Directeur' :
+
+            require_once ('gabaritDirecteur.php');
+            break;
+
+        default :
+
+            require_once('gabaritLogin.php');
+
+
+    }
+
+}
+
 function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $numClient){
     $contenuHeader='';
 	$nbRDV = count($rdvEmploye);

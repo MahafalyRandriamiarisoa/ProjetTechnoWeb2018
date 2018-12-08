@@ -131,5 +131,8 @@ try{
     }
 
 }catch(Exception $e1){
-    CtlErreur($e1->getMessage());
+
+    $categorie = (isset($categorie))?$_POST['categorie']:'';
+
+    CtlErreur($categorie,$e1->getMessage());
 }

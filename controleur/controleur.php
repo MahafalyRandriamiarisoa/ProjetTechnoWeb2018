@@ -163,6 +163,8 @@ function CtlPriseRdv($numClient){
  *
  */
 function CtlConfirmationRdv($IDEMPLOYE, $IDMOTIF, $NUMCLIENT, $DATEHEURERDV){
+    //todo : envoyer date avec slash
+
     enregistrerRDV($IDEMPLOYE,$IDMOTIF,$NUMCLIENT,$DATEHEURERDV);//$rdv a comme attribut (IDEMPLOYE,IDMOTIF,NUMCLIENT, DATEHEURERDV
 }
 
@@ -286,7 +288,7 @@ function CtlFermerCompte($numClient, $nomCompte){
  */
 function CtlModifierMontantDecouvert($montant,$numClient,$nomCompte){
 
-    setMontantDecouvert($montant,$numClient,$nomCompte);
+    setMontantDecouvertAutorise($numClient, $nomCompte, $montant);
 }
 
 
@@ -294,12 +296,14 @@ function CtlModifierMontantDecouvert($montant,$numClient,$nomCompte){
  * Fonction affichant un message d'erreur permettant de revenir sur la page login
  * @param $msg
  */
-function CtlErreur($msg){
-    //AfficherErreur($msg);
-    var_dump($msg);
+function CtlErreur($categorie,$msg){
+
+    AfficherErreur($categorie,$msg);
+
 }
 
 function CtlGestionClient($numClient){
+
     //todo : reflechir à quelle vue mettre
     //après avoir "log" un Client
 }

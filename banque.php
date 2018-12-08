@@ -21,9 +21,7 @@ try{
             $numClient = $_POST['numClient'];
 
             switch ($_POST['action']) {
-
                 case 'syntese':
-
                     CtlSyntheseClient($_POST['numClient']);
                     break;
 

@@ -411,7 +411,7 @@ function resilierClient($numClient){
 
 function ajouterRDV($idEmploye, $idMotif, $numClient, $dateHeureRDV){
 	$connexion = getConnect();
-	$requete = "INSERT INTO RENDEZVOUS VALUES (0, $idMotif, $numClient, STR_TO_DATE('$dateHeureRDV', '%d/%m/%Y/%H'))";
+	$requete = "INSERT INTO RENDEZVOUS VALUES (0, $idEmploye, $idMotif, $numClient, STR_TO_DATE('$dateHeureRDV', '%d/%m/%Y/%k'))";
 	$connexion->query($requete);
 }
 

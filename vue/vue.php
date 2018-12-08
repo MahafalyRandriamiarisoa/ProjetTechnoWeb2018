@@ -149,7 +149,7 @@ function AfficherOperationCompte($compte, $numClient, $categorie){
 function AfficherInscription($idConseiller){
 	$contenuHeader = '<strong>CONSEILLER</strong>';
 	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Nouveau client </legend>
-						<p><label>IdConseiller:</label><input type="text" name="idConseiller" value="'.$idConseiller.'" required /></p>
+						<p><label>IdConseiller:</label><input type="text" name="idConseiller" value="'.$idConseiller.'" required/></p>
 						<p><label>Nom:</label><input type="text" name="lastName" required /></p>
 						<p><label>Prénom :</label><input type="text" name="firstName" required /></p>
 						<p><label>Date de naissance:</label><input type="text" name="bday" required /></p>

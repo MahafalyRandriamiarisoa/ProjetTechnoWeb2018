@@ -44,6 +44,35 @@ try{
 
             }
 
+        }elseif(!empty($_POST['IdConseiller'])){
+            $idConseiller = $_POST['IdConseiller'];
+            $action = $_POST['action'];
+            
+            switch($action){
+                case 'inscrireClient':
+                    CtlInscriptionClient($idConseiller);
+                    break;
+
+                case 'vendreContrat':
+                    $contrats = getAllContrats();
+                    AfficherVendreContrat($contrats);
+                    break;    
+                
+                case 'ouvrirCompte': 
+                    $comptes = allTypeCompte();
+                    AfficherOuvrirCompte($comptes);
+                    break;
+                    
+                case 'modifDecouvert': 
+                    echo "Il faut la fonction afficherModifierMontantDécouvert";
+                    break;  
+                
+                case 'resilier': 
+                    break;  
+
+                case 'planning': 
+                    break;  
+            }
         }else{
 
             $numClient = (isset($_POST['numClient'])) ? $_POST['numClient'] : '';
@@ -132,6 +161,23 @@ try{
         $DATEHEURERDV = $_POST['choixRDV'];
         var_dump($DATEHEURERDV);
         CtlValiderRDV(intval($idEmploye), intval($idMotif), intval($numClient), $DATEHEURERDV);
+
+    }elseif(isset($_POST['ajouter'])){
+        $idConseiller = $_POST['idConseiller'];
+        $lastName = $_POST['lastName'];
+        $firstName = $_POST['firstName'];
+        $bday = $_POST['bday'];
+        $adresse = $_POST['adresse'];
+        $mail = $_POST['mail'];
+        $tel = $_POST['tel'];
+        $situation = $_POST['situation'];
+        $profession = $_POST['profession'];
+
+        if(isset($lastName) && isset($firstName) && isset($bday) && isset($adresse) && isset($adresse) && isset($mail) && isset($tel) && isset($situation) && isset($profession)){
+            CtlenregistrerClient($idConseiller, $lastName, $firstName, $bday, $adresse, $mail, $tel, $situation, $profession);
+        }else{
+            echo "DES ERREURS DANS LE FORMULAIRE";
+        }
 
     }else{
 

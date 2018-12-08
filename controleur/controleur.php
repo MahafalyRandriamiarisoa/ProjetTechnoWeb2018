@@ -75,11 +75,15 @@ function CtlnumClientExiste($numClient){
  */
 function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adresse, $email, $numTel, $situationFamiliale, $profession){
  //todo : verifier si le client n'existe pas déjà
-        enregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adresse, $email, $numTel, $situationFamiliale, $profession);
+    enregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adresse, $email, $numTel, $situationFamiliale, $profession);
 
-		AfficherAcceuil(getEmploye($idEmploye)->CATEGORIE);
-	}
+    AfficherAcceuil(getEmploye($idEmploye)->CATEGORIE, '');
+}
 
+function CtlInscriptionClient($idConseiller){
+    AfficherInscription($idConseiller);
+    //CtlenregistrerClient();
+}
 
 /***
  * Fonction qui controle l'affichage de la synthese du client par son numClient
@@ -105,19 +109,17 @@ function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adress
 function CtlAfficherModificationInfo($numClient){
 
 
-        CtlnumClientExiste($numClient);
+    CtlnumClientExiste($numClient);
 
-        $client=checkClient($numClient);
+    $client=checkClient($numClient);
 
-        $categorie = $_POST['categorie'];
+    $categorie = $_POST['categorie'];
 
-        AfficherModificationInfo($client[0],$categorie);
+    AfficherModificationInfo($client[0],$categorie);
 
+}
 
-
-    }
-
-    function CtlValiderModificationInfo($numClient,$adresse, $email, $numTel, $situationFamiliale, $profession){
+function CtlValiderModificationInfo($numClient,$adresse, $email, $numTel, $situationFamiliale, $profession){
         modifierInfosClient($numClient,$adresse, $email, $numTel, $situationFamiliale, $profession);
     }
 

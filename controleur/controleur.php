@@ -132,8 +132,8 @@ function CtlAfficherModificationInfo($numClient){
 
 
     function CtlPlanning($rdvEmploye,$int,$categorie,$numClient){
-
-        AfficherPlanning($rdvEmploye,$int, $categorie,$numClient);
+        $client = CtlnumClientExiste($numClient);
+        AfficherPlanning($rdvEmploye,$int, $categorie,$client);
     }
 
 /**
@@ -164,8 +164,7 @@ function CtlAfficherRDVClient($numClient){
  */
 function CtlValiderRDV($idEmploye, $idMotif, $numClient, $DATEHEURERDV){
     //todo : envoyer date avec slash
-
-    ajouterRDV($idEmploye, $idMotif, $numClient, $DATEHEURERDV);//$rdv a comme attribut (IDEMPLOYE,IDMOTIF,NUMCLIENT, DATEHEURERDV
+    ajouterRDV($idEmploye, $idMotif, $numClient, $DATEHEURERDV); //$rdv a comme attribut (IDEMPLOYE,IDMOTIF,NUMCLIENT, DATEHEURERDV
 }
 
 /**

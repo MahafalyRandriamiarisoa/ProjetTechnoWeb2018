@@ -432,3 +432,5 @@ function ajouterPieceAFournir($libelle){
 	$requete = "INSERT INTO PIECES_A_FOURNIR VALUES (0, '$libelle')";
 	$connexion->query($requete);
 }
+
+//ajouterRDV(3,1,4,'4/12/2018/14');

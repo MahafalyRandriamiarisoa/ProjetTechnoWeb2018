@@ -294,8 +294,10 @@ function AfficherErreur($categorie,$erreur){
 
 }
 
-function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $numClient){
-	$nbRDV = count($rdvEmploye);
+function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client){
+    //todo : numClient peut être à remplacer par un $client pour pouvoir récuperer l'idEmploye même si le tableau de RDV est vide (@see : ligne 355)
+	$numClient = $client->NUMCLIENT;
+    $nbRDV = count($rdvEmploye);
 	$time = array();
 
 	for($i = 0; $i < $nbRDV; $i++){
@@ -351,7 +353,7 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $numClient
 								<form method="post" action="banque.php">
 								    <input type="hidden" name="numClient" value="'.$numClient.'" /></p>
 								    <input type="hidden" name="categorie" value="'.$categorie.'" /></p>
-									<input type="hidden" class="invisible" name="idEmp" value="'.$rdvEmploye[0]->IDEMPLOYE.'" />
+									<input type="hidden" class="invisible" name="idEmp" value="'.$client->IDEMPLOYE.'" />
 									<input type="hidden" class="invisible" name="semCourante" value="'.$semaineSelection.'" />
 									<td><input type="submit" name="prec" value="Semaine précédente" /></td>
 									<th colspan="4" style="text-align: center;">Semaine du '.$semaine[0].'</th>

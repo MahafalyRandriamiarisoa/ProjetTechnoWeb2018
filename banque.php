@@ -38,7 +38,7 @@ try{
                 case 'rdv':
 
                     $rdvEmploye = CtlAfficherRDVClient($_POST['numClient']);
-
+                    var_dump($rdvEmploye);
                     CtlPlanning($rdvEmploye, 0,$categorie,$numClient);
                     break;
 
@@ -123,13 +123,15 @@ try{
         CtlRetourAcceuil($_POST['categorie'],$_POST['numClient']);
 
     }elseif(isset($_POST['idRDVEmploye'])){
+
         $numClient = $_POST['numClient'];
         $client = CtlnumClientExiste($numClient);
         $idEmploye = $client->IDEMPLOYE;
         //$idMotif = $_POST['idMotif']; // controllé par la vue et par le controlleur quand le directeur en creera
         $idMotif = ''; // controllé par la vue et par le controlleur quand le directeur en creera
         $DATEHEURERDV = $_POST['choixRDV'];
-        CtlValiderRDV($idEmploye, $idMotif, $numClient, $DATEHEURERDV);
+        var_dump($DATEHEURERDV);
+        CtlValiderRDV(intval($idEmploye), intval($idMotif), intval($numClient), $DATEHEURERDV);
 
     }else{
 

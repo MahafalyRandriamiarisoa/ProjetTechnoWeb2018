@@ -215,7 +215,7 @@ function AfficherResilier($compte,$contrat){
 	}
 	$contenuInterface .= '</optgroup><optgroup label="Contrat">';
 	
-	for($i = 0; $i < count($contrat); s$i++){
+	for($i = 0; $i < count($contrat); $i++){
 		$contenuInterface .= '<option value="'.$contrat[$i]->LIBELLE.'">'.$contrat[$i]->LIBELLE.'</option>';
 	}
 	

@@ -295,7 +295,6 @@ function AfficherErreur($categorie,$erreur){
 }
 
 function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $numClient){
-    $contenuHeader = '';
 	$nbRDV = count($rdvEmploye);
 	$time = array();
 
@@ -312,7 +311,7 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $numClient
 	$semaine = array();
 
 	for($i = 0; $i < 6; $i++){
-		$semaine[$i] = date('j/m/Y', strtotime('+'.($i+5).' day +'.($semaineSelection - 1).' week'));
+		$semaine[$i] = date('j/m/Y', strtotime('+'.($i+3).' day +'.($semaineSelection - 1).' week'));
 	}
 
 	$planning = array();
@@ -369,6 +368,7 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $numClient
 							</tr>';
 
 	if($categorie == 'Conseiller'){
+		$contenuHeader = '<strong>CONSEILLER</strong>';
 		for($k = 0; $k < 11; $k++){
 			$heure = 8 + $k;
 			$contenuBis .= '<tr>
@@ -386,6 +386,7 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $numClient
 					<input type="submit" value="Valider les disponiblités">
 				</fieldset>';
 	}elseif($categorie == 'Agent'){
+		$contenuHeader = '<strong>AGENT</strong>';
 		for($k = 0; $k < 11; $k++){
 			$heure = 8 + $k;
 			$contenuBis .= '<tr>

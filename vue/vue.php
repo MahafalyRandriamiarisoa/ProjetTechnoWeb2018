@@ -361,8 +361,8 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $numClient
 								<form method="post" action="banque.php">
 								    <input type="hidden" name="numClient" value="'.$numClient.'" /></p>
 								    <input type="hidden" name="categorie" value="'.$categorie.'" /></p>
-									<input type="hidden" class="invisible" name="idEmp" value="'.$rdvEmploye[0]->IDEMPLOYE.' />
-									<input type="hidden" class="invisible" name="semCourante" value="'.$semaineSelection.' />
+									<input type="hidden" class="invisible" name="idEmp" value="'.$rdvEmploye[0]->IDEMPLOYE.'" />
+									<input type="hidden" class="invisible" name="semCourante" value="'.$semaineSelection.'" />
 										<td><input type="submit" name="prec" value="Semaine précédente" /></td>
 										<th colspan="4" style="text-align: center;">Semaine du '.$semaine[0].'</th>
 										<td><input type="submit" name="suiv" value="Semaine suivante" /></td>

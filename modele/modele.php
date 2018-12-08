@@ -226,7 +226,7 @@ function getRDV($idEmploye){
 
  function enregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adresse, $email, $numTel, $situationFamiliale, $profession){
 	$connexion = getConnect();
-	$requete = "INSERT INTO CLIENT values (0, $idEmploye, '$nom', '$prenom', STR_TO_DATE('$dateNaissance', '%d-%m-%Y'), '$adresse', '$email', '$numTel', '$situationFamiliale', '$profession')";
+	$requete = "INSERT INTO CLIENT values (0, $idEmploye, '$nom', '$prenom', STR_TO_DATE('$dateNaissance', '%d/%m/%Y'), '$adresse', '$email', '$numTel', '$situationFamiliale', '$profession')";
 	$connexion->query($requete);
  }
 
@@ -432,3 +432,5 @@ function ajouterPieceAFournir($libelle){
 	$requete = "INSERT INTO PIECES_A_FOURNIR VALUES (0, '$libelle')";
 	$connexion->query($requete);
 }
+
+var_dump(getRDV(3));

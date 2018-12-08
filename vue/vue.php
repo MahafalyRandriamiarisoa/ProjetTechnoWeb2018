@@ -354,10 +354,9 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $numClient
 								    <input type="hidden" name="categorie" value="'.$categorie.'" /></p>
 									<input type="hidden" class="invisible" name="idEmp" value="'.$rdvEmploye[0]->IDEMPLOYE.'" />
 									<input type="hidden" class="invisible" name="semCourante" value="'.$semaineSelection.'" />
-										<td><input type="submit" name="prec" value="Semaine précédente" /></td>
-										<th colspan="4" style="text-align: center;">Semaine du '.$semaine[0].'</th>
-										<td><input type="submit" name="suiv" value="Semaine suivante" /></td>
-								</form>
+									<td><input type="submit" name="prec" value="Semaine précédente" /></td>
+									<th colspan="4" style="text-align: center;">Semaine du '.$semaine[0].'</th>
+									<td><input type="submit" name="suiv" value="Semaine suivante" /></td>
 							</tr>
 							<tr>
 								<td class="disabled"></td>';
@@ -402,13 +401,9 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $numClient
 		$contenuBis .= '</table>
 					</div>
 					<input type="submit" name="idRDVEmploye" value="Valider le RDV">
+					</form>
 				</fieldset>';
 	}
 	require_once('gabaritAgent.php');
 
 }
-/**
- * require_once('../modele/modele.php');
-$rdv = getRDV(3);
-AfficherPlanning($rdv, 0);
-**/

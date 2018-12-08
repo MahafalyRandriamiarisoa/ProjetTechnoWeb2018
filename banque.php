@@ -126,8 +126,9 @@ try{
         $numClient = $_POST['numClient'];
         $client = CtlnumClientExiste($numClient);
         $idEmploye = $client->IDEMPLOYE;
-        $idMotif = $_POST['idMotif']; // controllé par la vue et par le controlleur quand le directeur en creera
-        
+        //$idMotif = $_POST['idMotif']; // controllé par la vue et par le controlleur quand le directeur en creera
+        $idMotif = ''; // controllé par la vue et par le controlleur quand le directeur en creera
+        $DATEHEURERDV = $_POST['choixRDV'];
         CtlValiderRDV($idEmploye, $idMotif, $numClient, $DATEHEURERDV);
 
     }else{

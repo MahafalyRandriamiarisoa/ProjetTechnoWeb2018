@@ -165,7 +165,7 @@ function CtlAfficherRDVClient($numClient){
 function CtlValiderRDV($idEmploye, $idMotif, $numClient, $DATEHEURERDV){
     //todo : envoyer date avec slash
 
-    enregistrerRDV($idEmploye, $idMotif, $numClient, $DATEHEURERDV);//$rdv a comme attribut (IDEMPLOYE,IDMOTIF,NUMCLIENT, DATEHEURERDV
+    ajouterRDV($idEmploye, $idMotif, $numClient, $DATEHEURERDV);//$rdv a comme attribut (IDEMPLOYE,IDMOTIF,NUMCLIENT, DATEHEURERDV
 }
 
 /**

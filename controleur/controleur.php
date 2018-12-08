@@ -144,7 +144,7 @@ function CtlAfficherModificationInfo($numClient){
  * @throws Exception
  *      correspond à une exception liée au fait que le numClient  n'existe pas dans la dataBase
  */
-function CtlPriseRdv($numClient){
+function CtlAfficherRDVClient($numClient){
 
     CtlnumClientExiste($numClient);
 
@@ -162,10 +162,10 @@ function CtlPriseRdv($numClient){
  * @param $DATEHEURERDV
  *
  */
-function CtlConfirmationRdv($IDEMPLOYE, $IDMOTIF, $NUMCLIENT, $DATEHEURERDV){
+function CtlValiderRDV($idEmploye, $idMotif, $numClient, $DATEHEURERDV){
     //todo : envoyer date avec slash
 
-    enregistrerRDV($IDEMPLOYE,$IDMOTIF,$NUMCLIENT,$DATEHEURERDV);//$rdv a comme attribut (IDEMPLOYE,IDMOTIF,NUMCLIENT, DATEHEURERDV
+    enregistrerRDV($idEmploye, $idMotif, $numClient, $DATEHEURERDV);//$rdv a comme attribut (IDEMPLOYE,IDMOTIF,NUMCLIENT, DATEHEURERDV
 }
 
 /**

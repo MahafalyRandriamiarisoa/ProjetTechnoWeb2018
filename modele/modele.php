@@ -433,4 +433,3 @@ function ajouterPieceAFournir($libelle){
 	$connexion->query($requete);
 }
 
-var_dump(getRDV(3));

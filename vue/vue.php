@@ -266,7 +266,8 @@ function AfficherErreurDirecteur ($erreur){
 
 
 function AfficherErreur($categorie,$erreur){
-
+    $numClient = '';
+    $contenuBis = '';
     $contenuHeader = '<strong>'.strtoupper($categorie).'</strong>';
     $contenuInterface = '<fieldset>
                             <legend>Erreurs détectées</legend>

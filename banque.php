@@ -37,14 +37,13 @@ try{
 
                 case 'rdv':
 
-                    $rdvEmploye = CtlAfficherRDVClient($_POST['numClient']);
-                    var_dump($rdvEmploye);
-                    CtlPlanning($rdvEmploye, 0,$categorie,$numClient);
+                    CtlPlanning(0,$categorie,$numClient);
                     break;
 
             }
 
         }elseif(!empty($_POST['IdConseiller'])){
+
             $idConseiller = $_POST['IdConseiller'];
             $action = $_POST['action'];
             
@@ -73,6 +72,7 @@ try{
                 case 'planning': 
                     break;  
             }
+
         }else{
 
             $numClient = (isset($_POST['numClient'])) ? $_POST['numClient'] : '';
@@ -94,7 +94,7 @@ try{
         $rdvEmploye = getRDV($employe);
         $categorie = (empty($_POST['categorie'])) ? $categorie : $_POST['categorie'];
 
-        AfficherPlanning($rdvEmploye, (intval($_POST['semCourante'])+1), $categorie, $_POST['numClient']);
+        CtlPlanning((intval($_POST['semCourante'])+1), $categorie, $_POST['numClient']);
     
     }elseif(isset($_POST['prec'])){
 
@@ -102,7 +102,7 @@ try{
         $rdvEmploye = getRDV($idEmploye);
         $categorie = (empty($_POST['categorie'])) ? $categorie : $_POST['categorie'];
 
-        AfficherPlanning($rdvEmploye, (intval($_POST['semCourante']) - 1), $categorie, $_POST['numClient']);
+        CtlPlanning((intval($_POST['semCourante']) - 1), $categorie, $_POST['numClient']);
 
     }elseif(isset($_POST['modifier'])){
 
@@ -153,14 +153,12 @@ try{
 
     }elseif(isset($_POST['idRDVEmploye'])){
 
+        $categorie = $_POST['categorie'];
         $numClient = $_POST['numClient'];
-        $client = CtlnumClientExiste($numClient);
-        $idEmploye = $client->IDEMPLOYE;
         //$idMotif = $_POST['idMotif']; // controllé par la vue et par le controlleur quand le directeur en creera
         $idMotif = ''; // controllé par la vue et par le controlleur quand le directeur en creera
         $DATEHEURERDV = $_POST['choixRDV'];
-        var_dump($DATEHEURERDV);
-        CtlValiderRDV(intval($idEmploye), intval($idMotif), intval($numClient), $DATEHEURERDV);
+        CtlValiderRDV($_POST['semCourante'],intval($idMotif), intval($numClient), $DATEHEURERDV,$categorie);
 
     }elseif(isset($_POST['ajouter'])){
         $idConseiller = $_POST['idConseiller'];
@@ -174,9 +172,13 @@ try{
         $profession = $_POST['profession'];
 
         if(isset($lastName) && isset($firstName) && isset($bday) && isset($adresse) && isset($adresse) && isset($mail) && isset($tel) && isset($situation) && isset($profession)){
+
             CtlenregistrerClient($idConseiller, $lastName, $firstName, $bday, $adresse, $mail, $tel, $situation, $profession);
+
         }else{
+
             echo "DES ERREURS DANS LE FORMULAIRE";
+
         }
 
     }else{

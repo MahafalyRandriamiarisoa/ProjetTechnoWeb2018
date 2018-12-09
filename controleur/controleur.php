@@ -133,10 +133,36 @@ function CtlValiderModificationInfo($numClient,$adresse, $email, $numTel, $situa
     }
 
 
-    function CtlPlanning($rdvEmploye,$int,$categorie,$numClient){
-        $client = CtlnumClientExiste($numClient);
-        AfficherPlanning($rdvEmploye,$int, $categorie,$client);
+    function CtlPlanning($int,$categorie,$numClient){
+        $client = checkClient($numClient);
+        $rdvEmploye = getRDV($client[0]->IDEMPLOYE);
+
+        AfficherPlanning($rdvEmploye,$int, $categorie,$client[0]);
     }
+
+/**
+ * Fonction pour enregistrer un RDV champ par champ
+ *
+ * @param $IDEMPLOYE
+ * @param $IDMOTIF
+ * @param $NUMCLIENT
+ * @param $DATEHEURERDV
+ *
+ */
+function CtlValiderRDV($semaineSelection, $idMotif, $numClient, $DATEHEURERDV, $categorie){
+    //todo : envoyer date avec slash
+    $client = checkClient($numClient);
+
+    if(!($client)) {
+        throw new Exception("num client inexistant");
+    }
+
+    $rdvEmploye = getRDV($client[0]->IDEMPLOYE);
+
+    ajouterRDV($client[0]->IDEMPLOYE, $idMotif, $numClient, $DATEHEURERDV); //$rdv a comme attribut (IDEMPLOYE,IDMOTIF,NUMCLIENT, DATEHEURERDV
+
+    AfficherPlanning($rdvEmploye,$semaineSelection, $categorie,$client[0]);
+}
 
 /**
  * Fonction pour controller la prise d'un rendez-vous
@@ -155,19 +181,7 @@ function CtlAfficherRDVClient($numClient){
     return getRDV($client[0]->IDEMPLOYE);
 }
 
-/**
- * Fonction pour enregistrer un RDV champ par champ
- *
- * @param $IDEMPLOYE
- * @param $IDMOTIF
- * @param $NUMCLIENT
- * @param $DATEHEURERDV
- *
- */
-function CtlValiderRDV($idEmploye, $idMotif, $numClient, $DATEHEURERDV){
-    //todo : envoyer date avec slash
-    ajouterRDV($idEmploye, $idMotif, $numClient, $DATEHEURERDV); //$rdv a comme attribut (IDEMPLOYE,IDMOTIF,NUMCLIENT, DATEHEURERDV
-}
+
 
 /**
  * Fonction pour effectuer le debit d'un compte avec controle

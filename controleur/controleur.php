@@ -44,7 +44,7 @@ function CtlnumClientExiste($numClient){
                 return $employe;
             }
         }
-        throw new Exception("login non trouvé");
+        throw new Exception("Login Incorrect !");
     }
     function CtlRetourAcceuil($categorie,$numClient){
 
@@ -154,7 +154,7 @@ function CtlValiderRDV($semaineSelection, $idMotif, $numClient, $DATEHEURERDV, $
     $client = checkClient($numClient);
 
     if(!($client)) {
-        throw new Exception("num client inexistant");
+        throw new Exception("Numéro du client inexistant !");
     }
 
     $rdvEmploye = getRDV($client[0]->IDEMPLOYE);
@@ -164,7 +164,7 @@ function CtlValiderRDV($semaineSelection, $idMotif, $numClient, $DATEHEURERDV, $
     AfficherPlanning($rdvEmploye,$semaineSelection, $categorie,$client[0]);
 }
 
-/**
+/** // à  supprimer
  * Fonction pour controller la prise d'un rendez-vous
  * @param $numclient  parametre déjà controllé via "rechercher un client" ou par saisie interactive
  * @return array : rdv
@@ -201,7 +201,7 @@ function CtlDebiterCompte($valeur, $numClient, $nomCompte){
 
         debiterCompte($valeur,$numClient,$nomCompte);
     }
-    else CtlErreur("Fond Insuffisant pour un débit de : (".$valeur.")");
+    else throw new Exception("Fond Insuffisant pour un débit de : ".$valeur."€ (Votre Solde :".$compte->SOLDE."€)");
 }
 
 /**

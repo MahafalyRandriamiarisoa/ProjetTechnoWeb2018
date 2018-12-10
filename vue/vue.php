@@ -363,7 +363,7 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 		$contenuBis .= '</table>
 					</div>
 					
-					<p><label>Motif du rendez-vous: </label><select name="motif">';
+					<p><label>Motif du rendez-vous: </label><select name="idMotif">';
 					for($p=0;$p<count($motifs);$p++){
 						$contenuBis .= '<option value="'.$motifs[$p]->IDMOTIF.'">'.$motifs[$p]->LIBELLEMOTIF.'</option>';
 					}

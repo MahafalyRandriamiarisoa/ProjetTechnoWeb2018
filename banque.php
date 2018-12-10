@@ -7,8 +7,8 @@ try{
     if(isset($_POST['connexion'])){
 
         //todo : verifier si la data base est vide
-        $employe = CtlAcceuil($_POST['identifiant'], $_POST['motDePasse']);
-        $categorie = $employe->CATEGORIE;
+        CtlAcceuil($_POST['identifiant'], $_POST['motDePasse']);
+
 
     }elseif(isset($_POST['valider'])){
 
@@ -37,7 +37,7 @@ try{
 
                 case 'rdv':
 
-                    CtlPlanning(0,$categorie,$numClient);
+                    CtlPlanning(0,$_POST['categorie'],$numClient);
                     break;
 
             }
@@ -57,8 +57,7 @@ try{
                     break;    
                 
                 case 'ouvrirCompte': 
-                    $comptes = allTypeCompte();
-                    AfficherOuvrirCompte($comptes);
+                    CtlAfficherOuvrirCompte($_POST['numClient']);
                     break;
                     
                 case 'modifDecouvert': 

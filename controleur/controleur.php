@@ -10,7 +10,7 @@
         AfficherInterfaceLogin();
             }
 
-/**
+/**à supprimer
  * Fonction pour verifier si un client, fonction particulierement importante lors de la saisie interactive directe du numClient
  * @param $numClient identifiant potentiellement rattaché à un client
  * @return array [0]:
@@ -328,6 +328,11 @@ function CtlGestionClient($numClient){
 
     //todo : reflechir à quelle vue mettre
     //après avoir "log" un Client
+}
+
+function CtlAfficherOuvrirCompte($numClient){
+    $comptes = getComptesPotentielsClient($numClient);
+    AfficherOuvrirCompte($comptes);
 }
 	/**
 	*Fonction 

@@ -172,12 +172,11 @@ function AfficherVendreContrat($contrat){
 							<select name="actionContrat">';
 
 	for($i = 0; $i < count($contrat); $i++){
-		$contenuInterface .= '<option value="'.$contrat[$i]->LIBELLE.'">'.$contrat[$i]->LIBELLE.'</option>';
+		$contenuInterface .= '<option value="'.$contrat[$i]->IDCONTRAT.'">'.$contrat[$i]->LIBELLE.'</option>';
 	}
 
 	$contenuInterface .= '</select>
 						</p>
-						<p><label>Date du contrat:</label><input type="date" name="dateContrat" required /></p>
 						<p><label>Tarif mensuel:</label><input type="text" name="tarifMensuel" required /></p>
 						<p><input type="submit" name="vendre" value="Vendre le contrat"/></p>
 						</fieldset></form>';

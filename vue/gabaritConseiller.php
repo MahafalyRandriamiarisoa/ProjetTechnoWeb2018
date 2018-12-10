@@ -13,24 +13,11 @@
 		</header>
 		<aside>
 			<form id="f1" method="post" action="banque.php">
-                <?php
-
-                echo '<p><input type="hidden" name="categorie" value="Agent" /></p>';
-                echo '<p><input type="hidden" name="numClient" value="'.$numClient.'"/></p>';
-
-                ?>
-				<fieldset >
-					<legend> Conseiller n° </legend>
-					<p><label>Id Conseiller :</label><input type="text" name="IdConseiller"/></p>
-					
-				</fieldset>
-			
-				<fieldset>
-					<legend> Actions </legend>
-					
+				<?php echo '<p><input type="text" name="categorie" value="Conseiller"style="display:none" /></p>' ?>
+              			<fieldset >
+					<p><label>Numéro du client :</label><input type="text" name="numClient"/></p>	
 					<p><label>Sélectionner une action à réaliser :<label></p>
-					<p>
-						<select name="action">
+					<p><select name="action">
 							<option value="inscrireClient">Inscrire un nouveau client</option>
 							<option value="vendreContrat">Vendre un contrat</option>
 							<option value="ouvrirCompte">Ouvrir un compte</option>

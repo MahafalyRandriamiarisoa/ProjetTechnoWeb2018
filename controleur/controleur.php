@@ -249,10 +249,10 @@ function CtlVendreContrat(){
     AfficherVendreContrat($contrats);
 }
 
-function CtlNouveauContratClient($numClient,$dateOuvertureContrat,$tarifMensuel,$libelle){
-    $idContrat = 1;
+function CtlNouveauContratClient($numClient,$dateOuvertureContrat,$tarifMensuel, $libelle){
+    $idContrat = getContrat($libelle)->IDCONTRAT;
     enregistrerContrat($numClient, $dateOuvertureContrat, $tarifMensuel, $idContrat);
-    //CtlRetourAcceuil();
+    CtlRetourAcceuil('Conseiller', '');
 }
 
 function CtlResilierContrat($numClient,$IDCONTRAT){

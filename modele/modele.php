@@ -200,6 +200,14 @@ function getRDV($idEmploye){
 	return $resultat ->fetchAll();
  }
 
+ function getContrat($libelle){
+	$connexion = getConnect();
+	$requete = "SELECT * FROM CONTRAT WHERE libelle = '$libelle'";
+	$resultat = $connexion->query($requete);
+	$resultat->setFetchMode(PDO::FETCH_OBJ);
+	return $resultat->fetch();
+ }
+
 /**
  * Cette fonction effectue une requete SQL à la base de donnée pour enregistrer un 
  * client champ par champ
@@ -336,7 +344,7 @@ function getRDV($idEmploye){
 
  function enregistrerContrat($numClient, $dateOuvertureContrat, $tarifMensuel, $idContrat){
 	$connexion = getConnect();
-	$requete = "INSERT INTO CONTRATCLIENT VALUES (0, $numClient, STR_TO_DATE('$dateOuvertureContrat', '%Y-%m-%d'), $tarifMensuel) WHERE numClient = $numClient ";
+	$requete = "INSERT INTO CONTRATCLIENT VALUES ($idContrat, $numClient, STR_TO_DATE('$dateOuvertureContrat', '%Y-%m-%d'), $tarifMensuel)";
 	$connexion->query($requete);
  }
 

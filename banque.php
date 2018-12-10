@@ -154,8 +154,7 @@ try{
 
         $categorie = $_POST['categorie'];
         $numClient = $_POST['numClient'];
-        //$idMotif = $_POST['idMotif']; // controllé par la vue et par le controlleur quand le directeur en creera
-        $idMotif = ''; // controllé par la vue et par le controlleur quand le directeur en creera
+        $idMotif = $_POST['idMotif']; // controllé par la vue et par le controlleur quand le directeur en creera
         $DATEHEURERDV = $_POST['choixRDV'];
         CtlValiderRDV($_POST['semCourante'],intval($idMotif), intval($numClient), $DATEHEURERDV,$categorie);
 

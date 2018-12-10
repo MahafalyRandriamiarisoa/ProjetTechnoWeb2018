@@ -135,8 +135,8 @@ function CtlValiderModificationInfo($numClient,$adresse, $email, $numTel, $situa
     function CtlPlanning($int,$categorie,$numClient){
         $client = checkClient($numClient);
         $rdvEmploye = getRDV($client[0]->IDEMPLOYE);
-
-        AfficherPlanning($rdvEmploye,$int, $categorie,$client[0]);
+        $motifs = allMotif();
+        AfficherPlanning($rdvEmploye,$int, $categorie,$client[0],$motifs);
     }
 
 /**

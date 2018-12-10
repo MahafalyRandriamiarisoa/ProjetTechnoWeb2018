@@ -334,7 +334,7 @@ function getRDV($idEmploye){
 
  function getContratsPotentielsClient($numClient){
 	$connexion = getConnect();
-	$requete = "SELECT IDCONTRAT FROM CONTRAT WHERE IDCONTRAT NOT IN (SELECT IDCONTRAT FROM CONTRATCLIENT)";
+	$requete = "SELECT * FROM CONTRAT WHERE IDCONTRAT NOT IN (SELECT IDCONTRAT FROM CONTRATCLIENT)";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat->fetchAll();

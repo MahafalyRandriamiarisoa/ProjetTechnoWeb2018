@@ -40,20 +40,12 @@ try{
                     CtlPlanning(0,$_POST['categorie'],$numClient);
                     break;
 
-            }
-
-        }elseif(!empty($_POST['IdConseiller'])){
-
-            $idConseiller = $_POST['IdConseiller'];
-            $action = $_POST['action'];
-            
-            switch($action){
                 case 'inscrireClient':
                     CtlInscriptionClient($idConseiller);
                     break;
 
                 case 'vendreContrat':
-                    CtlContratDisponible();
+                    CtlContratDisponible($numClient);
                     break;    
                 
                 case 'ouvrirCompte': 
@@ -72,7 +64,6 @@ try{
             }
 
         }else{
-
             $numClient = (isset($_POST['numClient'])) ? $_POST['numClient'] : '';
 
             CtlRetourAcceuil($_POST['categorie'], $numClient);
@@ -181,9 +172,8 @@ try{
     }elseif(isset($_POST['vendre'])){
         $numClient = $_POST['numClient'];
         $libelle = $_POST['actionContrat'];
-        $dateContrat = $_POST['dateContrat'];
         $tarifMensuel = $_POST['tarifMensuel'];
-        CtlNouveauContratClient($numClient, $dateContrat, $tarifMensuel, $libelle);
+        CtlNouveauContratClient($numClient, $tarifMensuel, $libelle);
     }else{
 
         CtlInterfaceLogin();

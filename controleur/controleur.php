@@ -229,8 +229,8 @@ function CtlRechercherClientNum($numClient){
  *      correspond au numèro permettant d'accéder à un unique Client
  */
 function CtlContratDisponible($numClient){
-    $contrats=getContratsPotentielClient($numClient);
-    AfficherContratsDisponibles($contrats);
+    $contrats=getContratsPotentielsClient($numClient);
+    AfficherVendreContrat($contrats);
 }
 
 /**
@@ -249,8 +249,9 @@ function CtlVendreContrat(){
     AfficherVendreContrat($contrats);
 }
 
-function CtlNouveauContratClient($numClient,$dateOuvertureContrat,$tarifMensuel, $libelle){
-    $idContrat = getContrat($libelle)->IDCONTRAT;
+function CtlNouveauContratClient($numClient,$tarifMensuel, $libelle){
+    $idContrat = intval($libelle);
+    $dateOuvertureContrat = date('Y-m-d');
     enregistrerContrat($numClient, $dateOuvertureContrat, $tarifMensuel, $idContrat);
     CtlRetourAcceuil('Conseiller', '');
 }

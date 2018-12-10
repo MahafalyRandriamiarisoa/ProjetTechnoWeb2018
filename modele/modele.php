@@ -9,15 +9,15 @@
  */
 
 function getConnect(){
-		require_once('connect.php');
-		try{
-				$connexion = new PDO('mysql:host='.SERVEUR.';dbname='.BDD, USER, PASSWORD);
-				$connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				$connexion->query("SET NAMES 'utf8'");
-				return $connexion;
-			}catch(PDOException $e){
-				echo 'Il y a eu une erreur de connexion : ' . $e->getMessage();
-			}
+	require_once('connect.php');
+	try{
+		$connexion = new PDO('mysql:host='.SERVEUR.';dbname='.BDD, USER, PASSWORD);
+		$connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$connexion->query("SET NAMES 'utf8'");
+		return $connexion;
+	}catch(PDOException $e){
+		echo 'Il y a eu une erreur de connexion : ' . $e->getMessage();
+	}
 }
 
 
@@ -226,7 +226,7 @@ function getRDV($idEmploye){
 
  function enregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adresse, $email, $numTel, $situationFamiliale, $profession){
 	$connexion = getConnect();
-	$requete = "INSERT INTO CLIENT values (0, $idEmploye, '$nom', '$prenom', STR_TO_DATE('$dateNaissance', '%d-%m-%Y'), '$adresse', '$email', '$numTel', '$situationFamiliale', '$profession')";
+	$requete = "INSERT INTO CLIENT values (0, $idEmploye, '$nom', '$prenom', STR_TO_DATE('$dateNaissance', '%d/%m/%Y'), '$adresse', '$email', '$numTel', '$situationFamiliale', '$profession')";
 	$connexion->query($requete);
  }
 
@@ -246,7 +246,7 @@ function getRDV($idEmploye){
 
  function getSolde($numClient, $nomCompte){
 	$connexion = getConnect();
-	$requete = "SELECT montant FROM COMPTE WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
+	$requete = "SELECT SOLDE FROM COMPTECLIENT WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat->fetch();
@@ -256,18 +256,18 @@ function getRDV($idEmploye){
 
  function crediterCompte($montant, $numClient, $nomCompte){
 	$connexion = getConnect();
-	$soldeActuel = getSolde($numClient, $nomCompte)->MONTANT;
+	$soldeActuel = getSolde($numClient, $nomCompte)->SOLDE;
 	$soldeCredite = $soldeActuel + $montant;
-	$requete = "INSERT INTO COMPTE (montant) VALUES $soldeCredite WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
+	$requete = "UPDATE COMPTECLIENT SET SOLDE = $soldeCredite WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
 	$connexion->query($requete);
  }
  //todo : débiter compte
 
  function debiterCompte($montant, $numClient, $nomCompte){
 	$connexion = getConnect();
-	$soldeActuel = getSolde($numClient, $nomCompte)->MONTANT;
+	$soldeActuel = getSolde($numClient, $nomCompte)->SOLDE;
 	$soldeDebite = $soldeActuel - $montant;
-	$requete = "INSERT INTO COMPTE (montant) VALUES $soldeDebite WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
+	$requete = "UPDATE COMPTECLIENT SET SOLDE = $soldeDebite WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
 	$connexion->query($requete);
  }
 
@@ -411,7 +411,7 @@ function resilierClient($numClient){
 
 function ajouterRDV($idEmploye, $idMotif, $numClient, $dateHeureRDV){
 	$connexion = getConnect();
-	$requete = "INSERT INTO RENDEZVOUS VALUES (0, $idMotif, $numClient, '$dateHeureRDV')";
+	$requete = "INSERT INTO RENDEZVOUS VALUES (0, $idEmploye, $idMotif, $numClient, STR_TO_DATE('$dateHeureRDV', '%d/%m/%Y/%k'))";
 	$connexion->query($requete);
 }
 

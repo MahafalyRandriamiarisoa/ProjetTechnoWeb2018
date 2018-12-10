@@ -22,8 +22,8 @@
                 ?>
 				<fieldset id="f1">
 					<legend> Rechercher un client </legend>
-					<p><input type="radio" name="choix" onClick="afficherNumCli()" id="r1" /><label for="r1">Par le numéro</label> </p>
-					<p><input type="radio" name="choix"  onClick="afficherNomDate()" id="r2" /><label for="r2">Par le nom et la date de naissance</label></p>
+					<p><input type="radio" name="choix" onChange="afficherNumCli()" id="r1" /><label for="r1">Par le numéro</label> </p>
+					<p><input type="radio" name="choix"  onChange="afficherNomDate()" id="r2" /><label for="r2">Par le nom et la date de naissance</label></p>
 				</fieldset>
 			
 				<fieldset>

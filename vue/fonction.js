@@ -17,7 +17,7 @@ function afficherNomDate(){
 	var noeud=document.getElementById('f1');
 	noeud.appendChild(noeudDiv);
 	noeudDiv.appendChild(noeudP);
-	document.getElementById('idP').innerHTML='<p><label>Nom du client : <label><input type="text" name="nomClient" required /></p><p><label>Date de naissance : <label><input type="text" name="birthday" required /></p>';
+	document.getElementById('idP').innerHTML='<p><label>Nom du client : <label><input type="text" name="nomClient" required /></p><p><label>Date de naissance : <label><input type="date" name="birthday" required /></p>';
 }
 
 function showRDV(dataNom, dataPrenom, dataMotif, dataPieceAFournir, dataDateHeure){

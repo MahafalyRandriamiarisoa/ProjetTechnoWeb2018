@@ -44,7 +44,7 @@ function CtlnumClientExiste($numClient){
                 return $employe;
             }
         }
-        throw new Exception("login non trouvé");
+        throw new Exception("Login Incorrect !");
     }
     function CtlRetourAcceuil($categorie,$numClient){
 
@@ -75,11 +75,15 @@ function CtlnumClientExiste($numClient){
  */
 function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adresse, $email, $numTel, $situationFamiliale, $profession){
  //todo : verifier si le client n'existe pas déjà
-        enregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adresse, $email, $numTel, $situationFamiliale, $profession);
+    enregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adresse, $email, $numTel, $situationFamiliale, $profession);
 
-		AfficherAcceuil(getEmploye($idEmploye)->CATEGORIE);
-	}
+    AfficherAcceuil(getEmploye($idEmploye)->CATEGORIE, '');
+}
 
+function CtlInscriptionClient($idConseiller){
+    AfficherInscription($idConseiller);
+    //CtlenregistrerClient();
+}
 
 /***
  * Fonction qui controle l'affichage de la synthese du client par son numClient
@@ -105,19 +109,17 @@ function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adress
 function CtlAfficherModificationInfo($numClient){
 
 
-        CtlnumClientExiste($numClient);
+    CtlnumClientExiste($numClient);
 
-        $client=checkClient($numClient);
+    $client=checkClient($numClient);
 
-        $categorie = $_POST['categorie'];
+    $categorie = $_POST['categorie'];
 
-        AfficherModificationInfo($client[0],$categorie);
+    AfficherModificationInfo($client[0],$categorie);
 
+}
 
-
-    }
-
-    function CtlValiderModificationInfo($numClient,$adresse, $email, $numTel, $situationFamiliale, $profession){
+function CtlValiderModificationInfo($numClient,$adresse, $email, $numTel, $situationFamiliale, $profession){
         modifierInfosClient($numClient,$adresse, $email, $numTel, $situationFamiliale, $profession);
     }
 
@@ -125,34 +127,18 @@ function CtlAfficherModificationInfo($numClient){
  * Fonction qui controle les operations sur le compte d'un client, la restriction de choix de compte se fait par Affichage au préalable des comptes du client
  * @param $compte le compte d'un client sous forme d'objet
  */
-    function CtlOperationCompte($numClient,$nomCompte){
-
-        $compte = getCompte($numClient,$nomCompte);
-        AfficherOperationCompte($compte);
+    function CtlAfficherOperationCompte($numClient,$categorie){
+        $comptes = getComptesClient($numClient);
+        AfficherOperationCompte($comptes,$numClient,$categorie);
     }
 
 
-    function CtlPlanning($rdvEmploye,$int,$categorie,$numClient){
+    function CtlPlanning($int,$categorie,$numClient){
+        $client = checkClient($numClient);
+        $rdvEmploye = getRDV($client[0]->IDEMPLOYE);
 
-        AfficherPlanning($rdvEmploye,$int, $categorie,$numClient);
+        AfficherPlanning($rdvEmploye,$int, $categorie,$client[0]);
     }
-
-/**
- * Fonction pour controller la prise d'un rendez-vous
- * @param $numclient  parametre déjà controllé via "rechercher un client" ou par saisie interactive
- * @return array : rdv
- *      correspond à la demande d'un rdv
- * @throws Exception
- *      correspond à une exception liée au fait que le numClient  n'existe pas dans la dataBase
- */
-function CtlPriseRdv($numClient){
-
-    CtlnumClientExiste($numClient);
-
-    $client=checkClient($numClient);
-   //AfficherPriseRdv($client);
-    return getRDV($client[0]->IDEMPLOYE);
-}
 
 /**
  * Fonction pour enregistrer un RDV champ par champ
@@ -163,9 +149,39 @@ function CtlPriseRdv($numClient){
  * @param $DATEHEURERDV
  *
  */
-function CtlConfirmationRdv($IDEMPLOYE, $IDMOTIF, $NUMCLIENT, $DATEHEURERDV){
-    enregistrerRDV($IDEMPLOYE,$IDMOTIF,$NUMCLIENT,$DATEHEURERDV);//$rdv a comme attribut (IDEMPLOYE,IDMOTIF,NUMCLIENT, DATEHEURERDV
+function CtlValiderRDV($semaineSelection, $idMotif, $numClient, $DATEHEURERDV, $categorie){
+    //todo : envoyer date avec slash
+    $client = checkClient($numClient);
+
+    if(!($client)) {
+        throw new Exception("Numéro du client inexistant !");
+    }
+
+    $rdvEmploye = getRDV($client[0]->IDEMPLOYE);
+
+    ajouterRDV($client[0]->IDEMPLOYE, $idMotif, $numClient, $DATEHEURERDV); //$rdv a comme attribut (IDEMPLOYE,IDMOTIF,NUMCLIENT, DATEHEURERDV
+
+    AfficherPlanning($rdvEmploye,$semaineSelection, $categorie,$client[0]);
 }
+
+/** // à  supprimer
+ * Fonction pour controller la prise d'un rendez-vous
+ * @param $numclient  parametre déjà controllé via "rechercher un client" ou par saisie interactive
+ * @return array : rdv
+ *      correspond à la demande d'un rdv
+ * @throws Exception
+ *      correspond à une exception liée au fait que le numClient  n'existe pas dans la dataBase
+ */
+function CtlAfficherRDVClient($numClient){
+
+    CtlnumClientExiste($numClient);
+
+    $client=checkClient($numClient);
+   //AfficherPriseRdv($client);
+    return getRDV($client[0]->IDEMPLOYE);
+}
+
+
 
 /**
  * Fonction pour effectuer le debit d'un compte avec controle
@@ -174,12 +190,18 @@ function CtlConfirmationRdv($IDEMPLOYE, $IDMOTIF, $NUMCLIENT, $DATEHEURERDV){
  * @param $nomCompte type de compte
  */
 function CtlDebiterCompte($valeur, $numClient, $nomCompte){
+
     $compte=getCompte($numClient,$nomCompte);
     $soldeFinal=$compte->SOLDE+$compte->MONTANTDECOUVERT;
-    if(($valeur>=0)&&($valeur>=$soldeFinal)){
-        debiterCompte($compte);
+    var_dump($soldeFinal);
+
+    var_dump($soldeFinal);
+
+    if(($valeur>=0)&&($valeur<=$soldeFinal)){
+
+        debiterCompte($valeur,$numClient,$nomCompte);
     }
-    else CtlErreur("Fond Insuffisant pour un débit de : (".$valeur.")");
+    else throw new Exception("Fond Insuffisant pour un débit de : ".$valeur."€ (Votre Solde :".$compte->SOLDE."€)");
 }
 
 /**
@@ -189,8 +211,9 @@ function CtlDebiterCompte($valeur, $numClient, $nomCompte){
  * @param $nomCompte type de compte
  */
 function CtlCrediterCompte($valeur, $numClient, $nomCompte){
-    $compte=getCompte($numClient,$nomCompte);
-    crediterCompte($valeur,$compte);
+
+    crediterCompte($valeur,$numClient,$nomCompte);
+
 }
 
 
@@ -280,7 +303,7 @@ function CtlFermerCompte($numClient, $nomCompte){
  */
 function CtlModifierMontantDecouvert($montant,$numClient,$nomCompte){
 
-    setMontantDecouvert($montant,$numClient,$nomCompte);
+    setMontantDecouvertAutorise($numClient, $nomCompte, $montant);
 }
 
 
@@ -288,11 +311,14 @@ function CtlModifierMontantDecouvert($montant,$numClient,$nomCompte){
  * Fonction affichant un message d'erreur permettant de revenir sur la page login
  * @param $msg
  */
-function CtlErreur($msg){
-    AfficherErreur($msg);
+function CtlErreur($categorie,$msg){
+
+    AfficherErreur($categorie,$msg);
+
 }
 
 function CtlGestionClient($numClient){
+
     //todo : reflechir à quelle vue mettre
     //après avoir "log" un Client
 }

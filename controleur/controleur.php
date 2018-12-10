@@ -82,7 +82,6 @@ function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adress
 
 function CtlInscriptionClient($idConseiller){
     AfficherInscription($idConseiller);
-    //CtlenregistrerClient();
 }
 
 /***
@@ -245,9 +244,17 @@ function CtlContratDisponible($numClient){
  * @param $LIBELLE
  *      correspond au nom du contrat
  */
-function CtlVendreContrat($numClient, $DATEOUVERTURECONTRAT, $TARIFMENSUEL, $LIBELLE){
-    enregistrerContrat($numClient,$DATEOUVERTURECONTRAT,$TARIFMENSUEL,$LIBELLE);
+function CtlVendreContrat(){
+    $contrats = getAllContrats();
+    AfficherVendreContrat($contrats);
 }
+
+function CtlNouveauContratClient($numClient,$dateOuvertureContrat,$tarifMensuel,$libelle){
+    $idContrat = 1;
+    enregistrerContrat($numClient, $dateOuvertureContrat, $tarifMensuel, $idContrat);
+    //CtlRetourAcceuil();
+}
+
 function CtlResilierContrat($numClient,$IDCONTRAT){
     //todo : vérifier quelles précautions sont à prendre
     resilierContrat($IDCONTRAT);

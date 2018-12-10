@@ -336,7 +336,7 @@ function getRDV($idEmploye){
 
  function enregistrerContrat($numClient, $dateOuvertureContrat, $tarifMensuel, $idContrat){
 	$connexion = getConnect();
-	$requete = "INSERT INTO CONTRATCLIENT VALUES ($numClient, '$dateOuvertureContrat', $tarifMensuel, $idContrat) WHERE numClient = $numClient ";
+	$requete = "INSERT INTO CONTRATCLIENT VALUES (0, $numClient, STR_TO_DATE('$dateOuvertureContrat', '%Y-%m-%d'), $tarifMensuel) WHERE numClient = $numClient ";
 	$connexion->query($requete);
  }
 
@@ -439,10 +439,4 @@ function getPiecesAFournir($idContrat){
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat->fetchAll();
-}
-
-$pieces = getPiecesAFournir(1);
-
-for($i = 0; $i < count($pieces); $i++){
-	echo $pieces[$i]->idPiece_a_fournir_1;
 }

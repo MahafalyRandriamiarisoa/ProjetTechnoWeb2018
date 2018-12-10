@@ -314,7 +314,7 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client){
 	$semaine = array();
 
 	for($i = 0; $i < 6; $i++){
-		$semaine[$i] = date('j/m/Y', strtotime('+'.($i+3).' day +'.($semaineSelection - 1).' week'));
+		$semaine[$i] = date('j/m/Y', strtotime('+'.($i+1).' day +'.($semaineSelection - 1).' week'));
 	}
 
 	$planning = array();

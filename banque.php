@@ -53,8 +53,7 @@ try{
                     break;
 
                 case 'vendreContrat':
-                    $contrats = getAllContrats();
-                    AfficherVendreContrat($contrats);
+                    CtlVendreContrat();
                     break;    
                 
                 case 'ouvrirCompte': 
@@ -181,6 +180,12 @@ try{
 
         }
 
+    }elseif(isset($_POST['vendre'])){
+        $numClient = $_POST['numClient'];
+        $contrat = $_POST['actionContrat'];
+        $dateContrat = $_POST['dateContrat'];
+        $tarifMensuel = $_POST['tarifMensuel'];
+        CtlNouveauContratClient($numClient, $contrat, $dateContrat, $tarifMensuel);
     }else{
 
         CtlInterfaceLogin();

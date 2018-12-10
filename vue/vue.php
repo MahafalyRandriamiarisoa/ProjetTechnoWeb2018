@@ -118,7 +118,7 @@ function AfficherPriseRdv($client){
 
 function AfficherOperationCompte($compte, $numClient, $categorie){
 	$contenuHeader = '<strong>AGENT</strong>';
-	$contenuInterface = '<form method="post" action="banque.php"><fieldset><label>Opération sur le compte</label>
+	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Opération sur le compte</legend>
                         <input type="hidden" name="numClient" value="'.$numClient.'" />
 	                    <input type="hidden" name="categorie" value="'.$categorie.'" />';
 	
@@ -222,47 +222,6 @@ function AfficherResilier($compte,$contrat){
 					<p><input type="submit" name="resilier" value="Résilier le compte ou le contrat"/></p></fieldset></form>';	
 	require_once('gabaritConseiller.php');
 }
-
-	
-function AfficherErreurLogin ($erreur){
-	$contenu = '<fieldset>
-			   <legend> Erreurs détectées</legend>
-			   <p>'.$erreur.'</p>
-			  </fieldset>';
-	require_once('gabaritLogin.php');		  
-}
-
-	
-function AfficherErreurAgent ($erreur){
-	$contenuHeader = '<strong>AGENT</strong>';
-	$contenuInterface = '<fieldset>
-			   <legend> Erreurs détectées</legend>
-			   <p>'.$erreur.'</p>
-			  </fieldset>';
-	require_once('gabaritAgent.php');		  
-}
-
-	
-function AfficherErreurConseiller ($erreur){
-	$contenuHeader = '<strong>CONSEILLER</strong>';
-	$contenuInterface = '<fieldset>
-			   <legend> Erreurs détectées</legend>
-			   <p>'.$erreur.'</p>
-			  </fieldset>';
-	require_once('gabaritConseiller.php');		  
-}
-
-	
-function AfficherErreurDirecteur ($erreur){
-	$contenuHeader = '<strong>DIRECTEUR</strong>';
-	$contenuInterface = '<fieldset>
-			   <legend> Erreurs détectées</legend>
-			   <p>'.$erreur.'</p>
-			  </fieldset>';
-	require_once('gabaritDirecteur.php');		  
-}
-
-
 
 function AfficherErreur($categorie,$erreur){
     $numClient = '';

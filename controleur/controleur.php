@@ -139,6 +139,12 @@ function CtlValiderModificationInfo($numClient,$adresse, $email, $numTel, $situa
         AfficherPlanning($rdvEmploye,$int, $categorie,$client[0],$motifs);
     }
 
+    function CtlPlanningConseiller($idConseiller){
+        $rdvEmploye = getRDV($idConseiller);
+        $motifs = allMotif();
+        AfficherPlanning($rdvEmploye, 0, 'Conseiller', '', $motifs);
+    }
+
 /**
  * Fonction pour enregistrer un RDV champ par champ
  *
@@ -159,8 +165,8 @@ function CtlValiderRDV($semaineSelection, $idMotif, $numClient, $DATEHEURERDV, $
     $rdvEmploye = getRDV($client[0]->IDEMPLOYE);
 
     ajouterRDV($client[0]->IDEMPLOYE, $idMotif, $numClient, $DATEHEURERDV); //$rdv a comme attribut (IDEMPLOYE,IDMOTIF,NUMCLIENT, DATEHEURERDV
-
-    AfficherPlanning($rdvEmploye,$semaineSelection, $categorie,$client[0]);
+    $motifs = allMotif();
+    AfficherPlanning($rdvEmploye,$semaineSelection, $categorie,$client[0], $motifs);
 }
 
 /** // à  supprimer

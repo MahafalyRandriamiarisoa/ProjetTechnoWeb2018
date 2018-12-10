@@ -59,7 +59,8 @@ try{
                 case 'resilier': 
                     break;  
 
-                case 'planning': 
+                case 'planning':
+                    CtlPlanningConseiller(3);
                     break;  
             }
 
@@ -173,7 +174,7 @@ try{
         $numClient = $_POST['numClient'];
         $libelle = $_POST['actionContrat'];
         $tarifMensuel = $_POST['tarifMensuel'];
-        CtlNouveauContratClient($numClient, $tarifMensuel, $libelle);
+        CtlNouveauContratClient($numClient  , $tarifMensuel, $libelle);
     }else{
 
         CtlInterfaceLogin();

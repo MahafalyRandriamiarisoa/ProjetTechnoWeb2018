@@ -294,7 +294,7 @@ function AfficherErreur($categorie,$erreur){
 
 }
 
-function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client){
+function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$motifs){
     //todo : numClient peut être à remplacer par un $client pour pouvoir récuperer l'idEmploye même si le tableau de RDV est vide (@see : ligne 355)
 	$numClient = $client->NUMCLIENT;
     $nbRDV = count($rdvEmploye);

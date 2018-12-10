@@ -407,12 +407,12 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client){
 					
 					<p><label>Motif du rendez-vous: </label><select name="motif">';
 					for($p=0;$p<count($motifs);$p++){
-						$contenuBis .= '<option value="'.$motifs[$p]->IDMOTIF.'">'.$motifs[$p]->LIBELLEMOTIF.'</option>;'
+						$contenuBis .= '<option value="'.$motifs[$p]->IDMOTIF.'">'.$motifs[$p]->LIBELLEMOTIF.'</option>';
 					}
 					$contenuBis .= '</select></p>
 					<p><input type="submit" name="idRDVEmploye" value="Valider le RDV"/></p>
 					</form>
-				</fieldset>'
+				</fieldset>';
 	}
 	require_once('gabaritAgent.php');
 

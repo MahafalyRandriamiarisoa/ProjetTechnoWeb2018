@@ -433,3 +433,16 @@ function ajouterPieceAFournir($libelle){
 	$connexion->query($requete);
 }
 
+function getPiecesAFournir($idContrat){
+	$connexion = getConnect();
+	$requete = "SELECT idPiece_a_fournir_1 FROM PIECES_A_FOURNIRMOTIF WHERE idMotif = 1";
+	$resultat = $connexion->query($requete);
+	$resultat->setFetchMode(PDO::FETCH_OBJ);
+	return $resultat->fetchAll();
+}
+
+$pieces = getPiecesAFournir(1);
+
+for($i = 0; $i < count($pieces); $i++){
+	echo $pieces[$i]->idPiece_a_fournir_1;
+}

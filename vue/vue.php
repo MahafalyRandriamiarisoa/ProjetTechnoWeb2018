@@ -171,7 +171,6 @@ function AfficherInscription($conseillers){
 function AfficherVendreContrat($contrat){
 	$contenuHeader = '<strong>CONSEILLER</strong>';
 	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Vendre un contrat </legend>
-						<p><label>Numéro du client:</label><input type="text" name="numClient" required /></p>
 						<p><label>Sélectionner le contrat à vendre :</label></p>
 						<p>
 							<select name="actionContrat">';
@@ -192,7 +191,6 @@ function AfficherOuvrirCompte($compte){
 	$contenuHeader='<strong>CONSEILLER</strong>';
 
 	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Ouvrir un ou plusieurs comptes</legend>
-						<p><label>Numéro du client:</label><input type="text" name="numClient" required /></p>
 						<p><label>Sélectionner le ou les comptes à ouvrir :<label></p>
 						<p>
 							<select name="actionOpenCompte" mutliple>';
@@ -259,7 +257,7 @@ function AfficherErreur($categorie,$erreur){
 }
 
 function AfficherRechercherClient($action){
-    $contenuHeader = '<strong>AGENT</strong>';
+    $contenuHeader = '<strong>CONSEILLER</strong>';
 	$contenuInterface = '
     <form method="post" action="banque.php">
         <fieldset id="f1">
@@ -269,6 +267,25 @@ function AfficherRechercherClient($action){
         <p><input type="hidden" name="action" value="'.$action.'"></p>
         <p><input type="radio" name="choix"   id="r2" /><label for="r2">Par le nom et la date de naissance</label></p>
         <input type="submit" name="rechercheClientConseiller" value="Valider"
+        </fieldset>
+    </form>';
+	require_once('gabaritConseiller.php');
+}
+
+function AfficherChoixPlanning($conseillers){
+	$contenuHeader = '<strong>CONSEILLER</strong>';
+
+	$contenuInterface = '
+    <form method="post" action="banque.php">
+        <fieldset id="f3">
+		<legend>Veuillez choisir un conseiller</legend>
+		<select name="selectConseiller">';
+	
+	for($i = 0; $i < count($conseillers); $i++){
+		$contenuInterface .= '<option value="'.$conseillers[$i]->IDEMPLOYE.'">'.$conseillers[$i]->IDEMPLOYE.' '.$conseillers[$i]->NOMEMPLOYE.'</option>';
+	}
+	$contenuInterface .= '</select><br><br>
+		<input type="submit" name="choixConseiller" value="Valider"/>
         </fieldset>
     </form>';
 	require_once('gabaritConseiller.php');

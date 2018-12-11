@@ -145,6 +145,9 @@ try{
         $action = $_POST['action'];
         $numClient = $_POST['numClient'];
         CtlAfficherAction($action, $numClient);
+    }elseif(isset($_POST['selectConseiller'])){
+        $idConseiller = $_POST['selectConseiller'];
+        CtlPlanningConseiller($idConseiller);
     }else{
 
         CtlInterfaceLogin();

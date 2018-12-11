@@ -158,7 +158,7 @@ function CtlMenuDirecteur($action){
  *      Correspond à la profession du client
  */
 function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adresse, $email, $numTel, $situationFamiliale, $profession){
- //todo : verifier si le client n'existe pas déjà
+    //todo : verifier si le client n'existe pas déjà
     enregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adresse, $email, $numTel, $situationFamiliale, $profession);
 
     AfficherAcceuil(getEmploye($idEmploye)->CATEGORIE, '');
@@ -210,18 +210,22 @@ function CtlValiderModificationInfo($numClient,$adresse, $email, $numTel, $situa
  * Fonction qui controle les operations sur le compte d'un client, la restriction de choix de compte se fait par Affichage au préalable des comptes du client
  * @param $compte le compte d'un client sous forme d'objet
  */
-    function CtlAfficherOperationCompte($numClient,$categorie){
-        $comptes = getComptesClient($numClient);
-        AfficherOperationCompte($comptes,$numClient,$categorie);
-    }
+function CtlAfficherOperationCompte($numClient,$categorie){
+    $comptes = getComptesClient($numClient);
+    AfficherOperationCompte($comptes,$numClient,$categorie);
+}
 
 
-    function CtlPlanning($int,$categorie,$numClient){
-        $client = checkClient($numClient);
-        $rdvEmploye = getRDV($client[0]->IDEMPLOYE);
-        $motifs = allMotif();
-        AfficherPlanning($rdvEmploye,$int, $categorie,$client[0],$motifs);
-    }
+function CtlPlanning($int,$categorie,$numClient){
+    $client = checkClient($numClient);
+    $rdvEmploye = getRDV($client[0]->IDEMPLOYE);
+    $motifs = allMotif();
+    AfficherPlanning($rdvEmploye,$int, $categorie,$client[0],$motifs);
+}
+
+function CtlAfficherPlanning(){
+    AfficherChoixPlanning(allConseillers());
+}
 
 
 function CtlPlanningConseiller($idConseiller){

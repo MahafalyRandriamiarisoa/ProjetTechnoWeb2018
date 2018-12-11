@@ -21,9 +21,9 @@
 function CtlnumClientExiste($numClient){
     $numClient = intval($numClient);
     $client = checkClient($numClient);
-        if(!($client)) {
-            throw new Exception("num client inexistant");
-        }
+    if(!($client)) {
+        throw new Exception("num client inexistant");
+    }
 }
 /**
  * Fonction pour le contrôle de l'Acceuil
@@ -64,8 +64,8 @@ function CtlAfficherAction($action,$numClient = ''){
         case 'vendreContrat' :
 
             if($numClient=='') {
-                AfficherRechercherClient();
-                }else{
+                AfficherRechercherClient($action);
+            }else{
                 CtlnumClientExiste($numClient);
                 CtlAfficherVendreContrat($numClient);
             }
@@ -73,7 +73,7 @@ function CtlAfficherAction($action,$numClient = ''){
 
         case 'ouvrirCompte' :
             if($numClient=='') {
-                AfficherRechercherClient();
+                AfficherRechercherClient($action);
             }else {
                 CtlnumClientExiste($numClient);
                 CtlAfficherOuvrirCompte($numClient);
@@ -82,7 +82,7 @@ function CtlAfficherAction($action,$numClient = ''){
 
         case 'modifDecouvert' :
             if($numClient=='') {
-                AfficherRechercherClient();
+                AfficherRechercherClient($action);
             }else {
                 CtlnumClientExiste($numClient);
                 CtlAfficherModificationDécouvert($numClient);//todo :
@@ -91,7 +91,7 @@ function CtlAfficherAction($action,$numClient = ''){
 
         case 'resilier' :
             if($numClient=='') {
-                AfficherRechercherClient();
+                AfficherRechercherClient($action);
             }else {
                 CtlnumClientExiste($numClient);
                 CtlAfficherResilier($numClient);//todo : Choix de la resal bref
@@ -104,7 +104,6 @@ function CtlAfficherAction($action,$numClient = ''){
     }
 
 }
-
 
 function CtlMenuAgent($action, $numClient){
 
@@ -129,35 +128,6 @@ function CtlMenuAgent($action, $numClient){
 
             CtlPlanning(0,$categorie,$numClient);
             break;
-    }
-}
-
-function CtlMenuConseiller($action){
-    
-    switch($action){
-        case 'inscrireClient':
-            CtlInscriptionClient();
-            break;
-
-        case 'vendreContrat':
-            CtlContratDisponible();
-            break;    
-        
-        case 'ouvrirCompte':
-            AfficherRechercherClient();
-            CtlAfficherOuvrirCompte($numClient);
-            break;
-            
-        case 'modifDecouvert': 
-            echo "Il faut la fonction afficherModifierMontantDécouvert";
-            break;  
-        
-        case 'resilier': 
-            break;  
-
-        case 'planning':
-            CtlPlanningConseiller(3);
-            break;  
     }
 }
 
@@ -194,9 +164,6 @@ function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adress
 
     AfficherAcceuil(getEmploye($idEmploye)->CATEGORIE, '');
 }
-
-
-
 
 function CtlInscriptionClient(){
     AfficherInscription();

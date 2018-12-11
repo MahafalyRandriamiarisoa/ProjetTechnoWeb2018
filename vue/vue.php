@@ -253,14 +253,17 @@ function AfficherErreur($categorie,$erreur){
 
 }
 
-function AfficherRechercherClient(){
+function AfficherRechercherClient($action){
+    $contenuHeader = '<strong>AGENT</strong>';
 	$contenuInterface = '
     <form method="post" action="banque.php">
         <fieldset id="f1">
         <legend> Rechercher un client </legend>
-        <p><input type="radio" name="choix" onChange="afficherNumCli()" id="r1" /><label for="r1">Par le numéro</label> </p>
-        <p><input type="radio" name="choix"  onChange="afficherNomDate()" id="r2" /><label for="r2">Par le nom et la date de naissance</label></p>
-        <input type="submit" name="RechercheClientConseiller" value=""
+        <p><input type="radio" name="choix"  id="r1" /><label for="r1">Par le numéro</label> </p>
+        <p><input type="text" name="numClient" /></p>
+        <p><input type="hidden" name="action" value="'.$action.'"></p>
+        <p><input type="radio" name="choix"   id="r2" /><label for="r2">Par le nom et la date de naissance</label></p>
+        <input type="submit" name="rechercheClientConseiller" value="Valider"
         </fieldset>
     </form>';
 	require_once('gabaritConseiller.php');

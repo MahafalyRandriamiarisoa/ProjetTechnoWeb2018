@@ -13,61 +13,23 @@ try{
     }elseif(isset($_POST['valider'])){
 
         $categorie = $_POST['categorie'];
-
-        if(!empty($_POST['numClient'])){
-
-            CtlnumClientExiste($_POST['numClient']);
-
+        $action = $_POST['action'];
+        $numClient = '';
+        
+        if(isset($_POST['numClient'])){
             $numClient = $_POST['numClient'];
+        }
 
-            switch ($_POST['action']) {
-                case 'syntese':
-                    CtlSyntheseClient($_POST['numClient']);
-                    break;
-
-                case 'modif':
-
-                    CtlAfficherModificationInfo($_POST['numClient']);
-                    break;
-
-                case 'opCompte':
-
-                    CtlAfficherOperationCompte($_POST['numClient'],$_POST['categorie']);
-                    break;
-
-                case 'rdv':
-
-                    CtlPlanning(0,$_POST['categorie'],$numClient);
-                    break;
-
-                case 'inscrireClient':
-                    CtlInscriptionClient($idConseiller);
-                    break;
-
-                case 'vendreContrat':
-                    CtlContratDisponible($numClient);
-                    break;    
-                
-                case 'ouvrirCompte': 
-                    CtlAfficherOuvrirCompte($_POST['numClient']);
-                    break;
-                    
-                case 'modifDecouvert': 
-                    echo "Il faut la fonction afficherModifierMontantDécouvert";
-                    break;  
-                
-                case 'resilier': 
-                    break;  
-
-                case 'planning':
-                    CtlPlanningConseiller(3);
-                    break;  
-            }
-
-        }else{
-            $numClient = (isset($_POST['numClient'])) ? $_POST['numClient'] : '';
-
-            CtlRetourAcceuil($_POST['categorie'], $numClient);
+        switch($categorie){
+            case 'Agent':
+                CtlMenuAgent($action, $numClient);
+                break;
+            case 'Conseiller' : 
+                CtlMenuConseiller($action);
+                break;
+            case 'Directeur' : 
+                CtlMenuDirecteur($action);
+                break;
         }
 
     }elseif(isset($_POST['validerRecherche'])){

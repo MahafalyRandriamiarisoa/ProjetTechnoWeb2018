@@ -4,6 +4,7 @@
       <title>Ma page</title>
       <meta charset="utf-8">
 	  <link rel="stylesheet"  href="vue/style/styles.css" />
+	  <script type="text/javascript" src="vue/fonction.js"></script>
 	  
     </head>
     
@@ -15,7 +16,7 @@
 			<form id="f1" method="post" action="banque.php">
 				<?php echo '<p><input type="text" name="categorie" value="Conseiller"style="display:none" /></p>' ?>
               			<fieldset >
-					<p><label>Numéro du client :</label><input type="text" name="numClient"/></p>	
+					<p><label style="display: none;">Numéro du client :</label><input type="hidden" name="numClient"/></p>	
 					<p><label>Sélectionner une action à réaliser :<label></p>
 					<p><select name="action">
 							<option value="inscrireClient">Inscrire un nouveau client</option>

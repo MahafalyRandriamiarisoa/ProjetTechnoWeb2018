@@ -34,23 +34,84 @@ function CtlnumClientExiste($numClient){
  *
  * @throws Exception si les login
  */
-    function CtlAcceuil($login,$mdp){
-        if(!empty($login) && !empty($mdp)){
+function CtlAcceuil($login,$mdp){
+    if(!empty($login) && !empty($mdp)){
 
-            $employe=checkLogin($login,$mdp);
-            if(!empty($employe)){
+        $employe=checkLogin($login,$mdp);
+        if(!empty($employe)){
 
-                AfficherAcceuil($employe->CATEGORIE,"");
-                return $employe;
-            }
+            AfficherAcceuil($employe->CATEGORIE,"");
+            return $employe;
         }
-        throw new Exception("Login Incorrect !");
     }
-    function CtlRetourAcceuil($categorie,$numClient){
+    throw new Exception("Login Incorrect !");
+}
 
-        AfficherAcceuil($categorie,$numClient);
+function CtlRetourAcceuil($categorie,$numClient){
 
+    AfficherAcceuil($categorie,$numClient);
+
+}
+
+function CtlMenuAgent($action, $numClient){
+
+    $categorie = 'Agent';
+
+    switch ($action) {
+        case 'syntese':
+            CtlSyntheseClient($numClient);
+            break;
+
+        case 'modif':
+
+            CtlAfficherModificationInfo($numClient);
+            break;
+
+        case 'opCompte':
+
+            CtlAfficherOperationCompte($numClient, $categorie);
+            break;
+
+        case 'rdv':
+
+            CtlPlanning(0,$categorie,$numClient);
+            break;
     }
+}
+
+function CtlMenuConseiller($action){
+    
+    switch($action){
+        case 'inscrireClient':
+            CtlInscriptionClient($idConseiller);
+            break;
+
+        case 'vendreContrat':
+            CtlContratDisponible();
+            break;    
+        
+        case 'ouvrirCompte': 
+            CtlAfficherOuvrirCompte($numClient);
+            break;
+            
+        case 'modifDecouvert': 
+            echo "Il faut la fonction afficherModifierMontantDécouvert";
+            break;  
+        
+        case 'resilier': 
+            break;  
+
+        case 'planning':
+            CtlPlanningConseiller(3);
+            break;  
+    }
+}
+
+function CtlMenuDirecteur($action){
+    switch($action){
+        
+    }
+}
 
 /**
  * Fonction pour enregistrer un client champ par champ
@@ -234,9 +295,8 @@ function CtlRechercherClientNum($numClient){
  * @param $numClient
  *      correspond au numèro permettant d'accéder à un unique Client
  */
-function CtlContratDisponible($numClient){
-    $contrats=getContratsPotentielsClient($numClient);
-    AfficherVendreContrat($contrats);
+function CtlContratDisponible(){
+    AfficherRechercherClient();
 }
 
 /**

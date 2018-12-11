@@ -368,7 +368,7 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 						$contenuBis .= '<option value="'.$motifs[$p]->IDMOTIF.'">'.$motifs[$p]->LIBELLEMOTIF.'</option>';
 					}
 					$contenuBis .= '</select></p>
-					<p><input type="submit" name="idRDVEmploye" value="Valider le RDV"/></p>
+					<p><input class="bottom" href=#bottom type="submit" name="idRDVEmploye" value="Valider le RDV"/></p>
 					</form>
 				</fieldset>';
 	}

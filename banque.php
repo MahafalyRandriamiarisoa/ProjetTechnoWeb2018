@@ -149,6 +149,7 @@ try{
         CtlValiderRDV($_POST['semCourante'],intval($idMotif), intval($numClient), $DATEHEURERDV,$categorie);
 
     }elseif(isset($_POST['ajouter'])){
+
         $idConseiller = $_POST['idConseiller'];
         $lastName = $_POST['lastName'];
         $firstName = $_POST['firstName'];

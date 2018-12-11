@@ -156,11 +156,12 @@ function CtlValiderRDV($semaineSelection, $idMotif, $numClient, $DATEHEURERDV, $
         throw new Exception("Numéro du client inexistant !");
     }
 
-    $rdvEmploye = getRDV($client[0]->IDEMPLOYE);
+
 
     ajouterRDV($client[0]->IDEMPLOYE, $idMotif, $numClient, $DATEHEURERDV); //$rdv a comme attribut (IDEMPLOYE,IDMOTIF,NUMCLIENT, DATEHEURERDV
-
-    AfficherPlanning($rdvEmploye,$semaineSelection, $categorie,$client[0]);
+    $motifs = allMotif();
+    $rdvEmploye = getRDV($client[0]->IDEMPLOYE);
+    AfficherPlanning($rdvEmploye,$semaineSelection, $categorie,$client[0],$motifs);
 }
 
 /** // à  supprimer

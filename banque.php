@@ -22,7 +22,8 @@ try{
 
         switch($categorie){
             case 'Agent':
-                CtlMenuAgent($action, $numClient);
+
+                CtlAfficherAction($action, $numClient);
                 break;
             case 'Conseiller' : 
                 CtlAfficherAction($action);
@@ -138,7 +139,9 @@ try{
         $libelle = $_POST['actionContrat'];
         $tarifMensuel = $_POST['tarifMensuel'];
         CtlNouveauContratClient($numClient  , $tarifMensuel, $libelle);
+
     }elseif(isset($_POST['rechercheClientConseiller'])){
+
         $action = $_POST['action'];
         $numClient = $_POST['numClient'];
         CtlAfficherAction($action, $numClient);

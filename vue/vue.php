@@ -116,11 +116,11 @@ function AfficherPriseRdv($client){
 	require_once('gabaritAgent.php');
 }
 
-function AfficherOperationCompte($compte, $numClient, $categorie){
+function AfficherOperationCompte($compte, $numClient){
 	$contenuHeader = '<strong>AGENT</strong>';
 	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Opération sur le compte</legend>
                         <input type="hidden" name="numClient" value="'.$numClient.'" />
-	                    <input type="hidden" name="categorie" value="'.$categorie.'" />';
+	                    <input type="hidden" name="categorie" value="Agent" />';
 	
 	if(count($compte) == 0){
 		$contenuInterface .= 'Aucun compte associé au client';

@@ -22,7 +22,7 @@ function CtlnumClientExiste($numClient){
     $numClient = intval($numClient);
     $client = checkClient($numClient);
     if(!($client)) {
-        throw new Exception("num client inexistant");
+        throw new Exception("Le numèro client est inexistant");
     }
 }
 /**
@@ -57,6 +57,26 @@ function CtlAfficherAction($action,$numClient = ''){
 
     switch ($action) {
 
+        case 'syntese':
+            CtlnumClientExiste(intval($numClient));
+            CtlSyntheseClient($numClient);
+            break;
+
+        case 'modif':
+            CtlnumClientExiste(intval($numClient));
+            CtlAfficherModificationInfo($numClient);
+            break;
+
+        case 'opCompte':
+            CtlnumClientExiste(intval($numClient));
+            CtlAfficherOperationCompte($numClient,'Agent');
+            break;
+
+        case 'rdv':
+            CtlnumClientExiste(intval($numClient));
+            CtlPlanning(0,'Agent',$numClient); //todo supprimer categorie
+            break;
+
         case 'inscrireClient' :
             CtlInscriptionClient();
             break;
@@ -64,9 +84,13 @@ function CtlAfficherAction($action,$numClient = ''){
         case 'vendreContrat' :
 
             if($numClient=='') {
+
                 AfficherRechercherClient($action);
+
             }else{
-                CtlnumClientExiste($numClient);
+
+                CtlnumClientExiste(intval($numClient));
+
                 CtlAfficherVendreContrat($numClient);
             }
             break;
@@ -99,36 +123,11 @@ function CtlAfficherAction($action,$numClient = ''){
             break;
 
         case 'planning':
+
             CtlAfficherPlanning();//todo : gerer les idConseillers
             break;
     }
 
-}
-
-function CtlMenuAgent($action, $numClient){
-
-    $categorie = 'Agent';
-
-    switch ($action) {
-        case 'syntese':
-            CtlSyntheseClient($numClient);
-            break;
-
-        case 'modif':
-
-            CtlAfficherModificationInfo($numClient);
-            break;
-
-        case 'opCompte':
-
-            CtlAfficherOperationCompte($numClient, $categorie);
-            break;
-
-        case 'rdv':
-
-            CtlPlanning(0,$categorie,$numClient);
-            break;
-    }
 }
 
 function CtlMenuDirecteur($action){
@@ -166,7 +165,10 @@ function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adress
 }
 
 function CtlInscriptionClient(){
-    AfficherInscription();
+
+    $conseillers = allConseillers();
+
+    AfficherInscription($conseillers);
 }
 
 /***
@@ -174,6 +176,7 @@ function CtlInscriptionClient(){
  * @param $numclient parametre déjà controllé via "rechercher un client" ou par saisie interactive
  */
 	function CtlSyntheseClient($numClient1){
+
         $numClient = intval($numClient1);
         $client = checkClient($numClient);
         $contrats = getContratsClient($numClient);
@@ -186,14 +189,10 @@ function CtlInscriptionClient(){
 /***
  * Fonction de controle des modifications des données d'un client via son numClient
  * @param $numclient parametre déjà controllé via "rechercher un client" ou par saisie interactive
- * @throws Exception
- *      correspond à une exception concernant l'existence du client par rapport au numClient
+ *
  *
  */
 function CtlAfficherModificationInfo($numClient){
-
-
-    CtlnumClientExiste($numClient);
 
     $client=checkClient($numClient);
 

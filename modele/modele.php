@@ -448,3 +448,12 @@ function getPiecesAFournir($idContrat){
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat->fetchAll();
 }
+
+function allConseillers(){
+    $connexion = getConnect();
+    $requete = "SELECT * FROM EMPLOYE WHERE categorie='Conseiller'";
+    $resultat = $connexion->query($requete);
+    $resultat->setFetchMode(PDO::FETCH_OBJ);
+    return $resultat->fetchAll();
+}
+

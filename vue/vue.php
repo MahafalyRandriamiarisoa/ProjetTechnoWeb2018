@@ -146,10 +146,10 @@ function AfficherOperationCompte($compte, $numClient, $categorie){
 	require_once('gabaritAgent.php');
 }
 
-function AfficherInscription($idConseiller){
+function AfficherInscription(){
 	$contenuHeader = '<strong>CONSEILLER</strong>';
 	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Nouveau client </legend>
-						<p><label>IdConseiller:</label><input type="text" name="idConseiller" value="'.$idConseiller.'" required/></p>
+						<p><label>IdConseiller:</label><input type="text" name="idConseiller" required/></p>
 						<p><label>Nom:</label><input type="text" name="lastName" required /></p>
 						<p><label>Prénom :</label><input type="text" name="firstName" required /></p>
 						<p><label>Date de naissance:</label><input type="text" name="bday" required /></p>
@@ -254,11 +254,15 @@ function AfficherErreur($categorie,$erreur){
 }
 
 function AfficherRechercherClient(){
-	$contenuInterface = '<fieldset id="f1">
-	<legend> Rechercher un client </legend>
-	<p><input type="radio" name="choix" onChange="afficherNumCli()" id="r1" /><label for="r1">Par le numéro</label> </p>
-	<p><input type="radio" name="choix"  onChange="afficherNomDate()" id="r2" /><label for="r2">Par le nom et la date de naissance</label></p>
-	</fieldset>';
+	$contenuInterface = '
+    <form method="post" action="banque.php">
+        <fieldset id="f1">
+        <legend> Rechercher un client </legend>
+        <p><input type="radio" name="choix" onChange="afficherNumCli()" id="r1" /><label for="r1">Par le numéro</label> </p>
+        <p><input type="radio" name="choix"  onChange="afficherNomDate()" id="r2" /><label for="r2">Par le nom et la date de naissance</label></p>
+        <input type="submit" name="RechercheClientConseiller" value=""
+        </fieldset>
+    </form>';
 	require_once('gabaritConseiller.php');
 }
 

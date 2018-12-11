@@ -19,13 +19,11 @@
  *      correspond au cas où le numèro client n'existe pas (ou non spécifié lors d'une saisie)?
  */
 function CtlnumClientExiste($numClient){
+    $numClient = intval($numClient);
     $client = checkClient($numClient);
-        if($client) {
-            //(checkClient($numClient));
-            return $client[0];
+        if(!($client)) {
+            throw new Exception("num client inexistant");
         }
-
-        throw new Exception("num client inexistant");
 }
 /**
  * Fonction pour le contrôle de l'Acceuil
@@ -52,6 +50,61 @@ function CtlRetourAcceuil($categorie,$numClient){
     AfficherAcceuil($categorie,$numClient);
 
 }
+
+function CtlAfficherAction($action,$numClient = ''){
+
+
+
+    switch ($action) {
+
+        case 'inscrireClient' :
+            CtlInscriptionClient();
+            break;
+
+        case 'vendreContrat' :
+
+            if($numClient=='') {
+                AfficherRechercherClient();
+                }else{
+                CtlnumClientExiste($numClient);
+                CtlAfficherVendreContrat($numClient);
+            }
+            break;
+
+        case 'ouvrirCompte' :
+            if($numClient=='') {
+                AfficherRechercherClient();
+            }else {
+                CtlnumClientExiste($numClient);
+                CtlAfficherOuvrirCompte($numClient);
+            }
+            break;
+
+        case 'modifDecouvert' :
+            if($numClient=='') {
+                AfficherRechercherClient();
+            }else {
+                CtlnumClientExiste($numClient);
+                CtlAfficherModificationDécouvert($numClient);//todo :
+            }
+            break;
+
+        case 'resilier' :
+            if($numClient=='') {
+                AfficherRechercherClient();
+            }else {
+                CtlnumClientExiste($numClient);
+                CtlAfficherResilier($numClient);//todo : Choix de la resal bref
+            }
+            break;
+
+        case 'planning':
+            CtlAfficherPlanning();//todo : gerer les idConseillers
+            break;
+    }
+
+}
+
 
 function CtlMenuAgent($action, $numClient){
 
@@ -83,14 +136,15 @@ function CtlMenuConseiller($action){
     
     switch($action){
         case 'inscrireClient':
-            CtlInscriptionClient($idConseiller);
+            CtlInscriptionClient();
             break;
 
         case 'vendreContrat':
             CtlContratDisponible();
             break;    
         
-        case 'ouvrirCompte': 
+        case 'ouvrirCompte':
+            AfficherRechercherClient();
             CtlAfficherOuvrirCompte($numClient);
             break;
             
@@ -141,8 +195,11 @@ function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adress
     AfficherAcceuil(getEmploye($idEmploye)->CATEGORIE, '');
 }
 
-function CtlInscriptionClient($idConseiller){
-    AfficherInscription($idConseiller);
+
+
+
+function CtlInscriptionClient(){
+    AfficherInscription();
 }
 
 /***
@@ -310,8 +367,8 @@ function CtlContratDisponible(){
  * @param $LIBELLE
  *      correspond au nom du contrat
  */
-function CtlVendreContrat(){
-    $contrats = getAllContrats();
+function CtlAfficherVendreContrat($numClient){
+    $contrats = getContratsPotentielsClient($numClient);
     AfficherVendreContrat($contrats);
 }
 

@@ -79,34 +79,6 @@ function CtlMenuAgent($action, $numClient){
     }
 }
 
-function CtlMenuConseiller($action){
-    
-    switch($action){
-        case 'inscrireClient':
-            CtlInscriptionClient($idConseiller);
-            break;
-
-        case 'vendreContrat':
-            CtlContratDisponible();
-            break;    
-        
-        case 'ouvrirCompte': 
-            CtlAfficherOuvrirCompte($numClient);
-            break;
-            
-        case 'modifDecouvert': 
-            echo "Il faut la fonction afficherModifierMontantDécouvert";
-            break;  
-        
-        case 'resilier': 
-            break;  
-
-        case 'planning':
-            CtlPlanningConseiller(3);
-            break;  
-    }
-}
-
 function CtlMenuDirecteur($action){
     switch($action){
         

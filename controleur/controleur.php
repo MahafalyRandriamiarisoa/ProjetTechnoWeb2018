@@ -139,6 +139,13 @@ function CtlValiderModificationInfo($numClient,$adresse, $email, $numTel, $situa
         AfficherPlanning($rdvEmploye,$int, $categorie,$client[0],$motifs);
     }
 
+
+function CtlPlanningConseiller($idConseiller){
+    $rdvEmploye = getRDV($idConseiller);
+    $motifs = allMotif();
+    AfficherPlanning($rdvEmploye, 0, 'Conseiller', '', $motifs);
+}
+
 /**
  * Fonction pour enregistrer un RDV champ par champ
  *
@@ -155,8 +162,6 @@ function CtlValiderRDV($semaineSelection, $idMotif, $numClient, $DATEHEURERDV, $
     if(!($client)) {
         throw new Exception("Numéro du client inexistant !");
     }
-
-
 
     ajouterRDV($client[0]->IDEMPLOYE, $idMotif, $numClient, $DATEHEURERDV); //$rdv a comme attribut (IDEMPLOYE,IDMOTIF,NUMCLIENT, DATEHEURERDV
     $motifs = allMotif();

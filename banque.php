@@ -25,7 +25,7 @@ try{
                 CtlMenuAgent($action, $numClient);
                 break;
             case 'Conseiller' : 
-                CtlMenuConseiller($action);
+                CtlAfficherAction($action);
                 break;
             case 'Directeur' : 
                 CtlMenuDirecteur($action);
@@ -138,6 +138,10 @@ try{
         $libelle = $_POST['actionContrat'];
         $tarifMensuel = $_POST['tarifMensuel'];
         CtlNouveauContratClient($numClient  , $tarifMensuel, $libelle);
+    }elseif(isset($_POST['rechercheClientConseiller'])){
+        $action = $_POST['action'];
+        $numClient = $_POST['numClient'];
+        CtlAfficherAction($action, $numClient);
     }else{
 
         CtlInterfaceLogin();

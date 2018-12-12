@@ -138,7 +138,7 @@ try{
         $numClient = $_POST['numClient'];
         $libelle = $_POST['actionContrat'];
         $tarifMensuel = $_POST['tarifMensuel'];
-        CtlNouveauContratClient($numClient  , $tarifMensuel, $libelle);
+        CtlNouveauContratClient($numClient, $tarifMensuel, $libelle);
 
     }elseif(isset($_POST['rechercheClientConseiller'])){
 
@@ -148,6 +148,13 @@ try{
     }elseif(isset($_POST['selectConseiller'])){
         $idConseiller = $_POST['selectConseiller'];
         CtlPlanningConseiller($idConseiller);
+    }elseif(isset($_POST['ouvrir'])){
+        $nomCompte = $_POST['actionOpenCompte'];
+        CtlOuvrirCompte($_POST['numClient'], $nomCompte, 0);
+    }elseif(isset($_POST['resilier'])){
+        $typeResiliation = $_POST['actionResilier'];
+
+        CtlResilier();
     }else{
 
         CtlInterfaceLogin();

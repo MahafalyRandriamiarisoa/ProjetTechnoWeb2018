@@ -159,9 +159,9 @@ function CtlMenuDirecteur($action){
  */
 function CtlenregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adresse, $email, $numTel, $situationFamiliale, $profession){
     //todo : verifier si le client n'existe pas déjà
-    enregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adresse, $email, $numTel, $situationFamiliale, $profession);
-
-    AfficherAcceuil(getEmploye($idEmploye)->CATEGORIE, '');
+    $numClient = enregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adresse, $email, $numTel, $situationFamiliale, $profession);
+    
+    CtlAfficherOuvrirCompte($numClient);
 }
 
 function CtlInscriptionClient(){
@@ -169,6 +169,26 @@ function CtlInscriptionClient(){
     $conseillers = allConseillers();
 
     AfficherInscription($conseillers);
+}
+
+function CtlAfficherResilier($numClient){
+    $comptes = getComptesClient($numClient);
+    $contrats = getContratsClient($numClient);
+
+    AfficherResilier($comptes, $contrats);
+}
+
+function CtlResilier($typeResiliation){
+    $allComptes = allComptes();
+    $allContrats = allContrats();
+
+    if(in_array($typeResiliation, $allComptes)){
+        CtlResilierCompte();
+    }elseif(in_array($typeResiliation, $allComptes)){
+        CtlResilierContrat();
+    }else{
+        //si c'est ni un compte ni un contrat alors faut se poser des questions
+    }
 }
 
 /***
@@ -339,7 +359,7 @@ function CtlContratDisponible(){
  */
 function CtlAfficherVendreContrat($numClient){
     $contrats = getContratsPotentielsClient($numClient);
-    AfficherVendreContrat($contrats);
+    AfficherVendreContrat($contrats, $numClient);
 }
 
 function CtlNouveauContratClient($numClient,$tarifMensuel, $libelle){
@@ -359,11 +379,9 @@ function CtlResilierContrat($numClient,$IDCONTRAT){
  */
 function CtlCompteDisponible($numClient){
 
-
-
     $comptes = getComptesPotentielsClient($numClient);
 
-    // AfficherComptesDisponibles($comptes,$categorie);
+    //AfficherComptesDisponibles($comptes,$categorie);
 }
 
 /**
@@ -376,9 +394,13 @@ function CtlCompteDisponible($numClient){
  * @param $MONTANTDECOUVERT
  *      à 0 si non autorisé, il peut être modifier par le conseiller
  */
-function CtlOuvrirCompte($NUMCLIENT, $NOMCOMPTE, $DATEOUVERTURE, $MONTANTDECOUVERT){
+function CtlOuvrirCompte($numClient, $nomCompte, $montantDecouvert){
     //todo : $DATEOUVERTURE= fonction pour getDateNOW();
-    ouvertureCompte($NUMCLIENT,$NOMCOMPTE,$DATEOUVERTURE,$MONTANTDECOUVERT);
+    $dateOuverture = date('Y/m/j');
+
+    ouvertureCompte($numClient,$nomCompte,$dateOuverture,$montantDecouvert);
+
+    CtlRetourAcceuil('Conseiller', '');
 }
 
 /**
@@ -425,8 +447,10 @@ function CtlGestionClient($numClient){
 }
 
 function CtlAfficherOuvrirCompte($numClient){
+
     $comptes = getComptesPotentielsClient($numClient);
-    AfficherOuvrirCompte($comptes);
+
+    AfficherOuvrirCompte($comptes, $numClient);
 }
 	/**
 	*Fonction 

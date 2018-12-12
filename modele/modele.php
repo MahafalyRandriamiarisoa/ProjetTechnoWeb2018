@@ -194,7 +194,7 @@ function getRDV($idEmploye){
 
  function getContratsClient($numClient){
 	$connexion = getConnect();
-	$requete = "SELECT * FROM CONTRATCLIENT WHERE numClient = $numClient";
+	$requete = "SELECT * FROM CONTRATCLIENT NATURAL JOIN CONTRAT WHERE numClient = $numClient";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat ->fetchAll();
@@ -234,8 +234,9 @@ function getRDV($idEmploye){
 
  function enregistrerClient($idEmploye, $nom, $prenom, $dateNaissance, $adresse, $email, $numTel, $situationFamiliale, $profession){
 	$connexion = getConnect();
-	$requete = "INSERT INTO CLIENT values (0, $idEmploye, '$nom', '$prenom', STR_TO_DATE('$dateNaissance', '%d/%m/%Y'), '$adresse', '$email', '$numTel', '$situationFamiliale', '$profession')";
+	$requete = "INSERT INTO CLIENT values (0, $idEmploye, '$nom', '$prenom', STR_TO_DATE('$dateNaissance', '%Y-%m-%d'), '$adresse', '$email', '$numTel', '$situationFamiliale', '$profession')";
 	$connexion->query($requete);
+	return $connexion->lastInsertId();
  }
 
  //todo : fonction récup login employes
@@ -334,7 +335,7 @@ function getRDV($idEmploye){
 
  function getContratsPotentielsClient($numClient){
 	$connexion = getConnect();
-	$requete = "SELECT * FROM CONTRAT WHERE IDCONTRAT NOT IN (SELECT IDCONTRAT FROM CONTRATCLIENT)";
+	$requete = "SELECT * FROM CONTRAT WHERE IDCONTRAT NOT IN (SELECT IDCONTRAT FROM CONTRATCLIENT WHERE numClient = $numClient)";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat->fetchAll();
@@ -361,7 +362,7 @@ function getRDV($idEmploye){
 
  function getComptesPotentielsClient($numClient){
 	$connexion = getConnect();
-	$requete = "SELECT nomCompte FROM COMPTE WHERE nomCompte NOT IN (SELECT nomCompte FROM COMPTECLIENT)";
+	$requete = "SELECT nomCompte FROM COMPTE WHERE nomCompte NOT IN (SELECT nomCompte FROM COMPTECLIENT WHERE numClient = $numClient)";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat->fetchAll();
@@ -371,7 +372,7 @@ function getRDV($idEmploye){
 
  function ouvertureCompte($numClient, $nomCompte, $dateOuverture, $montantDecouvert){
 	$connexion = getConnect();
-	$requete = "INSERT INTO COMPTECLIENT VALUES ($numClient, $nomCompte, '$dateOuverture', 0, $montantDecouvert)";
+	$requete = "INSERT INTO COMPTECLIENT VALUES ($numClient, '$nomCompte', '$dateOuverture', 0, $montantDecouvert)";
 	$connexion->query($requete);
  }
 
@@ -456,4 +457,3 @@ function allConseillers(){
     $resultat->setFetchMode(PDO::FETCH_OBJ);
     return $resultat->fetchAll();
 }
-

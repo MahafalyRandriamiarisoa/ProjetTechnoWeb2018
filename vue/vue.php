@@ -168,7 +168,7 @@ function AfficherInscription($conseillers){
 	require_once('gabaritConseiller.php');
 }
 
-function AfficherVendreContrat($contrat){
+function AfficherVendreContrat($contrat, $numClient){
 	$contenuHeader = '<strong>CONSEILLER</strong>';
 	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Vendre un contrat </legend>
 						<p><label>Sélectionner le contrat à vendre :</label></p>
@@ -182,12 +182,13 @@ function AfficherVendreContrat($contrat){
 	$contenuInterface .= '</select>
 						</p>
 						<p><label>Tarif mensuel:</label><input type="text" name="tarifMensuel" required /></p>
+						<input type="hidden" value="'.$numClient.'" name="numClient"/>
 						<p><input type="submit" name="vendre" value="Vendre le contrat"/></p>
 						</fieldset></form>';
 	require_once('gabaritConseiller.php');
 }
 
-function AfficherOuvrirCompte($compte){
+function AfficherOuvrirCompte($compte, $numClient){
 	$contenuHeader='<strong>CONSEILLER</strong>';
 
 	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Ouvrir un ou plusieurs comptes</legend>
@@ -196,10 +197,11 @@ function AfficherOuvrirCompte($compte){
 							<select name="actionOpenCompte" mutliple>';
 							
 	for($k = 0; $k < count($compte); $k++){
-		$contenuInterface .= '<option value="'.$compte[$k]->NOMCOMPTE.'">'.$compte[$k]->NOMCOMPTE.'</option>';
+		$contenuInterface .= '<option value="'.$compte[$k]->nomCompte.'">'.$compte[$k]->nomCompte.'</option>';
 	}
 						
 	$contenuInterface .= '</select></p>
+						<input type="hidden" name="numClient" value="'.$numClient.'"/>
 						<p><input type="submit" name="ouvrir" value="Ouvrir Compte"/></p></fieldset></form>';	
 	require_once('gabaritConseiller.php');
 }

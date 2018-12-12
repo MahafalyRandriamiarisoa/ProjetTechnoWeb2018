@@ -298,6 +298,7 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 	$numClient = $client->NUMCLIENT;
     $nbRDV = count($rdvEmploye);
 	$time = array();
+    $idEmploye = $client->IDEMPLOYE;
 
 	for($i = 0; $i < $nbRDV; $i++){
 		$time[$i] = strtotime($rdvEmploye[$i]->DATEHEURERDV);
@@ -352,7 +353,7 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 								<form method="post" action="banque.php">
 								    <input type="hidden" name="numClient" value="'.$numClient.'" /></p>
 								    <input type="hidden" name="categorie" value="'.$categorie.'" /></p>
-									<input type="hidden" class="invisible" name="idEmp" value="'.$client->IDEMPLOYE.'" />
+									<input type="hidden" class="invisible" name="idEmp" value="'.$idEmploye.'" />
 									<input type="hidden" class="invisible" name="semCourante" value="'.$semaineSelection.'" />
 									<td><input type="submit" name="prec" value="Semaine précédente" /></td>
 									<th colspan="4" style="text-align: center;">Semaine du '.$semaine[0].'</th>

@@ -49,7 +49,7 @@ function AfficherSyntheseClient($client, $compte, $contrat, $conseiller){
 							<p><label>Profession :</label><input type="text" name="profession" value="'.$client[0]->PROFESSION.'" readonly/></p>
 							<p><label>Nom du conseiller :</label><input type="text" name="nomconseiller" value="'.$conseiller.'" readonly/></p>';//nomconseiller
 
-		if(count($compte) <= 1) {
+		if(count($compte) >= 1) {
 			$contenuInterface .= '<table>
 			<caption>Liste des comptes</caption>';
 
@@ -59,7 +59,7 @@ function AfficherSyntheseClient($client, $compte, $contrat, $conseiller){
 			$contenuInterface .= '</table>';
 		}
 
-		if(count($contrat) <= 1) {
+		if(count($contrat) >= 1) {
 			$contenuInterface .= '<table>
 			<caption>Liste des contrats</caption>';
 			for ($j = 0; $j < count($contrat); $j++) {

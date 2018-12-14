@@ -38,7 +38,7 @@ function AfficherSyntheseClient($client, $compte, $contrat, $conseiller){
 
 	if(count($client) == 1){
 	    $numClient = $client[0]->NUMCLIENT;
-		$contenuInterface = '<form method="post" action="banque.php"><fieldset><label>Synthèse du client</label><p>Client n°:'.$numClient.'</p>
+		$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Synthèse du client</legend><p>Client n°:'.$numClient.'</p>
 							<p><label>Nom :</label><input type="text" name="nom1" value="'.$client[0]->NOM.'" readonly/></p>
 							<p><label>Prénom :</label><input type="text" name="prenom1" value="'.$client[0]->PRENOM.'" readonly/></p>
 							<p><label>Date de naissance :</label><input type="text" name="birth" value="'.$client[0]->DATEDENAISSANCE.'" readonly/></p>
@@ -89,7 +89,7 @@ function AfficherModificationInfo($client, $categorie){
 	$contenuHeader = '<strong>AGENT</strong>';
 	$contenuBis = '';
     $numClient = $client->NUMCLIENT;
-	$contenuInterface = '<form method="post" action="banque.php"><fieldset><label>Modification des informations du client</label><p>Client n°:'.$numClient.'</p>
+	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Modification des informations du client</legend><p>Client n°:'.$numClient.'</p>
                         <p><input type="hidden" name="numClient" value="'.$numClient.'"/></p>
                         <p><input type="hidden" name="categorie" value="'.$categorie.'"/></p>
 						<p><label>Nom :</label><input type="text" name="nom1" value="'.$client->NOM.'" disabled/></p>

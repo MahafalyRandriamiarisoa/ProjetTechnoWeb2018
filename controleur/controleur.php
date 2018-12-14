@@ -155,6 +155,7 @@ function CtlAfficherAction($action,$numClient = ''){
 
 }
 
+
 function CtlMenuDirecteur($action){
     switch($action){
     case 'modifId':
@@ -209,6 +210,8 @@ function CtlAfficherModificationListeContratCompte($comptes,$contrats){
 		throw new Exception('Aucune liste de contrats ou de comptes');
 	}
 }
+
+
 
 /**
  * Fonction pour enregistrer un client champ par champ

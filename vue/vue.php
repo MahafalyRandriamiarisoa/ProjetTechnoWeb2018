@@ -38,7 +38,7 @@ function AfficherSyntheseClient($client, $compte, $contrat, $conseiller){
 
 	if(count($client) == 1){
 	    $numClient = $client[0]->NUMCLIENT;
-		$contenuInterface = '<form method="post" action="banque.php"><fieldset><label>Synthèse du client</label><p>Client n°:'.$numClient.'</p>
+		$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Synthèse du client</legend><p>Client n°:'.$numClient.'</p>
 							<p><label>Nom :</label><input type="text" name="nom1" value="'.$client[0]->NOM.'" readonly/></p>
 							<p><label>Prénom :</label><input type="text" name="prenom1" value="'.$client[0]->PRENOM.'" readonly/></p>
 							<p><label>Date de naissance :</label><input type="text" name="birth" value="'.$client[0]->DATEDENAISSANCE.'" readonly/></p>
@@ -89,7 +89,7 @@ function AfficherModificationInfo($client, $categorie){
 	$contenuHeader = '<strong>AGENT</strong>';
 	$contenuBis = '';
     $numClient = $client->NUMCLIENT;
-	$contenuInterface = '<form method="post" action="banque.php"><fieldset><label>Modification des informations du client</label><p>Client n°:'.$numClient.'</p>
+	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Modification des informations du client</legend><p>Client n°:'.$numClient.'</p>
                         <p><input type="hidden" name="numClient" value="'.$numClient.'"/></p>
                         <p><input type="hidden" name="categorie" value="'.$categorie.'"/></p>
 						<p><label>Nom :</label><input type="text" name="nom1" value="'.$client->NOM.'" disabled/></p>
@@ -371,7 +371,7 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 	$semaine = array();
 
 	for($i = 0; $i < 6; $i++){
-		$semaine[$i] = date('j/m/Y', strtotime('+'.($i+1).' day +'.($semaineSelection - 1).' week'));
+		$semaine[$i] = date('j/m/Y', strtotime('+'.($i - 3).' day +'.($semaineSelection - 1).' week'));
 	}
 
 	$planning = array();
@@ -453,7 +453,7 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 								<th>'.$heure.'H</th>';
 			for($j = 0; $j < count($planning[0]); $j++){
 				if($planning[$k][$j][0] != ""){
-					$contenuBis .= '<td class="disabled">EN RDV</td>';
+					$contenuBis .= '<td onClick="showRDV(\''.$planning[$k][$j][1].'\', \''.$planning[$k][$j][2].'\', \''.$planning[$k][$j][4].'\', \''.$planning[$k][$j][5].'\', \''.$planning[$k][$j][6].'\')">EN RDV</td>';
 				}else{
 					$contenuBis .= '<td onClick="checkRDV(\''.($k).($j).'\')"><input type="radio" name="choixRDV" id="'.($k).($j).'" value="'.$semaine[$j].'/'.$heure.'"/></td>';
 				}

@@ -37,6 +37,7 @@ function getConnect(){
 
 function checkLogin($login, $mdp){
 	$connexion = getConnect();
+	//$requete = "SELECT * FROM IDENTIFIANT WHERE '$login' = login AND '$mdp' = mdp";
 	$requete = "SELECT * FROM EMPLOYE WHERE '$login' = login AND '$mdp' = mdp";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
@@ -443,6 +444,7 @@ function ajouterPieceAFournir($libelle){
 }
 
 function getPiecesAFournir($idContrat){
+
 	$connexion = getConnect();
 	$requete = "SELECT idPiece_a_fournir_1 FROM PIECES_A_FOURNIRMOTIF WHERE idMotif = 1";
 	$resultat = $connexion->query($requete);
@@ -451,6 +453,7 @@ function getPiecesAFournir($idContrat){
 }
 
 function allConseillers(){
+
     $connexion = getConnect();
     $requete = "SELECT * FROM EMPLOYE WHERE categorie='Conseiller'";
     $resultat = $connexion->query($requete);

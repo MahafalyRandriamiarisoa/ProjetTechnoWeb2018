@@ -135,7 +135,7 @@ function CtlAfficherAction($action,$numClient = ''){
                 AfficherRechercherClient($action);
             }else {
                 CtlnumClientExiste($numClient);
-                CtlAfficherModificationDécouvert($numClient);//todo :
+                CtlAfficherModificationDecouvert($numClient);//todo :
             }
             break;
 
@@ -526,9 +526,17 @@ function CtlFermerCompte($numClient, $nomCompte){
  * @param $nomCompte
  *      correspond au type de compte
  */
-function CtlModifierMontantDecouvert($montant,$numClient,$nomCompte){
+function CtlModifierMontantDecouvert($comptesConcernes,$montantsDecouverts,$numClient){
+    for($i = 0; $i < count($comptesConcernes); $i++){
+        setMontantDecouvertAutorise($numClient, $comptesConcernes[$i], $montantsDecouverts[$i]);
+    }
 
-    setMontantDecouvertAutorise($numClient, $nomCompte, $montant);
+    CtlRetourAcceuil('Conseiller', '');
+}
+
+function CtlAfficherModificationDecouvert($numClient){
+    $comptes = getComptesClient($numClient);
+    AfficherModifDecouvert($comptes, $numClient);
 }
 
 

@@ -155,6 +155,8 @@ try{
         $typeResiliation = $_POST['actionResilier'];
 
         CtlResilier();
+	}elseif(isset($_POST['modifierId'])){
+		CtlModifierIdentifiants();
     }else{
 
         CtlInterfaceLogin();

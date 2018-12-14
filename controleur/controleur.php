@@ -13,7 +13,7 @@
        public $EMAIL;
 
 
-        public function __construct()
+       public function __construct()
         {
                 $this->NUMCLIENT = '';
                 $this->IDEMPLOYE = '';

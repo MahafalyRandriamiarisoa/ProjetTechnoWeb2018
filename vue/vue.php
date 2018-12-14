@@ -437,7 +437,7 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 				if($planning[$k][$j][0] != ""){
 					$contenuBis .= '<td onClick="showRDV(\''.$planning[$k][$j][1].'\', \''.$planning[$k][$j][2].'\', \''.$planning[$k][$j][4].'\', \''.$planning[$k][$j][5].'\', \''.$planning[$k][$j][6].'\')">'.$planning[$k][$j][0].'</td>';
 				}else{
-					$contenuBis .= '<td onClick="checkRDV(\''.($k).($j).'\')"><input type="checkbox" id="'.($k).($j).'"/></td>';
+					$contenuBis .= '<td onClick="checkRDV(\''.($k).($j).'\')"><input type="checkbox" id="'.($k).($j).'" name="disponibilités" value="pute"/></td>';
 				}
 			}
 		}

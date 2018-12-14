@@ -31,9 +31,10 @@
  * Fonction pour le contrôle de la toute première interface, l'interface de connexion
  *@param message qui potentiellement un message inquant une erreur
  */
-    function CtlInterfaceLogin(){
-        AfficherInterfaceLogin();
-            }
+
+function CtlInterfaceLogin(){
+    AfficherInterfaceLogin();
+}
 
 /**à supprimer
  * Fonction pour verifier si un client, fonction particulierement importante lors de la saisie interactive directe du numClient

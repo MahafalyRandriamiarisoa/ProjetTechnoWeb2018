@@ -4,7 +4,7 @@
       <title>Ma page</title>
       <meta charset="utf-8">
 	  <link rel="stylesheet"  href="vue/style/styles.css" />
-	  
+	  <script type="text/javascript" src="vue/fonction.js"></script>
     </head>
     
 	<body>	
@@ -25,7 +25,7 @@
 							<option value="stat"/>Statistiques de la banque</option>
 						</select>
 					</p>
-					<p><input type="submit" name="validerDirecteur" value="Valider"/></p>
+					<p><input type="submit" name="valider" value="Valider"/></p>
 				</fieldset>
 			</form>
 		</aside>

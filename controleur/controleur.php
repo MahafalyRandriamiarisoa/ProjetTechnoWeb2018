@@ -155,6 +155,7 @@ function CtlAfficherAction($action,$numClient = ''){
 
 }
 
+
 function CtlMenuDirecteur($action){
     switch($action){
     case 'modifId':
@@ -210,6 +211,8 @@ function CtlAfficherModificationListeContratCompte($comptes,$contrats){
 	}
 }
 
+
+
 /**
  * Fonction pour enregistrer un client champ par champ
  * @param $idEmploye
@@ -252,16 +255,20 @@ function CtlAfficherResilier($numClient){
     AfficherResilier($comptes, $contrats);
 }
 
-function CtlResilier($typeResiliation){
-    $allComptes = allComptes();
+function CtlResilier($typeResiliation, $numClient){
+    $allComptes = allTypeCompte();
     $allContrats = allContrats();
 
-    if(in_array($typeResiliation, $allComptes)){
-        CtlResilierCompte();
-    }elseif(in_array($typeResiliation, $allComptes)){
-        CtlResilierContrat();
-    }else{
-        //si c'est ni un compte ni un contrat alors faut se poser des questions
+    foreach($allComptes as $key => $value){
+        if($value->NOMCOMPTE == $typeResiliation){
+            CtlResilierCompte($numClient, $value->NOMCOMPTE);
+        }
+    }
+
+    foreach($allContrats as $key => $value){
+        if($value->LIBELLE == $typeResiliation){
+            CtlResilierContrat($numClient, $value->IDCONTRAT);
+        }
     }
 }
 
@@ -444,9 +451,18 @@ function CtlNouveauContratClient($numClient,$tarifMensuel, $libelle){
     CtlRetourAcceuil('Conseiller', '');
 }
 
-function CtlResilierContrat($numClient,$IDCONTRAT){
+function CtlResilierContrat($numClient,$idContrat){
     //todo : vérifier quelles précautions sont à prendre
-    resilierContrat($IDCONTRAT);
+    resilierContrat($numClient, $idContrat);
+
+    CtlRetourAcceuil('Conseiller', $numClient);
+}
+
+function CtlResilierCompte($numClient,$nomCompte){
+    //todo : vérifier quelles précautions sont à prendre
+    resilierCompte($numClient, $nomCompte);
+    
+    CtlRetourAcceuil('Conseiller', $numClient);
 }
 /**Fonction qui permet de proposer à un client d'ouvrir un compte qu'il ne possède pas déjà
  * @param $numClient

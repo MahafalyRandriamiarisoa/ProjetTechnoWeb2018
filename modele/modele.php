@@ -37,7 +37,7 @@ function getConnect(){
 
 function checkLogin($login, $mdp){
 	$connexion = getConnect();
-	$requete = "SELECT * FROM EMPLOYE WHERE '$login' = login AND '$mdp' = mdp";
+	$requete = "SELECT * FROM IDENTIFIANT WHERE '$login' = login AND '$mdp' = mdp";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat->fetch();
@@ -139,10 +139,17 @@ function getSyntheseClient($numClient){
 
 function getRDV($idEmploye){
 	$connexion = getConnect();
-	$requete = "SELECT * FROM RENDEZVOUS NATURAL JOIN CLIENT NATURAL JOIN TYPEMOTIF NATURAL JOIN PIECES_A_FOURNIRMOTIF NATURAL JOIN PIECES_A_FOURNIR WHERE idEmploye = $idEmploye";
+	$requete = "SELECT * FROM RENDEZVOUS NATURAL JOIN CLIENT NATURAL JOIN TYPEMOTIF WHERE idEmploye = $idEmploye";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
+	return $resultat ->fetchAll();
+}
 
+function getDispos($idEmploye){
+	$connexion = getConnect();
+	$requete = "SELECT * FROM RENDEZVOUS WHERE idEmploye = $idEmploye AND numClient IS NULL";
+	$resultat = $connexion->query($requete);
+	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat ->fetchAll();
 }
 

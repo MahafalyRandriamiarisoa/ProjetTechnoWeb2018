@@ -147,6 +147,7 @@ function AfficherOperationCompte($compte, $numClient){
 }
 
 function AfficherInscription($conseillers){
+	$contenuBis = '';
 	$contenuHeader = '<strong>CONSEILLER</strong>';
 	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Nouveau client </legend>
 						<p><label>IdConseiller:</label><input type="text" name="idConseiller" required/></p>
@@ -169,6 +170,7 @@ function AfficherInscription($conseillers){
 }
 
 function AfficherVendreContrat($contrat, $numClient){
+	$contenuBis = '';
 	$contenuHeader = '<strong>CONSEILLER</strong>';
 	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Vendre un contrat </legend>
 						<p><label>Sélectionner le contrat à vendre :</label></p>
@@ -190,7 +192,7 @@ function AfficherVendreContrat($contrat, $numClient){
 
 function AfficherOuvrirCompte($compte, $numClient){
 	$contenuHeader='<strong>CONSEILLER</strong>';
-
+	$contenuBis = '';
 	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Ouvrir un ou plusieurs comptes</legend>
 						<p><label>Sélectionner le ou les comptes à ouvrir :<label></p>
 						<p>
@@ -208,6 +210,7 @@ function AfficherOuvrirCompte($compte, $numClient){
 
 function AfficherResilier($compte,$contrat){
 	$contenuHeader = '<strong>CONSEILLER</strong>';
+	$contenuBis = '';
 	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Résilier compte ou contrat</legend>
 						<p><label>Numéro du client:</label><input type="text" name="numClient" required /></p>
 						<p><label>Sélectionner le compte ou le contrat à résilier :<label></p>
@@ -317,7 +320,8 @@ function AfficherErreur($categorie,$erreur){
 }
 
 function AfficherRechercherClient($action){
-    $contenuHeader = '<strong>CONSEILLER</strong>';
+	$contenuHeader = '<strong>CONSEILLER</strong>';
+	$contenuBis = '';
 	$contenuInterface = '
     <form method="post" action="banque.php">
         <fieldset id="f1">
@@ -334,7 +338,7 @@ function AfficherRechercherClient($action){
 
 function AfficherChoixPlanning($conseillers){
 	$contenuHeader = '<strong>CONSEILLER</strong>';
-
+	$contenuBis = '';
 	$contenuInterface = '
     <form method="post" action="banque.php">
         <fieldset id="f3">
@@ -356,7 +360,17 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 	$numClient = $client->NUMCLIENT;
     $nbRDV = count($rdvEmploye);
 	$time = array();
-    $idEmploye = $client->IDEMPLOYE;
+	$idEmploye = $client->IDEMPLOYE;
+
+
+	foreach($rdvEmploye as $key => $value){
+		if($value->IDMOTIF == 3){
+			$rdvEmploye[$key]->NOM = "Aucun";
+			$rdvEmploye[$key]->PRENOM = "";
+			$rdvEmploye[$key]->LIBELLEMOTIF = "Disponibilité administrative";
+			$rdvEmploye[$key]->PIECES_A_FOURNIR = "Aucune";
+		}
+	}
 
 	for($i = 0; $i < $nbRDV; $i++){
 		$time[$i] = strtotime($rdvEmploye[$i]->DATEHEURERDV);
@@ -388,15 +402,27 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 		$heureRDV = $rdv[3];
 		for($j = 0; $j < count($semaine); $j++){
 			if($semaine[$j] == $jourMoisRDV){
-				$planning[$heureRDV - 8][$j] = array(
-					"RDV",
-					$rdvEmploye[$i]->NOM,
-					$rdvEmploye[$i]->PRENOM,
-					$rdvEmploye[$i]->IDEMPLOYE,
-					$rdvEmploye[$i]->LIBELLEMOTIF,
-					$rdvEmploye[$i]->LIBELLE_PIECES_A_FOURNIR,
-					$rdvEmploye[$i]->DATEHEURERDV
-				);
+				if($rdvEmploye[$i]->IDMOTIF == 3){
+					$planning[$heureRDV - 8][$j] = array(
+						"DISPO ADMIN",
+						$rdvEmploye[$i]->NOM,
+						$rdvEmploye[$i]->PRENOM,
+						$rdvEmploye[$i]->IDEMPLOYE,
+						$rdvEmploye[$i]->LIBELLEMOTIF,
+						$rdvEmploye[$i]->PIECES_A_FOURNIR,
+						$rdvEmploye[$i]->DATEHEURERDV
+					);
+				}else{
+					$planning[$heureRDV - 8][$j] = array(
+						"RDV",
+						$rdvEmploye[$i]->NOM,
+						$rdvEmploye[$i]->PRENOM,
+						$rdvEmploye[$i]->IDEMPLOYE,
+						$rdvEmploye[$i]->LIBELLEMOTIF,
+						$rdvEmploye[$i]->PIECES_A_FOURNIR,
+						$rdvEmploye[$i]->DATEHEURERDV
+					);
+				}
 			}
 		}
 	}
@@ -437,7 +463,7 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 				if($planning[$k][$j][0] != ""){
 					$contenuBis .= '<td onClick="showRDV(\''.$planning[$k][$j][1].'\', \''.$planning[$k][$j][2].'\', \''.$planning[$k][$j][4].'\', \''.$planning[$k][$j][5].'\', \''.$planning[$k][$j][6].'\')">'.$planning[$k][$j][0].'</td>';
 				}else{
-					$contenuBis .= '<td onClick="checkRDV(\''.($k).($j).'\')"><input type="checkbox" id="'.($k).($j).'" name="disponibilités" value="pute"/></td>';
+					$contenuBis .= '<td onClick="checkRDV(\''.($k).($j).'\')"><input type="checkbox" id="'.($k).($j).'" name="dispos[]" value="'.$semaine[$j].'/'.$heure.'"/></td>';
 				}
 			}
 		}
@@ -445,6 +471,7 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 					</div>
 					<input type="submit" value="Valider les disponiblités">
 				</fieldset>';
+		require_once('gabaritConseiller.php');
 	}elseif($categorie == 'Agent'){
 		$contenuHeader = '<strong>AGENT</strong>';
 		for($k = 0; $k < 11; $k++){
@@ -453,7 +480,7 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 								<th>'.$heure.'H</th>';
 			for($j = 0; $j < count($planning[0]); $j++){
 				if($planning[$k][$j][0] != ""){
-					$contenuBis .= '<td onClick="showRDV(\''.$planning[$k][$j][1].'\', \''.$planning[$k][$j][2].'\', \''.$planning[$k][$j][4].'\', \''.$planning[$k][$j][5].'\', \''.$planning[$k][$j][6].'\')">EN RDV</td>';
+					$contenuBis .= '<td onClick="showRDV(\''.$planning[$k][$j][1].'\', \''.$planning[$k][$j][2].'\', \''.$planning[$k][$j][4].'\', \''.$planning[$k][$j][5].'\', \''.$planning[$k][$j][6].'\')">'.$planning[$k][$j][0].'</td>';
 				}else{
 					$contenuBis .= '<td onClick="checkRDV(\''.($k).($j).'\')"><input type="radio" name="choixRDV" id="'.($k).($j).'" value="'.$semaine[$j].'/'.$heure.'"/></td>';
 				}
@@ -470,7 +497,7 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 					<p><input class="bottom" href=#bottom type="submit" name="idRDVEmploye" value="Valider le RDV"/></p>
 					</form>
 				</fieldset>';
+		require_once('gabaritAgent.php');
 	}
-	require_once('gabaritAgent.php');
 
 }

@@ -145,7 +145,7 @@ try{
         $action = $_POST['action'];
         $numClient = $_POST['numClient'];
         CtlAfficherAction($action, $numClient);
-    }elseif(isset($_POST['selectConseiller'])){
+    }elseif(isset($_POST['choixConseiller'])){
         $idConseiller = $_POST['selectConseiller'];
         CtlPlanningConseiller($idConseiller);
     }elseif(isset($_POST['ouvrir'])){
@@ -158,10 +158,12 @@ try{
         CtlResilier($typeResiliation, $numClient);
 	}elseif(isset($_POST['modifierId'])){
 		CtlModifierIdentifiants();
+    }elseif(isset($_POST['dispos'])){
+        $dispos = $_POST['dispos'];
+        $idEmploye = $_POST['idEmp'];
+        CtlDispoConseiller($dispos, $idEmploye);
     }else{
-
         CtlInterfaceLogin();
-
     }
 
 }catch(Exception $e1){

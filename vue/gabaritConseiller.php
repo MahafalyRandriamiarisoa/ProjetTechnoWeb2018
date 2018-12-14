@@ -3,7 +3,7 @@
     <head>
       <title>Ma page</title>
       <meta charset="utf-8">
-	  <link rel="stylesheet"  href="vue/style/styles.css" />
+	  <link rel="stylesheet"  href="vue/style/style.css"/>
 	  <script type="text/javascript" src="vue/fonction.js"></script>
 	  
     </head>
@@ -38,6 +38,7 @@
 		</aside>
 		<div>
 		   <?php echo $contenuInterface; ?>
+		   <?php echo $contenuBis;?>
 		</div>
 	</body>
 </html>

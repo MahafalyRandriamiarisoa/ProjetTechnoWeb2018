@@ -320,7 +320,7 @@ function CtlAfficherOperationCompte($numClient,$categorie){
 
 function CtlPlanning($int,$categorie,$numClient){
     $client = checkClient($numClient);
-    $rdvEmploye = getRDV($client[0]->IDEMPLOYE);
+    $rdvEmploye = array_merge(getRDV($client[0]->IDEMPLOYE), getDispos($client[0]->IDEMPLOYE));
     $motifs = allMotif();
     AfficherPlanning($rdvEmploye,$int, $categorie,$client[0],$motifs);
 }
@@ -331,10 +331,20 @@ function CtlAfficherPlanning(){
 
 
 function CtlPlanningConseiller($idConseiller){
-    $rdvEmploye = getRDV($idConseiller);
+    $rdvEmploye = array_merge(getRDV($idConseiller), getDispos($idConseiller));
     $motifs = allMotif();
     $client = new Client();
+    $client->IDEMPLOYE = $idConseiller;
     AfficherPlanning($rdvEmploye, 0, 'Conseiller', $client, $motifs);
+}
+
+function CtlDispoConseiller($dispos, $idEmploye){
+
+    for($i = 0; $i < count($dispos); $i++){
+        ajouterRDV($idEmploye, 3, "NULL", $dispos[$i]);
+    }
+
+    CtlRetourAcceuil('Conseiller', '');
 }
 
 /**

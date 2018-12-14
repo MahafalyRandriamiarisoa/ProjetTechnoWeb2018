@@ -4,7 +4,7 @@
       <title>Ma page</title>
       <meta charset="utf-8">
 	  <link rel="stylesheet"  href="vue/style/styles.css" />
-	  
+	  <script type="text/javascript" src="vue/fonction.js"></script>
     </head>
     
 	<body>	

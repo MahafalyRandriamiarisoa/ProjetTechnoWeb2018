@@ -228,6 +228,64 @@ function AfficherResilier($compte,$contrat){
 	require_once('gabaritConseiller.php');
 }
 
+function AfficherModifDecouvert($comptes){
+	$contenuHeader='<strong>CONSEILLER</strong>';
+	$contenuInterface='<form method="post" action="banque.php"><fieldset><legend>Modifier la valeur du découvert</legend>
+						<p><label>Numéro du client:</label><input type="text" name="numClient" required /></p>';
+						
+							for($k=0;$k<count($comptes);$k++){
+							$contenuInterface.='<p>Compte '.$k+1 .'</p>
+												<p><label>Nom du compte :</label><input type="text"  value="'.$compte[$k]->NOMCOMPTE.'" readonly/></p>
+												<p><label>Montant du découvert :</label><input type="text" name="'.$compte[$k]->NOMCOMPTE.'" value="'.$compte[$k]->MONTANTDECOUVERT.'"/></p><br/>';
+						}
+						
+						$contenuInterface.='<p><input type="submit" name="modifierDecouvert" value="Modifier la valeur du découvert"/></p>';	
+require_once('gabaritConseiller.php');
+	
+}
+
+
+function AfficherModificationId($identifiants){
+	$contenuHeader='<strong>DIRECTEUR</strong>';
+	$contenuBis='';
+	$contenuInterface='<form method="post" action="banque.php"><fieldset>
+						<legend>Identifiants des employés</legend>';
+	for($l=0;$l<count($identifiants);$l++){
+		$contenuInterface.='<p><label>Catégorie: </label><input type="text" name="'.$identifiants[$l]->CATEGORIE.'" value="'.$identifiants[$l]->CATEGORIE.'"disabled/></p>
+							<p><label>Login: </label><input type="text" name="'.$identifiants[$l]->CATEGORIE.'login" value="'.$identifiants[$l]->LOGIN.'"/></p>
+							<p><label>Mot de passe: </label><input type="text" name="'.$identifiants[$l]->CATEGORIE.'mdp" value="'.$identifiants[$l]->MDP.'"/></p><br/>';
+							
+	}
+	$contenuInterface.='<p><input type="submit" name="modifierId" value="Modifier les identifiants"/></p></fieldset></form>';
+
+	require_once('gabaritDirecteur.php');
+}	
+
+
+
+function AfficherModificationListeContratCompte($compte,$contrat){
+	$contenuHeader='<strong>DIRECTEUR</strong>';
+	$contenuBis='';
+	$contenuInterface='<form name="modifMotif" method="post" action="banque.php"><fieldset id="liste">
+						<legend>Liste des contrats et des comptes</legend>';
+						for($i=0;$i<count($compte);$i++){
+							$contenuInterface.='<p><input type="hidden" name="compte'.$i.'" value="'.$compte[$i]->NOMCOMPTE.'"/></p>';
+						}
+						
+						for($i=0;$i<count($contrat);$i++){
+							$contenuInterface.='<p><input type="hidden" name="contrat'.$i.'" value="'.$contrat[$i]->LIBELLE.'"/></p>';
+						}
+						
+						$contenuInterface.='<p><input type="radio" name="choix" value="Ajouter" onClick="afficherAjout()" id="r1" /><label for="r1">Ajouter</label> 
+						<input type="radio" name="choix"  value="modifierContrat" onClick="afficherModificationCon('.count($contrat).')" id="r2" /><label for="r2">Modifier la liste des contrats</label>
+						<input type="radio" name="choix" value="supprimerContrat" onClick="afficherSuppressionCon('.count($contrat).')" id="r3" /><label for="r3">Supprimer la liste des contrats</label>
+						<input type="radio" name="choix"  value="modifierCompte" onClick="afficherModificationCom('.count($compte).')" id="r4" /><label for="r4">Modifier la liste des comptes</label>
+						<input type="radio" name="choix" value="supprimerCompte" onClick="afficherSuppressionCom('.count($compte).')" id="r5" /><label for="r5">Supprimer la liste des comptes</label>
+						</p>
+						</fieldset></form>';
+require_once('gabaritDirecteur.php');
+}
+
 function AfficherErreur($categorie,$erreur){
     $numClient = '';
     $contenuBis = '';

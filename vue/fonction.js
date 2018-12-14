@@ -118,3 +118,70 @@ function checkRDV(c){
         document.getElementById(c).checked = "checked";
     }
 }
+
+
+function afficherAjout(){
+	var noeudDiv=document.createElement("div");
+	noeudDiv.id='idDiv';
+	var noeud=document.getElementById('liste');
+	noeud.appendChild(noeudDiv);
+	document.getElementById('idDiv').innerHTML='<p><select name="aOuvrir"><option value="contrat">Contrat</option><option value="compte">Compte</option></select></p><p><label>Nom du contrat ou du compte</label><input type="text" name="nomCo" /></p><p><label> Pièces à fournir : </label><input type="text" name="piece" /></p><p><input type="submit" name="ajouterCo" value="Ajouter Contrat/Compte"/></p>';
+	}	
+
+function afficherModificationCon(nbContrat){
+	var noeudDiv=document.createElement("div");
+	noeudDiv.id='idDiv';
+	var noeud=document.getElementById('liste');
+	noeud.appendChild(noeudDiv);
+	var contenu='';
+	for(i=0;i<nbContrat;i++){
+		var val=document.modifMotif.elements['contrat'+i].value;
+		contenu+='<p><label>Contrat '+eval(i+1)+' :</label><input type="text" name="contrat'+i+'" value="'+val+'"/></p>';
+		
+	}
+	contenu+='<p><input type="submit" name="modifierCo" value="Modifier la liste des contrats"/></p>';
+	document.getElementById('idDiv').innerHTML=contenu;
+}
+
+function afficherSuppressionCon(nbContrat){
+	var noeudDiv=document.createElement("div");
+	noeudDiv.id='idDiv';
+	var noeud=document.getElementById('liste');
+	noeud.appendChild(noeudDiv);
+	var contenu='<p><select name="contratSuppr">';
+	for(i=0;i<nbContrat;i++){
+		var val=document.modifMotif.elements['contrat'+i].value;
+		contenu+='<option value="'+val+'">'+val+'</option>';
+	}
+	contenu+='</select></p><p><input type="submit" name="supprimerCo" value="Supprimer de la liste des contrats"/></p>';
+	document.getElementById('idDiv').innerHTML=contenu;
+}
+
+function afficherModificationCom(nbCompte){
+	var noeudDiv=document.createElement("div");
+	noeudDiv.id='idDiv';
+	var noeud=document.getElementById('liste');
+	noeud.appendChild(noeudDiv);
+	var contenu='';
+	for(i=0;i<nbCompte;i++){
+		var val=document.modifMotif.elements['compte'+i].value;
+		contenu+='<p><label>Compte '+eval(i+1)+' :</label><input type="text" name="compte'+i+'" value="'+val+'"/></p>';
+		
+	}
+	contenu+='<p><input type="submit" name="modifierCompte" value="Modifier la liste des comptes"/></p>';
+	document.getElementById('idDiv').innerHTML=contenu;
+}
+
+function afficherSuppressionCom(nbCompte){
+	var noeudDiv=document.createElement("div");
+	noeudDiv.id='idDiv';
+	var noeud=document.getElementById('liste');
+	noeud.appendChild(noeudDiv);
+	var contenu='<p><select name="compteSuppr">';
+	for(i=0;i<nbCompte;i++){
+		var val=document.modifMotif.elements['compte'+i].value;
+		contenu+='<option value="'+val+'">'+val+'</option>';
+	}
+	contenu+='</select></p><p><input type="submit" name="supprimerCo" value="Supprimer de la liste des contrats"/></p>';
+	document.getElementById('idDiv').innerHTML=contenu;
+}

@@ -114,7 +114,7 @@ try{
 
     }elseif(isset($_POST['ajouter'])){
 
-        $idConseiller = $_POST['idConseiller'];
+        $idConseiller = $_POST['conseiller'];
         $lastName = $_POST['lastName'];
         $firstName = $_POST['firstName'];
         $bday = $_POST['bday'];

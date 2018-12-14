@@ -292,7 +292,7 @@ function getRDV($idEmploye){
 
  //todo : get tous contrats
 
- function getAllContrats(){
+ function allContrats(){
 	$connexion = getConnect();
 	$requete = "SELECT * FROM CONTRAT";
 	$resultat = $connexion->query($requete);
@@ -352,10 +352,15 @@ function getRDV($idEmploye){
  //todo : resilierContrat($idContrat, $numClient)
  function resilierContrat($numClient, $idContrat){
 	$connexion = getConnect();
-	$requete = "DELETE * FROM CONTRATCLIENT WHERE numClient = $numClient AND idContrat = $idContrat";
+	$requete = "DELETE FROM CONTRATCLIENT WHERE numClient = $numClient AND idContrat = $idContrat";
 	$connexion->query($requete);
  }
 
+ function resilierCompte($numClient, $nomCompte){
+	$connexion = getConnect();
+	$requete = "DELETE FROM COMPTECLIENT WHERE numClient = $numClient AND nomCompte = '$nomCompte'";
+	$connexion->query($requete);
+ }
 
  //todo : getComptesPotentielsClient($numClient);
  //                     même explication que pour les contrats potentiels client

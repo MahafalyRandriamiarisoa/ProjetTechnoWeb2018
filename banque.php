@@ -153,8 +153,9 @@ try{
         CtlOuvrirCompte($_POST['numClient'], $nomCompte, 0);
     }elseif(isset($_POST['resilier'])){
         $typeResiliation = $_POST['actionResilier'];
+        $numClient = $_POST['numClient'];
 
-        CtlResilier();
+        CtlResilier($typeResiliation, $numClient);
 	}elseif(isset($_POST['modifierId'])){
 		CtlModifierIdentifiants();
     }else{

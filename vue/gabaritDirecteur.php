@@ -25,7 +25,7 @@
 							<option value="stat"/>Statistiques de la banque</option>
 						</select>
 					</p>
-					<p><input type="submit" name="validerDirecteur" value="Valider"/></p>
+					<p><input type="submit" name="valider" value="Valider"/></p>
 				</fieldset>
 			</form>
 		</aside>

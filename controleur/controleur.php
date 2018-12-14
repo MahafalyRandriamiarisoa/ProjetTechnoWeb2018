@@ -157,8 +157,57 @@ function CtlAfficherAction($action,$numClient = ''){
 
 function CtlMenuDirecteur($action){
     switch($action){
-        
+    case 'modifId':
+			//$identifiants=allIdentifiants();
+			$identifiants=getAllEmployes();
+			CtlAfficherModificationId($identifiants);
+			break;
+	case 'modifMotif':
+			$comptes=allTypeCompte();
+			$contrats=getAllContrats();
+			CtlAfficherModificationListeContratCompte($comptes,$contrats);
+			break;
+	case 'modifPiece':
+			CtlAfficherModificationPiece();
+			break;
+	case 'statistiques':
+			CtlAfficherStatistiques();
+			break;
     }
+}
+
+function CtlAfficherModificationId($identifiants){
+	if($identifiants!=null){
+		AfficherModificationId($identifiants);
+	}else{
+		throw new Exception('Aucun identifiant pour les employés');
+	}
+}
+	
+function CtlModifierIdentifiants(){
+	//$identifiants=allIdentifiants();
+	//avec l'ancienne base de données
+	$identifiants=getAllEmployes();
+	for($i=0;$i<count($identifiants);$i++){
+		$categorie=$identifiants[$i]->CATEGORIE;
+		$login=$_POST[$categorie.'login'];
+		$mdp=$_POST[$categorie.'mdp'];
+		if($categorie=='' || $login==''||$mdp==''){
+			throw new Exception('Un des champs est vide');
+		}else{
+			modifierIdentifiants($categorie, $login, $mdp);
+		}
+	}
+	
+	AfficherAcceuil("Directeur","");
+}
+
+function CtlAfficherModificationListeContratCompte($comptes,$contrats){
+	if($comptes!=null || $contrats!=null){
+		AfficherModificationListeContratCompte($comptes,$contrats);
+	}else{
+		throw new Exception('Aucune liste de contrats ou de comptes');
+	}
 }
 
 /**

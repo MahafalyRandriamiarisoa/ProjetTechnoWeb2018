@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS MLDRBANQUE7;
+DROP DATABASE IF EXISTS BANQUE7;
 
-CREATE DATABASE IF NOT EXISTS MLDRBANQUE7;
-USE MLDRBANQUE7;
+CREATE DATABASE IF NOT EXISTS BANQUE7;
+USE BANQUE7;
 # -----------------------------------------------------------------------------
 #       TABLE : IDENTIFIANT
 # -----------------------------------------------------------------------------

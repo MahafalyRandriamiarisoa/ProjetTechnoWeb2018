@@ -288,6 +288,28 @@ function AfficherModificationListeContratCompte($compte,$contrat){
 require_once('gabaritDirecteur.php');
 }
 
+function AfficherModificationPiece($piece){
+	$contenuHeader='<strong>DIRECTEUR</strong>';
+	$contenuBis='';
+	$contenuInterface='<form name="formuPiece" method="post" action="banque.php"><fieldset id="modifListePiece">
+						<legend>Liste des pieces à fournir</legend>
+						<p><select name="modifPiece" onchange="afficherSelectPiece()">';
+						
+						//for($p=0;$p<count($piece);$p){
+							$contenuInterface.='<option value="'.$piece[0]->PIECES_A_FOURNIR.'">'.$piece[0]->LIBELLEMOTIF.'</option>
+												<option value="'.$piece[1]->PIECES_A_FOURNIR.'">'.$piece[1]->LIBELLEMOTIF.'</option>
+												<option value="'.$piece[2]->PIECES_A_FOURNIR.'">'.$piece[2]->LIBELLEMOTIF.'</option>
+												<option value="'.$piece[3]->PIECES_A_FOURNIR.'">'.$piece[3]->LIBELLEMOTIF.'</option>
+												';
+						//}
+						$contenuInterface.='</select></p></fieldset></form>';
+	require_once('gabaritDirecteur.php');
+}
+
+function AfficherStatistiques(){
+	
+}
+
 function AfficherErreur($categorie,$erreur){
     $numClient = '';
     $contenuBis = '';

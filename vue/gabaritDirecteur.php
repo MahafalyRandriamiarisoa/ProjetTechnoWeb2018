@@ -30,7 +30,8 @@
 			</form>
 		</aside>
 		<div>
-			<?php echo $contenuInterface;
+			<?php ini_set('memory_limit', '-1');
+				  echo $contenuInterface;
 				  echo $contenuBis;?>
 		</div>
 	</body>

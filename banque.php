@@ -162,6 +162,11 @@ try{
         $dispos = $_POST['dispos'];
         $idEmploye = $_POST['idEmp'];
         CtlDispoConseiller($dispos, $idEmploye);
+    }elseif(isset($_POST['modifierDecouvert'])){
+        $comptesConcernes = $_POST['compteConcerne'];
+        $montantDecouverts = $_POST['setMontantDecouvert'];
+        $numClient = intval($_POST['numClient']);
+        CtlModifierMontantDecouvert($comptesConcernes, $montantDecouverts, $numClient);
     }else{
         CtlInterfaceLogin();
     }

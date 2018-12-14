@@ -230,19 +230,19 @@ function AfficherResilier($compte,$contrat){
 	require_once('gabaritConseiller.php');
 }
 
-function AfficherModifDecouvert($comptes){
+function AfficherModifDecouvert($comptes, $numClient){
+	$contenuBis = '';
 	$contenuHeader='<strong>CONSEILLER</strong>';
-	$contenuInterface='<form method="post" action="banque.php"><fieldset><legend>Modifier la valeur du découvert</legend>
-						<p><label>Numéro du client:</label><input type="text" name="numClient" required /></p>';
+	$contenuInterface='<form method="post" action="banque.php"><fieldset><legend>Modifier la valeur du découvert</legend>';
 						
-							for($k=0;$k<count($comptes);$k++){
-							$contenuInterface.='<p>Compte '.$k+1 .'</p>
-												<p><label>Nom du compte :</label><input type="text"  value="'.$compte[$k]->NOMCOMPTE.'" readonly/></p>
-												<p><label>Montant du découvert :</label><input type="text" name="'.$compte[$k]->NOMCOMPTE.'" value="'.$compte[$k]->MONTANTDECOUVERT.'"/></p><br/>';
-						}
+	for($k=0;$k<count($comptes);$k++){
+	$contenuInterface.='<p><label>Nom du compte :</label><input type="text"  name="compteConcerne[]" value="'.$comptes[$k]->NOMCOMPTE.'" readonly/></p>
+						<p><label>Montant du découvert :</label><input type="text" name="setMontantDecouvert[]" value="'.$comptes[$k]->MONTANTDECOUVERT.'"/></p><br/>';
+	}
 						
-						$contenuInterface.='<p><input type="submit" name="modifierDecouvert" value="Modifier la valeur du découvert"/></p>';	
-require_once('gabaritConseiller.php');
+	$contenuInterface.='<p><input type="submit" name="modifierDecouvert" value="Modifier la valeur du découvert"/></p>
+						<input type="hidden" name="numClient" value="'.$numClient.'"/>';	
+	require_once('gabaritConseiller.php');
 	
 }
 

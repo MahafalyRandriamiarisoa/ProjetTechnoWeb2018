@@ -185,3 +185,39 @@ function afficherSuppressionCom(nbCompte){
 	contenu+='</select></p><p><input type="submit" name="supprimerCo" value="Supprimer de la liste des contrats"/></p>';
 	document.getElementById('idDiv').innerHTML=contenu;
 }
+
+
+function afficherSelectPiece(){
+	var noeudDiv=document.createElement("div");
+	noeudDiv.id='idDiv';
+	var noeud=document.getElementById('modifListePiece');
+	noeud.appendChild(noeudDiv);
+	var selection=document.formuPiece.elements['modifPiece'].value;
+	var contenu='';
+		if(selection==''){
+			contenu+='<p><label>Liste des pièces à fournir pour ce motif : </label><input type="text" name="newList"/></p><p><input type="submit" name="ajoutPiece" value="Ajouter la liste de pièces à fournir"/></p>';
+		}else{
+			contenu+='<p>Voulez-vous supprimer la liste des pièces à fournir?</p><p><input type="radio" name="confirmation" onclick="afficherPieceSuppr()"/> Oui </p> <p><input type="radio" name="confirmation" onclick="afficherPieceModif()"/> Non </p>';
+		}
+	document.getElementById('idDiv').innerHTML=contenu;
+}
+
+function afficherPieceSuppr(){
+	var noeudDiv=document.createElement("div");
+	noeudDiv.id='idDiv';
+	var noeud=document.getElementById('modifListePiece');
+	noeud.appendChild(noeudDiv);
+	var selection=document.formuPiece.elements['modifPiece'].value;
+	var contenu='<p><label>Liste des pièces à fournir pour ce motif : </label><input type="text" name="pieceasuppr" value="'+selection+'" readonly/></p><p><input type="submit" name="supprPiece" value="Supprimer la liste de pièces à fournir"/></p>';
+	document.getElementById('idDiv').innerHTML=contenu;
+}
+
+function afficherPieceModif(){
+	var noeudDiv=document.createElement("div");
+	noeudDiv.id='idDiv';
+	var noeud=document.getElementById('modifListePiece');
+	noeud.appendChild(noeudDiv);
+	var selection=document.formuPiece.elements['modifPiece'].value;
+	var contenu='<p><label>Liste des pièces à fournir pour ce motif : </label><input type="text" name="pieceamodif" value="'+selection+'" /></p><p><input type="submit" name="modifPiece" value="Modifier la liste de pièces à fournir"/></p>';
+	document.getElementById('idDiv').innerHTML=contenu;
+}

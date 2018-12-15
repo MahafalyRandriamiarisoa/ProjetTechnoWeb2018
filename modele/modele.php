@@ -469,3 +469,12 @@ function allConseillers(){
     $resultat->setFetchMode(PDO::FETCH_OBJ);
     return $resultat->fetchAll();
 }
+
+
+function allIdentifiants(){
+	$connexion = getConnect();
+	$requete = "SELECT * FROM IDENTIFIANT ";
+    $resultat = $connexion->query($requete);
+    $resultat->setFetchMode(PDO::FETCH_OBJ);
+    return $resultat->fetchAll();
+}

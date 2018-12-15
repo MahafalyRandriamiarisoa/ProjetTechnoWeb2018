@@ -160,8 +160,8 @@ function CtlAfficherAction($action,$numClient = ''){
 function CtlMenuDirecteur($action){
     switch($action){
     case 'modifId':
-			//$identifiants=allIdentifiants();
-			$identifiants=getAllEmployes();
+			$identifiants=allIdentifiants();
+			//$identifiants=getAllEmployes();
 			CtlAfficherModificationId($identifiants);
 			break;
 	case 'modifMotif':
@@ -170,7 +170,8 @@ function CtlMenuDirecteur($action){
 			CtlAfficherModificationListeContratCompte($comptes,$contrats);
 			break;
 	case 'modifPiece':
-			CtlAfficherModificationPiece();
+			$pieces=allMotif();
+			CtlAfficherModificationPiece($pieces);
 			break;
 	case 'statistiques':
 			CtlAfficherStatistiques();
@@ -187,9 +188,9 @@ function CtlAfficherModificationId($identifiants){
 }
 	
 function CtlModifierIdentifiants(){
-	//$identifiants=allIdentifiants();
-	//avec l'ancienne base de données
-	$identifiants=getAllEmployes();
+	$identifiants=allIdentifiants();
+	
+	//$identifiants=getAllEmployes();
 	for($i=0;$i<count($identifiants);$i++){
 		$categorie=$identifiants[$i]->CATEGORIE;
 		$login=$_POST[$categorie.'login'];
@@ -212,7 +213,13 @@ function CtlAfficherModificationListeContratCompte($comptes,$contrats){
 	}
 }
 
-
+function CtlAfficherModificationPiece($pieces){
+	if($pieces!=null){
+		AfficherModificationPiece($pieces);
+	}else{
+		throw new Exception('Aucune liste de pièces à fournir');
+	}
+}
 
 /**
  * Fonction pour enregistrer un client champ par champ

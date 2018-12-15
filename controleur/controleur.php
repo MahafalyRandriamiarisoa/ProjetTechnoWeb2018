@@ -100,7 +100,7 @@ function CtlAfficherAction($action,$numClient = ''){
 
         case 'rdv':
             CtlnumClientExiste(intval($numClient));
-            CtlPlanning(0,'Agent',$numClient); //todo supprimer categorie
+            CtlPlanning(0,'Agent',$numClient, ''); //todo supprimer categorie
             break;
 
         case 'inscrireClient' :
@@ -325,11 +325,17 @@ function CtlAfficherOperationCompte($numClient,$categorie){
 }
 
 
-function CtlPlanning($int,$categorie,$numClient){
-    $client = checkClient($numClient);
-    $rdvEmploye = array_merge(getRDV($client[0]->IDEMPLOYE), getDispos($client[0]->IDEMPLOYE));
-    $motifs = allMotif();
-    AfficherPlanning($rdvEmploye,$int, $categorie,$client[0],$motifs);
+function CtlPlanning($int,$categorie,$numClient, $idEmploye){
+    if($numClient != ""){
+        $client = checkClient($numClient);
+        $rdvEmploye = array_merge(getRDV($client[0]->IDEMPLOYE), getDispos($client[0]->IDEMPLOYE));
+        $motifs = allMotif();
+        AfficherPlanning($rdvEmploye,$int, $categorie,$client[0],$motifs, '');
+    }else{
+        $rdvEmploye = array_merge(getRDV($idEmploye), getDispos($idEmploye));
+        $motifs = allMotif();
+        AfficherPlanning($rdvEmploye,$int, $categorie,'',$motifs, $idEmploye);
+    }
 }
 
 function CtlAfficherPlanning(){
@@ -340,9 +346,7 @@ function CtlAfficherPlanning(){
 function CtlPlanningConseiller($idConseiller){
     $rdvEmploye = array_merge(getRDV($idConseiller), getDispos($idConseiller));
     $motifs = allMotif();
-    $client = new Client();
-    $client->IDEMPLOYE = $idConseiller;
-    AfficherPlanning($rdvEmploye, 0, 'Conseiller', $client, $motifs);
+    AfficherPlanning($rdvEmploye, 0, 'Conseiller', '', $motifs, $idConseiller);
 }
 
 function CtlDispoConseiller($dispos, $idEmploye){
@@ -351,7 +355,7 @@ function CtlDispoConseiller($dispos, $idEmploye){
         ajouterRDV($idEmploye, 3, "NULL", $dispos[$i]);
     }
 
-    CtlRetourAcceuil('Conseiller', '');
+    CtlPlanningConseiller($idEmploye);
 }
 
 /**
@@ -374,7 +378,7 @@ function CtlValiderRDV($semaineSelection, $idMotif, $numClient, $DATEHEURERDV, $
     ajouterRDV($client[0]->IDEMPLOYE, $idMotif, $numClient, $DATEHEURERDV); //$rdv a comme attribut (IDEMPLOYE,IDMOTIF,NUMCLIENT, DATEHEURERDV
     $motifs = allMotif();
     $rdvEmploye = getRDV($client[0]->IDEMPLOYE);
-    AfficherPlanning($rdvEmploye,$semaineSelection, $categorie,$client[0],$motifs);
+    AfficherPlanning($rdvEmploye,$semaineSelection, $categorie,$client[0],$motifs, '');
 }
 
 /** // à  supprimer

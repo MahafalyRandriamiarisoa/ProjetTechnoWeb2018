@@ -372,12 +372,12 @@ function AfficherChoixPlanning($conseillers){
 	require_once('gabaritConseiller.php');
 }
 
-function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$motifs){
+function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$motifs, $idEmploye){
     //todo : numClient peut être à remplacer par un $client pour pouvoir récuperer l'idEmploye même si le tableau de RDV est vide (@see : ligne 355)
-	$numClient = $client->NUMCLIENT;
     $nbRDV = count($rdvEmploye);
 	$time = array();
-	$idEmploye = $client->IDEMPLOYE;
+	$idEmploye = $idEmploye != '' ? $idEmploye : $client->IDEMPLOYE;
+	$numClient = $client == '' ? $client : $client->NUMCLIENT;
 
 
 	foreach($rdvEmploye as $key => $value){
@@ -401,8 +401,14 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 
 	$semaine = array();
 
+	$jourActuel = intval(date('w')) - 2;
+	
 	for($i = 0; $i < 6; $i++){
-		$semaine[$i] = date('j/m/Y', strtotime('+'.($i - 3).' day +'.($semaineSelection - 1).' week'));
+		if($semaineSelection >= 0){
+			$semaine[$i] = date('j/m/Y', strtotime('- '.($jourActuel).' days + '.($i).' days + '.$semaineSelection.' week'));
+		}else{
+			$semaine[$i] = date('j/m/Y', strtotime('- '.($jourActuel).' days + '.($i).' days - '.( -$semaineSelection).' week'));
+		}
 	}
 
 	$planning = array();
@@ -480,7 +486,24 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 				if($planning[$k][$j][0] != ""){
 					$contenuBis .= '<td onClick="showRDV(\''.$planning[$k][$j][1].'\', \''.$planning[$k][$j][2].'\', \''.$planning[$k][$j][4].'\', \''.$planning[$k][$j][5].'\', \''.$planning[$k][$j][6].'\')">'.$planning[$k][$j][0].'</td>';
 				}else{
-					$contenuBis .= '<td onClick="checkRDV(\''.($k).($j).'\')"><input type="checkbox" id="'.($k).($j).'" name="dispos[]" value="'.$semaine[$j].'/'.$heure.'"/></td>';
+					//$contenuBis .= '<td onClick="checkRDV(\''.($k).($j).'\')"><input type="checkbox" id="'.($k).($j).'" name="dispos[]" value="'.$semaine[$j].'/'.$heure.'"/></td>';
+					
+					$heureActuelle = date('H');
+					$dateActuelle = date('j/m/Y');
+					$semaineRaw = explode('/', $semaine[$j]);
+					$semaineClean = $semaineRaw[1].'/'.$semaineRaw[0].'/'.$semaineRaw[2];
+
+					if($dateActuelle == $semaine[$j]){
+						if($heureActuelle >= $heure){
+							$contenuBis .= '<td class="disabled"></td>';
+						}else{
+							$contenuBis .= '<td onClick="checkRDV(\''.($k).($j).'\')"><input type="checkbox" id="'.($k).($j).'" name="dispos[]" value="'.$semaine[$j].'/'.$heure.'"/></td>';
+						}
+					}elseif(strtotime('now') > strtotime($semaineClean)){
+						$contenuBis .= '<td class="disabled"></td>';
+					}else{
+						$contenuBis .= '<td onClick="checkRDV(\''.($k).($j).'\')"><input type="checkbox" id="'.($k).($j).'" name="dispos[]" value="'.$semaine[$j].'/'.$heure.'"/></td>';
+					}
 				}
 			}
 		}
@@ -499,7 +522,22 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 				if($planning[$k][$j][0] != ""){
 					$contenuBis .= '<td onClick="showRDV(\''.$planning[$k][$j][1].'\', \''.$planning[$k][$j][2].'\', \''.$planning[$k][$j][4].'\', \''.$planning[$k][$j][5].'\', \''.$planning[$k][$j][6].'\')">'.$planning[$k][$j][0].'</td>';
 				}else{
-					$contenuBis .= '<td onClick="checkRDV(\''.($k).($j).'\')"><input type="radio" name="choixRDV" id="'.($k).($j).'" value="'.$semaine[$j].'/'.$heure.'"/></td>';
+					$heureActuelle = date('H');
+					$dateActuelle = date('j/m/Y');
+					$semaineRaw = explode('/', $semaine[$j]);
+					$semaineClean = $semaineRaw[1].'/'.$semaineRaw[0].'/'.$semaineRaw[2];
+
+					if($dateActuelle == $semaine[$j]){
+						if($heureActuelle >= $heure){
+							$contenuBis .= '<td class="disabled"></td>';
+						}else{
+							$contenuBis .= '<td onClick="checkRDV(\''.($k).($j).'\')"><input type="radio" name="choixRDV" id="'.($k).($j).'" value="'.$semaine[$j].'/'.$heure.'"/></td>';
+						}
+					}elseif(strtotime('now') > strtotime($semaineClean)){
+						$contenuBis .= '<td class="disabled"></td>';
+					}else{
+						$contenuBis .= '<td onClick="checkRDV(\''.($k).($j).'\')"><input type="radio" name="choixRDV" id="'.($k).($j).'" value="'.$semaine[$j].'/'.$heure.'"/></td>';
+					}				
 				}
 			}
 		}

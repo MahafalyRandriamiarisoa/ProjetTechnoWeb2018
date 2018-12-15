@@ -438,7 +438,7 @@ function ajouterRDV($idEmploye, $idMotif, $numClient, $dateHeureRDV){
 
 function modifierIdentifiants($categorie, $identifiant, $mdp){
 	$connexion = getConnect();
-	$requete = "UPDATE EMPLOYE SET login = '$identifiant', mdp = '$mdp' WHERE categorie = '$categorie'";
+	$requete = "UPDATE IDENTIFIANT SET login = '$identifiant', mdp = '$mdp' WHERE categorie = '$categorie'";
 	$connexion->query($requete);
 }
 

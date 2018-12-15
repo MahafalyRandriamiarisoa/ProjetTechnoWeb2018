@@ -260,7 +260,7 @@ function CtlAfficherResilier($numClient){
     $comptes = getComptesClient($numClient);
     $contrats = getContratsClient($numClient);
 
-    AfficherResilier($comptes, $contrats);
+    AfficherResilier($comptes, $contrats, $numClient);
 }
 
 function CtlResilier($typeResiliation, $numClient){

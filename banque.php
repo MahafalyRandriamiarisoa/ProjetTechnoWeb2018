@@ -154,7 +154,7 @@ try{
     }elseif(isset($_POST['resilier'])){
         $typeResiliation = $_POST['actionResilier'];
         $numClient = $_POST['numClient'];
-
+        
         CtlResilier($typeResiliation, $numClient);
 	}elseif(isset($_POST['modifierId'])){
 		CtlModifierIdentifiants();

@@ -207,12 +207,10 @@ function AfficherOuvrirCompte($compte, $numClient){
 	require_once('gabaritConseiller.php');
 }
 
-function AfficherResilier($compte,$contrat){
+function AfficherResilier($compte,$contrat, $numClient){
 	$contenuHeader = '<strong>CONSEILLER</strong>';
 	$contenuBis = '';
-	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Résilier compte ou contrat</legend>
-						<p><label>Numéro du client:</label><input type="text" name="numClient" required /></p>
-						<p><label>Sélectionner le compte ou le contrat à résilier :<label></p>
+	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Résilier compte ou contrat</legend>						<p><label>Sélectionner le compte ou le contrat à résilier :<label></p>
 						<p>
 							<select name="actionResilier"><optgroup label="Compte">';
 							
@@ -226,6 +224,7 @@ function AfficherResilier($compte,$contrat){
 	}
 	
 	$contenuInterface .= '</optgroup></select></p>
+					<input type="hidden" name="numClient" value="'.$numClient.'"/>
 					<p><input type="submit" name="resilier" value="Résilier le compte ou le contrat"/></p></fieldset></form>';	
 	require_once('gabaritConseiller.php');
 }

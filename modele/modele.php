@@ -250,7 +250,7 @@ function getDispos($idEmploye){
 
  function getAllEmployes(){
 	$connexion = getConnect();
-	$requete = "SELECT * FROM EMPLOYE";
+	$requete = "SELECT * FROM IDENTIFIANT";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);
 	return $resultat->fetchAll();

@@ -10,6 +10,8 @@ try{
         CtlAcceuil($_POST['identifiant'], $_POST['motDePasse']);
 
 
+    }elseif(isset($_POST['deconnexion'])){
+        CtlInterfaceLogin();
     }elseif(isset($_POST['valider'])){
 
         $categorie = $_POST['categorie'];

@@ -166,7 +166,7 @@ function CtlMenuDirecteur($action){
 			break;
 	case 'modifMotif':
 			$comptes=allTypeCompte();
-			$contrats=getAllContrats();
+			$contrats=allContrats();
 			CtlAfficherModificationListeContratCompte($comptes,$contrats);
 			break;
 	case 'modifPiece':
@@ -201,7 +201,7 @@ function CtlModifierIdentifiants(){
 		}
 	}
 	
-	AfficherAcceuil("Directeur","");
+	AfficherAcceuil("Directeur");
 }
 
 function CtlAfficherModificationListeContratCompte($comptes,$contrats){

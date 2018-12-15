@@ -5,7 +5,7 @@ function AfficherInterfaceLogin(){
 	require_once('gabaritLogin.php');
 }
 
-function AfficherAcceuil($categorie, $numClient){
+function AfficherAcceuil($categorie, $numClient =""){
     $contenuInterface='<form method="post" action="banque.php"><fieldset><p> Connexion réussie <br/> Bienvenue </p></fieldset></form>';
     $contenuBis = '';
 

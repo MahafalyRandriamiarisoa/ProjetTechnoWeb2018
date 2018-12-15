@@ -5,9 +5,13 @@ function AfficherInterfaceLogin(){
 	require_once('gabaritLogin.php');
 }
 
-function AfficherAcceuil($categorie, $numClient =""){
-    $contenuInterface='<form method="post" action="banque.php"><fieldset><p> Connexion réussie <br/> Bienvenue </p></fieldset></form>';
-    $contenuBis = '';
+function AfficherAcceuil($categorie, $numClient ="",$retourAcceuil){
+	if($retourAcceuil){
+		$contenuInterface='<form method="post" action="banque.php"><fieldset><legend>Notifications</legend><p>Action accomplie avec succès</p></fieldset></form>';
+	}else{
+    $contenuInterface='<form method="post" action="banque.php"><fieldset><legend>Notifications</legend><p> Connexion réussie <br/> Bienvenue </p></fieldset></form>';
+    }
+	$contenuBis = '';
 
     switch($categorie) {
 		case 'Agent':

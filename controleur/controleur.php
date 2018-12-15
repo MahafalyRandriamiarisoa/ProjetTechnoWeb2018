@@ -64,7 +64,7 @@ function CtlAcceuil($login,$mdp){
         $employe=checkLogin($login,$mdp);
         if(!empty($employe)){
 
-            AfficherAcceuil($employe->CATEGORIE,"");
+            AfficherAcceuil($employe->CATEGORIE,"",false);
             return $employe;
         }
     }
@@ -73,7 +73,7 @@ function CtlAcceuil($login,$mdp){
 
 function CtlRetourAcceuil($categorie,$numClient){
 
-    AfficherAcceuil($categorie,$numClient);
+    AfficherAcceuil($categorie,$numClient,true);
 
 }
 
@@ -202,7 +202,7 @@ function CtlModifierIdentifiants(){
 		}
 	}
 	
-	AfficherAcceuil("Directeur");
+	AfficherAcceuil("Directeur","",true);
 }
 
 function CtlAfficherModificationListeContratCompte($comptes,$contrats){
@@ -211,6 +211,59 @@ function CtlAfficherModificationListeContratCompte($comptes,$contrats){
 	}else{
 		throw new Exception('Aucune liste de contrats ou de comptes');
 	}
+}
+
+function CtlAjouterListeContratCompte($item,$libelle){
+	if($libelle==null){
+		throw new Exception('Le champ \" Nom du contrat ou du compte \" est vide');
+	}
+	if($item=="contrat"){
+		ajouterContrat($libelle);
+		ajouterMotif($libelle);
+	}
+	if($item=="compte"){
+		ajouterCompte($libelle);
+		ajouterMotif($libelle);
+	}
+	AfficherAcceuil("Directeur","",true);
+}
+
+function CtlModifierListeContrat(){
+	$nbContrat=$_POST['nbContrat'];
+	for($i=0;$i<$nbContrat;$i++){
+		$ancienContrat=$_POST['ancienContrat'.$i];
+		$contrat=$_POST['contrat'.$i];
+		if($contrat==null){
+			throw new Exception('Un des champs est vide');
+		}
+		modifierContrats($contrat,$ancienContrat);
+	}
+	AfficherAcceuil("Directeur","",true);
+}
+
+function CtlSupprimerListeContrat($contrat){
+	supprimerContrat($contrat);
+	supprimerMotif($contrat);
+	AfficherAcceuil("Directeur","",true);
+}
+
+function CtlModifierListeCompte(){
+	$nbCompte=$_POST['nbCompte'];
+	for($i=0;$i<$nbCompte;$i++){
+		$ancienCompte=$_POST['ancienCompte'.$i];
+		$compte=$_POST['compte'.$i];
+		if($compte==null){
+			throw new Exception('Un des champs est vide');
+		}
+		modifierComptes($compte,$ancienCompte);
+	}
+	AfficherAcceuil("Directeur","",true);
+}
+
+function CtlSupprimerListeCompte($compte){
+	supprimerCompte($compte);
+	supprimerMotif($compte);
+	AfficherAcceuil("Directeur","",true);
 }
 
 function CtlAfficherModificationPiece($pieces){

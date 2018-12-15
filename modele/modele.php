@@ -448,6 +448,48 @@ function ajouterContrat($libelle){
 	$connexion->query($requete);
 }
 
+function modifierContrats($libelle,$ancienlibelle){
+	$connexion = getConnect();
+	$requete = "UPDATE CONTRAT SET libelle='$libelle' WHERE libelle='$ancienlibelle'";
+	$connexion->query($requete);
+}
+
+function supprimerContrat($libelle){
+	$connexion = getConnect();
+	$requete = "DELETE FROM CONTRAT WHERE libelle='$libelle'";
+	$connexion->query($requete);
+}
+	
+function ajouterCompte($nomCompte){
+	$connexion = getConnect();
+	$requete = "INSERT INTO COMPTE VALUES ( '$nomCompte')";
+	$connexion->query($requete);
+}
+
+function modifierComptes($nomCompte,$ancienNomCompte){
+	$connexion = getConnect();
+	$requete = "UPDATE COMPTE SET NOMCOMPTE='$nomCompte' WHERE NOMCOMPTE='$ancienNomCompte'";
+	$connexion->query($requete);
+}
+
+function supprimerCompte($nomCompte){
+	$connexion = getConnect();
+	$requete = "DELETE FROM COMPTE WHERE NOMCOMPTE='$nomCompte'";
+	$connexion->query($requete);
+}
+
+function ajouterMotif($motif){
+	$connexion = getConnect();
+	$requete = "INSERT INTO TYPEMOTIF(IDMOTIF,LIBELLEMOTIF) VALUES (0, '$motif')";
+	$connexion->query($requete);
+}
+
+function supprimerMotif($motif){
+	$connexion = getConnect();
+	$requete = "DELETE FROM TYPEMOTIF WHERE LIBELLEMOTIF='$motif'";
+	$connexion->query($requete);
+}
+
 function ajouterPieceAFournir($libelle){
 	$connexion = getConnect();
 	$requete = "INSERT INTO PIECES_A_FOURNIR VALUES (0, '$libelle')";

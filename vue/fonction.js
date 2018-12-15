@@ -125,7 +125,7 @@ function afficherAjout(){
 	noeudDiv.id='idDiv';
 	var noeud=document.getElementById('liste');
 	noeud.appendChild(noeudDiv);
-	document.getElementById('idDiv').innerHTML='<p><select name="aOuvrir"><option value="contrat">Contrat</option><option value="compte">Compte</option></select></p><p><label>Nom du contrat ou du compte</label><input type="text" name="nomCo" /></p><p><label> Pièces à fournir : </label><input type="text" name="piece" /></p><p><input type="submit" name="ajouterCo" value="Ajouter Contrat/Compte"/></p>';
+	document.getElementById('idDiv').innerHTML='<p><select name="aOuvrir"><option value="contrat">Contrat</option><option value="compte">Compte</option></select></p><p><label>Nom du contrat ou du compte</label><input type="text" name="nomCo" /></p><p><input type="submit" name="ajouterCo" value="Ajouter Contrat/Compte"/></p>';
 	}	
 
 function afficherModificationCon(nbContrat){
@@ -133,13 +133,13 @@ function afficherModificationCon(nbContrat){
 	noeudDiv.id='idDiv';
 	var noeud=document.getElementById('liste');
 	noeud.appendChild(noeudDiv);
-	var contenu='';
+	var contenu='<p><input type="hidden" name="nbContrat" value="'+nbContrat+'"/></p>';
 	for(i=0;i<nbContrat;i++){
 		var val=document.modifMotif.elements['contrat'+i].value;
-		contenu+='<p><label>Contrat '+eval(i+1)+' :</label><input type="text" name="contrat'+i+'" value="'+val+'"/></p>';
+		contenu+='<p><input type="hidden" name="ancienContrat'+i+'" value="'+val+'"/></p><p><label>Contrat '+eval(i+1)+' :</label><input type="text" name="contrat'+i+'" value="'+val+'"/></p>';
 		
 	}
-	contenu+='<p><input type="submit" name="modifierCo" value="Modifier la liste des contrats"/></p>';
+	contenu+='<p><input type="submit" name="modifierContrat" value="Modifier la liste des contrats"/></p>';
 	document.getElementById('idDiv').innerHTML=contenu;
 }
 
@@ -153,7 +153,7 @@ function afficherSuppressionCon(nbContrat){
 		var val=document.modifMotif.elements['contrat'+i].value;
 		contenu+='<option value="'+val+'">'+val+'</option>';
 	}
-	contenu+='</select></p><p><input type="submit" name="supprimerCo" value="Supprimer de la liste des contrats"/></p>';
+	contenu+='</select></p><p><input type="submit" name="supprimerContrat" value="Supprimer de la liste des contrats"/></p>';
 	document.getElementById('idDiv').innerHTML=contenu;
 }
 
@@ -162,10 +162,10 @@ function afficherModificationCom(nbCompte){
 	noeudDiv.id='idDiv';
 	var noeud=document.getElementById('liste');
 	noeud.appendChild(noeudDiv);
-	var contenu='';
+	var contenu='<p><input type="hidden" name="nbCompte" value="'+nbCompte+'"/></p>';
 	for(i=0;i<nbCompte;i++){
 		var val=document.modifMotif.elements['compte'+i].value;
-		contenu+='<p><label>Compte '+eval(i+1)+' :</label><input type="text" name="compte'+i+'" value="'+val+'"/></p>';
+		contenu+='<p><input type="hidden" name="ancienCompte'+i+'" value="'+val+'"/></p><p><label>Compte '+eval(i+1)+' :</label><input type="text" name="compte'+i+'" value="'+val+'"/></p>';
 		
 	}
 	contenu+='<p><input type="submit" name="modifierCompte" value="Modifier la liste des comptes"/></p>';
@@ -182,7 +182,7 @@ function afficherSuppressionCom(nbCompte){
 		var val=document.modifMotif.elements['compte'+i].value;
 		contenu+='<option value="'+val+'">'+val+'</option>';
 	}
-	contenu+='</select></p><p><input type="submit" name="supprimerCo" value="Supprimer de la liste des contrats"/></p>';
+	contenu+='</select></p><p><input type="submit" name="supprimerCompte" value="Supprimer de la liste des contrats"/></p>';
 	document.getElementById('idDiv').innerHTML=contenu;
 }
 

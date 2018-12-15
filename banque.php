@@ -167,6 +167,20 @@ try{
         $montantDecouverts = $_POST['setMontantDecouvert'];
         $numClient = intval($_POST['numClient']);
         CtlModifierMontantDecouvert($comptesConcernes, $montantDecouverts, $numClient);
+	}elseif(isset($_POST['ajouterCo'])){
+		$item=$_POST['aOuvrir'];
+		$libelle=$_POST['nomCo'];
+		CtlAjouterListeContratCompte($item,$libelle);
+	}elseif(isset($_POST['modifierContrat'])){
+		CtlModifierListeContrat();
+	}elseif(isset($_POST['supprimerContrat'])){
+		$contrat=$_POST['contratSuppr'];
+		CtlSupprimerListeContrat($contrat);
+	}elseif(isset($_POST['modifierCompte'])){
+		CtlModifierListeCompte();
+	}elseif(isset($_POST['supprimerCompte'])){
+		$compte=$_POST['compteSuppr'];
+		CtlSupprimerListeCompte($compte);
     }else{
         CtlInterfaceLogin();
     }

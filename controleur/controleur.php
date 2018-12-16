@@ -622,8 +622,7 @@ function CtlGestionClient($numClient){
 
 function CtlRetrouverClient($nomClient, $birthday){
     $clientsCorrespondants = rechercherClient($nomClient, $birthday);
-    
-    return $clientsCorrespondants[0]->NUMCLIENT;
+    AfficherSyntheseClient($clientsCorrespondants);
 }
 
 function CtlAfficherOuvrirCompte($numClient){

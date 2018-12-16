@@ -188,6 +188,9 @@ try{
 	}elseif(isset($_POST['supprimerCompte'])){
 		$compte=$_POST['compteSuppr'];
 		CtlSupprimerListeCompte($compte);
+    }elseif(isset($_POST['synthese'])){
+        $numClient = $_POST['leclient'];
+        CtlSyntheseClient($numClient);
     }else{
         CtlInterfaceLogin();
     }

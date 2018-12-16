@@ -36,7 +36,7 @@ function AfficherAcceuil($categorie, $numClient = "",$retourAcceuil){
     }
 }
 
-function AfficherSyntheseClient($client, $compte, $contrat, $conseiller){
+function AfficherSyntheseClient($client, $compte = '', $contrat = '', $conseiller = ''){
 	$contenuHeader = '<strong>AGENT</strong>';
 	$contenuBis = '';
 
@@ -74,7 +74,8 @@ function AfficherSyntheseClient($client, $compte, $contrat, $conseiller){
 		}
 
 	}else{
-		if(count($client) < 1){
+		if(count($client) > 1){
+			$numClient = '';
 			$contenuInterface = '<form method="post" action="banque.php"><fieldset><table><tr><td></td><td>Nom</td><td>Prénom</td><td>Tel</td><td>Date de naissance</td></tr>';
 			for($i = 0; $i < count($client) ; $i++){
 				$contenuInterface.='<tr><td><input type="radio" name="leclient" value="'.$client[$i]->NUMCLIENT.'"/></td><td>'.$client[$i]->NOM.'</td><td>'.$client[$i]->PRENOM.'</td><td>'.$client[$i]->NUMEROTELEPHONE.'</td><td>'.$client[$i]->DATEDENAISSANCE.'</td></tr>';

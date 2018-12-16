@@ -27,7 +27,7 @@ try{
         }
 
         if(isset($nomClient) && isset($birthday)){
-            $numClient = CtlRetrouverClient($nomClient, $birthday);
+            $numClient = CtlRetrouverClient($nomClient, $birthday, $action);
         }
 
         switch($categorie){
@@ -148,10 +148,18 @@ try{
         CtlNouveauContratClient($numClient, $tarifMensuel, $libelle);
 
     }elseif(isset($_POST['rechercheClientConseiller'])){
-
         $action = $_POST['action'];
-        $numClient = $_POST['numClient'];
-        CtlAfficherAction($action, $numClient);
+        $numClient = '';
+        if(isset($_POST['numClient']) && !empty($_POST['numClient'])){
+            $numClient = $_POST['numClient'];
+            CtlAfficherAction($action, $numClient);
+        }elseif(isset($_POST['nomClient']) && !empty($_POST['nomClient']) && isset($_POST['birthday']) && !empty($_POST['birthday'])){
+            $nomClient = $_POST['nomClient'];
+            $birthday = $_POST['birthday'];
+            CtlAfficherAction($action, '', $nomClient, $birthday);
+        }else{
+            echo "erreur champs non remplis";
+        }
     }elseif(isset($_POST['choixConseiller'])){
         $idConseiller = $_POST['selectConseiller'];
         CtlPlanningConseiller($idConseiller);
@@ -191,6 +199,14 @@ try{
     }elseif(isset($_POST['synthese'])){
         $numClient = $_POST['leclient'];
         CtlSyntheseClient($numClient);
+    }elseif(isset($_POST['validerChoixClient'])){
+        if(isset($_POST['leclient'])){
+            $numClient = $_POST['leclient'];
+            $action = $_POST['action'];
+            CtlAfficherAction($action, $numClient);
+        }else{
+            echo "Probleme : il choisir un client";
+        }
     }else{
         CtlInterfaceLogin();
     }

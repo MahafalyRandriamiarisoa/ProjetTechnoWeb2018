@@ -77,9 +77,16 @@ function CtlRetourAcceuil($categorie,$numClient){
 
 }
 
-function CtlAfficherAction($action,$numClient = ''){
+function CtlRechercherClient($nomClient, $birthday, $action){
+    $clients = rechercherClient($nomClient, $birthday);
+    AfficherChoisirClient($clients, $action);
+}
 
+function CtlAfficherAction($action, $numClient = '', $nomClient = '', $birthday = ''){
 
+    if(!empty($nomClient) && !empty($birthday)){
+        CtlRechercherClient($nomClient, $birthday, $action);
+    }
 
     switch ($action) {
 
@@ -620,9 +627,9 @@ function CtlGestionClient($numClient){
     //après avoir "log" un Client
 }
 
-function CtlRetrouverClient($nomClient, $birthday){
+function CtlRetrouverClient($nomClient, $birthday, $action){
     $clientsCorrespondants = rechercherClient($nomClient, $birthday);
-    AfficherSyntheseClient($clientsCorrespondants);
+    AfficherSyntheseClient($clientsCorrespondants, $action);
 }
 
 function CtlAfficherOuvrirCompte($numClient){

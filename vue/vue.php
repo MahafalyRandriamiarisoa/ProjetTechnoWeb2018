@@ -89,6 +89,19 @@ function AfficherSyntheseClient($client, $compte = '', $contrat = '', $conseille
 	require_once('gabaritAgent.php');
 }
 
+function AfficherChoisirClient($client, $action){
+	$numClient = '';
+	$contenuBis = '';
+	$contenuHeader = '';
+	$contenuInterface = '<form method="post" action="banque.php"><fieldset><table><tr><td></td><td>Nom</td><td>Prénom</td><td>Tel</td><td>Date de naissance</td></tr>';
+	for($i = 0; $i < count($client) ; $i++){
+		$contenuInterface.='<tr><td><input type="radio" name="leclient" value="'.$client[$i]->NUMCLIENT.'"/></td><td>'.$client[$i]->NOM.'</td><td>'.$client[$i]->PRENOM.'</td><td>'.$client[$i]->NUMEROTELEPHONE.'</td><td>'.$client[$i]->DATEDENAISSANCE.'</td></tr>';
+	}
+
+	$contenuInterface.='<input type="hidden" name="action" value="'.$action.'"/>
+						</table><p><input type="submit" name="validerChoixClient" value="Synthèse client"/></p></fieldset></form>';
+	require_once('gabaritConseiller.php');
+}
 
 function AfficherModificationInfo($client, $categorie){
 	$contenuHeader = '<strong>AGENT</strong>';
@@ -347,10 +360,12 @@ function AfficherRechercherClient($action){
     <form method="post" action="banque.php">
         <fieldset id="f1">
         <legend> Rechercher un client </legend>
-        <p><input type="radio" name="choix"  id="r1" /><label for="r1">Par le numéro</label> </p>
+        <p><label for="r1">Par le numéro : </label> </p>
         <p><input type="text" name="numClient" /></p>
-        <p><input type="hidden" name="action" value="'.$action.'"></p>
-        <p><input type="radio" name="choix"   id="r2" /><label for="r2">Par le nom et la date de naissance</label></p>
+        <p><input type="hidden" name="action" value="'.$action.'"></p><br>
+		<p><label for="r2">Par le nom et la date de naissance : </label></p>
+		<p><label>Nom : </label><input type="text" name="nomClient" /></p>
+		<p><label>Date de naissance : </label><input type="date" name="birthday" /></p>
         <input type="submit" name="rechercheClientConseiller" value="Valider"
         </fieldset>
     </form>';

@@ -76,7 +76,7 @@ function AfficherSyntheseClient($client, $compte = '', $contrat = '', $conseille
 	}else{
 		if(count($client) > 1){
 			$numClient = '';
-			$contenuInterface = '<form method="post" action="banque.php"><fieldset><table><tr><td></td><td>Nom</td><td>Prénom</td><td>Tel</td><td>Date de naissance</td></tr>';
+			$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Rechercher client</legend><table><tr><td></td><td>Nom</td><td>Prénom</td><td>Tel</td><td>Date de naissance</td></tr>';
 			for($i = 0; $i < count($client) ; $i++){
 				$contenuInterface.='<tr><td><input type="radio" name="leclient" value="'.$client[$i]->NUMCLIENT.'"/></td><td>'.$client[$i]->NOM.'</td><td>'.$client[$i]->PRENOM.'</td><td>'.$client[$i]->NUMEROTELEPHONE.'</td><td>'.$client[$i]->DATEDENAISSANCE.'</td></tr>';
 			}
@@ -93,13 +93,13 @@ function AfficherChoisirClient($client, $action){
 	$numClient = '';
 	$contenuBis = '';
 	$contenuHeader = '';
-	$contenuInterface = '<form method="post" action="banque.php"><fieldset><table><tr><td></td><td>Nom</td><td>Prénom</td><td>Tel</td><td>Date de naissance</td></tr>';
+	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Rechercher client</legend><table><tr><td></td><td>Nom</td><td>Prénom</td><td>Tel</td><td>Date de naissance</td></tr>';
 	for($i = 0; $i < count($client) ; $i++){
 		$contenuInterface.='<tr><td><input type="radio" name="leclient" value="'.$client[$i]->NUMCLIENT.'"/></td><td>'.$client[$i]->NOM.'</td><td>'.$client[$i]->PRENOM.'</td><td>'.$client[$i]->NUMEROTELEPHONE.'</td><td>'.$client[$i]->DATEDENAISSANCE.'</td></tr>';
 	}
 
 	$contenuInterface.='<input type="hidden" name="action" value="'.$action.'"/>
-						</table><p><input type="submit" name="validerChoixClient" value="Synthèse client"/></p></fieldset></form>';
+						</table><p><input type="submit" name="validerChoixClient" value="Choisir le client"/></p></fieldset></form>';
 	require_once('gabaritConseiller.php');
 }
 

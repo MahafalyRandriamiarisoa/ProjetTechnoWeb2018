@@ -244,6 +244,7 @@ function CtlModifierListeContrat(){
 			throw new Exception('Un des champs est vide');
 		}
 		modifierContrats($contrat,$ancienContrat);
+		modifierMotif($contrat,$ancienContrat);
 	}
 	AfficherAcceuil("Directeur","",true);
 }
@@ -263,6 +264,7 @@ function CtlModifierListeCompte(){
 			throw new Exception('Un des champs est vide');
 		}
 		modifierComptes($compte,$ancienCompte);
+		modifierMotif($compte,$ancienCompte);
 	}
 	AfficherAcceuil("Directeur","",true);
 }
@@ -279,6 +281,30 @@ function CtlAfficherModificationPiece($pieces){
 	}else{
 		throw new Exception('Aucune liste de pièces à fournir');
 	}
+}
+
+function CtlAjouterPiece($piece,$motif){
+	if($piece==null){
+		throw new Exception('Le champ de la liste des pièces à fournir pour ce motif est vide');
+	}
+	ajouterPieceAFournir($piece,$motif);
+	AfficherAcceuil("Directeur","",true);
+}
+
+function CtlSupprimerPiece($piece,$motif){
+	if($piece==null){
+		throw new Exception('La liste de pièces à fournir pour ce motif est déjà vide');
+	}
+	supprimerPieceAFournir($motif);
+	AfficherAcceuil("Directeur","",true);
+}
+
+function CtlModifierPiece($piece,$motif){
+	if($piece==null){
+		throw new Exception('Supprimer la liste de pièces à fournir pour ce motif');
+	}
+	modifierPieceAFournir($piece,$motif);
+	AfficherAcceuil("Directeur","",true);
 }
 
 /**

@@ -192,10 +192,11 @@ function afficherSelectPiece(){
 	noeudDiv.id='idDiv';
 	var noeud=document.getElementById('modifListePiece');
 	noeud.appendChild(noeudDiv);
-	var selection=document.formuPiece.elements['modifPiece'].value;
+	var recup=document.formuPiece.elements['modifPiece'].value;
+	var selection=recup.split("|");
 	var contenu='';
-		if(selection==''){
-			contenu+='<p><label>Liste des pièces à fournir pour ce motif : </label><input type="text" name="newList"/></p><p><input type="submit" name="ajoutPiece" value="Ajouter la liste de pièces à fournir"/></p>';
+		if(selection[1]==''){
+			contenu+='<p><label>Liste des pièces à fournir pour ce motif : </label><input type="text" name="newList" size="110"/></p><p><input type="submit" name="ajoutPiece" value="Ajouter la liste de pièces à fournir"/></p>';
 		}else{
 			contenu+='<p>Voulez-vous supprimer la liste des pièces à fournir?</p><p><input type="radio" name="confirmation" onclick="afficherPieceSuppr()"/> Oui </p> <p><input type="radio" name="confirmation" onclick="afficherPieceModif()"/> Non </p>';
 		}
@@ -207,8 +208,9 @@ function afficherPieceSuppr(){
 	noeudDiv.id='idDiv';
 	var noeud=document.getElementById('modifListePiece');
 	noeud.appendChild(noeudDiv);
-	var selection=document.formuPiece.elements['modifPiece'].value;
-	var contenu='<p><label>Liste des pièces à fournir pour ce motif : </label><input type="text" name="pieceasuppr" value="'+selection+'" readonly/></p><p><input type="submit" name="supprPiece" value="Supprimer la liste de pièces à fournir"/></p>';
+	var recup=document.formuPiece.elements['modifPiece'].value;
+	var selection=recup.split("|");
+	var contenu='<p><label>Liste des pièces à fournir pour ce motif : </label><input type="text" name="pieceasuppr" value="'+selection[1]+'" size="110" readonly/></p><p><input type="submit" name="supprPiece" value="Supprimer la liste de pièces à fournir"/></p>';
 	document.getElementById('idDiv').innerHTML=contenu;
 }
 
@@ -217,7 +219,8 @@ function afficherPieceModif(){
 	noeudDiv.id='idDiv';
 	var noeud=document.getElementById('modifListePiece');
 	noeud.appendChild(noeudDiv);
-	var selection=document.formuPiece.elements['modifPiece'].value;
-	var contenu='<p><label>Liste des pièces à fournir pour ce motif : </label><input type="text" name="pieceamodif" value="'+selection+'" /></p><p><input type="submit" name="modifPiece" value="Modifier la liste de pièces à fournir"/></p>';
+	var recup=document.formuPiece.elements['modifPiece'].value;
+	var selection=recup.split("|");
+	var contenu='<p><label>Liste des pièces à fournir pour ce motif : </label><input type="text" name="pieceamodif" value="'+selection[1]+'" size="110" /></p><p><input type="submit" name="modifierPiece" value="Modifier la liste de pièces à fournir"/></p>';
 	document.getElementById('idDiv').innerHTML=contenu;
 }

@@ -196,6 +196,21 @@ try{
 	}elseif(isset($_POST['supprimerCompte'])){
 		$compte=$_POST['compteSuppr'];
 		CtlSupprimerListeCompte($compte);
+	}elseif(isset($_POST['ajoutPiece'])){
+		$recup=$_POST['modifPiece'];
+		$motif=explode("|",$recup);
+		$piece=$_POST['newList'];
+		CtlAjouterPiece($piece,$motif[0]);
+	}elseif(isset($_POST['supprPiece'])){
+		$recup=$_POST['modifPiece'];
+		$motif=explode("|",$recup);
+		$piece=$_POST['pieceasuppr'];
+		CtlSupprimerPiece($piece,$motif[0]);
+	}elseif(isset($_POST['modifierPiece'])){
+		$recup=$_POST['modifPiece'];
+		$motif=explode("|",$recup);
+		$piece=$_POST['pieceamodif'];
+		CtlModifierPiece($piece,$motif[0]);
     }elseif(isset($_POST['synthese'])){
         $numClient = $_POST['leclient'];
         CtlSyntheseClient($numClient);

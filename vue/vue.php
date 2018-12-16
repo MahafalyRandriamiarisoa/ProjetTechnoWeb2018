@@ -313,7 +313,7 @@ function AfficherModificationPiece($piece){
 						<p><select name="modifPiece" onchange="afficherSelectPiece()">';
 						
 						for($p=0;$p<count($piece);$p++){
-							$contenuInterface.='<option value="'.$piece[$p]->PIECES_A_FOURNIR.'">'.$piece[$p]->LIBELLEMOTIF.'</option>';
+							$contenuInterface.='<option value="'.$piece[$p]->LIBELLEMOTIF.'|'.$piece[$p]->PIECES_A_FOURNIR.'">'.$piece[$p]->LIBELLEMOTIF.'</option>';
 						}
 						$contenuInterface.='</select></p></fieldset></form>';
 	require_once('gabaritDirecteur.php');

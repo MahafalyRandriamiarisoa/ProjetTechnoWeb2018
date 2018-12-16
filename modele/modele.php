@@ -490,9 +490,27 @@ function supprimerMotif($motif){
 	$connexion->query($requete);
 }
 
-function ajouterPieceAFournir($libelle){
+function modifierMotif($libelle,$ancienlibelle){
 	$connexion = getConnect();
-	$requete = "INSERT INTO PIECES_A_FOURNIR VALUES (0, '$libelle')";
+	$requete = "UPDATE TYPEMOTIF SET libellemotif='$libelle' WHERE libellemotif='$ancienlibelle'";
+	$connexion->query($requete);
+}
+
+function supprimerPieceAFournir($motif){
+	$connexion = getConnect();
+	$requete = "UPDATE TYPEMOTIF SET PIECES_A_FOURNIR='' WHERE LIBELLEMOTIF='$motif'";
+	$connexion->query($requete);
+}
+
+function ajouterPieceAFournir($libelle,$motif){
+	$connexion = getConnect();
+	$requete =  "UPDATE TYPEMOTIF SET PIECES_A_FOURNIR='$libelle' WHERE LIBELLEMOTIF='$motif'";
+	$connexion->query($requete);
+}
+
+function modifierPieceAFournir($piece,$motif){
+	$connexion = getConnect();
+	$requete =  "UPDATE TYPEMOTIF SET PIECES_A_FOURNIR='$piece' WHERE LIBELLEMOTIF='$motif'";
 	$connexion->query($requete);
 }
 

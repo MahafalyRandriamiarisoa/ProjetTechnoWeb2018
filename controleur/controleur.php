@@ -620,6 +620,12 @@ function CtlGestionClient($numClient){
     //après avoir "log" un Client
 }
 
+function CtlRetrouverClient($nomClient, $birthday){
+    $clientsCorrespondants = rechercherClient($nomClient, $birthday);
+    
+    return $clientsCorrespondants[0]->NUMCLIENT;
+}
+
 function CtlAfficherOuvrirCompte($numClient){
 
     $comptes = getComptesPotentielsClient($numClient);

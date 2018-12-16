@@ -18,13 +18,20 @@ try{
         $action = $_POST['action'];
         $numClient = '';
         
-        if(isset($_POST['numClient'])){
+        if(isset($_POST['numClient']) && !empty($_POST['numClient'])){
             $numClient = $_POST['numClient'];
+
+        }elseif(empty($numClient) && isset($_POST['nomClient']) && isset($_POST['birthday'])){
+            $nomClient = $_POST['nomClient'];
+            $birthday = $_POST['birthday'];
+        }
+
+        if(isset($nomClient) && isset($birthday)){
+            $numClient = CtlRetrouverClient($nomClient, $birthday);
         }
 
         switch($categorie){
             case 'Agent':
-
                 CtlAfficherAction($action, $numClient);
                 break;
             case 'Conseiller' : 

@@ -404,13 +404,12 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 
 	$semaine = array();
 
-	$jourActuel = intval(date('w')) - 2;
-	
+	$jourActuel = intval(date('w'));
 	for($i = 0; $i < 6; $i++){
 		if($semaineSelection >= 0){
-			$semaine[$i] = date('j/m/Y', strtotime('- '.($jourActuel).' days + '.($i).' days + '.$semaineSelection.' week'));
+			$semaine[$i] = date('j/m/Y', strtotime('- '.($jourActuel).' days + '.($i + 2).' days + '.$semaineSelection.' week'));
 		}else{
-			$semaine[$i] = date('j/m/Y', strtotime('- '.($jourActuel).' days + '.($i).' days - '.( -$semaineSelection).' week'));
+			$semaine[$i] = date('j/m/Y', strtotime('- '.($jourActuel).' days + '.($i + 2).' days - '.( -$semaineSelection).' week'));
 		}
 	}
 

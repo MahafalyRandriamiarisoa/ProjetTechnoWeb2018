@@ -213,7 +213,7 @@ function AfficherOuvrirCompte($compte, $numClient){
 	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Ouvrir un ou plusieurs comptes</legend>
 						<p><label>Sélectionner le ou les comptes à ouvrir :<label></p>
 						<p>
-							<select name="actionOpenCompte" mutliple>';
+							<select name="actionOpenCompte" multiple>';
 							
 	for($k = 0; $k < count($compte); $k++){
 		$contenuInterface .= '<option value="'.$compte[$k]->nomCompte.'">'.$compte[$k]->nomCompte.'</option>';

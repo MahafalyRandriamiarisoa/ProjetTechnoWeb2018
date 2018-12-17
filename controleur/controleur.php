@@ -47,8 +47,9 @@ function CtlInterfaceLogin(){
 function CtlnumClientExiste($numClient){
     $numClient = intval($numClient);
     $client = checkClient($numClient);
+
     if(!($client)) {
-        throw new Exception("Le numèro client est inexistant");
+        throw new Exception("Le numéro client est inexistant");
     }
 }
 /**
@@ -78,11 +79,25 @@ function CtlRetourAcceuil($categorie,$numClient){
 }
 
 function CtlRechercherClient($nomClient, $birthday, $action){
-    $clients = rechercherClient($nomClient, $birthday);
-    AfficherChoisirClient($clients, $action);
+
+    $match = preg_match('/(^[a-z]*$)/i', $nomClient);
+
+    if($match == 1){
+        $clients = rechercherClient($nomClient, $birthday);
+        AfficherChoisirClient($clients, $action);
+    }
+
+    throw new Exception("Le nom du client est incorrect");
+
 }
 
 function CtlAfficherAction($action, $numClient = '', $nomClient = '', $birthday = ''){
+
+    $match = preg_match('/^[0-9]*$/', $numClient);
+
+    if($match != 1){
+        throw new Exception("Le numéro client est incorrect");
+    }
 
     if(!empty($nomClient) && !empty($birthday)){
         CtlRechercherClient($nomClient, $birthday, $action);
@@ -398,8 +413,17 @@ function CtlAfficherModificationInfo($numClient){
 }
 
 function CtlValiderModificationInfo($numClient,$adresse, $email, $numTel, $situationFamiliale, $profession){
+    $match = preg_match('/^([0-9][0-9]){5}$/', $numTel);
+    $match2 = preg_match('/^[A-Za-zÀ-ÖØ-öø-ÿ]*$/i', $situationFamiliale);
+    $match3 = preg_match('/^[A-Za-zÀ-ÖØ-öø-ÿ]*$/i', $profession);
+
+    if($match == 1 && $match2 == 1 && $match3 == 1){
         modifierInfosClient($numClient,$adresse, $email, $numTel, $situationFamiliale, $profession);
+    }else{
+        throw new Exception("Vous n'avez pas remplis tous les champs correctement");
     }
+
+}
 
 /***
  * Fonction qui controle les operations sur le compte d'un client, la restriction de choix de compte se fait par Affichage au préalable des comptes du client
@@ -495,16 +519,20 @@ function CtlAfficherRDVClient($numClient){
 function CtlDebiterCompte($valeur, $numClient, $nomCompte){
 
     $compte=getCompte($numClient,$nomCompte);
+
     $soldeFinal=$compte->SOLDE+$compte->MONTANTDECOUVERT;
-    var_dump($soldeFinal);
 
-    var_dump($soldeFinal);
+    $match = preg_match('/^[0-9]*$/', $valeur);
 
-    if(($valeur>=0)&&($valeur<=$soldeFinal)){
-
-        debiterCompte($valeur,$numClient,$nomCompte);
+    if($match == 1){
+        if(($valeur>=0)&&($valeur<=$soldeFinal)){
+            debiterCompte($valeur,$numClient,$nomCompte);
+        }else{
+            throw new Exception("Fond Insuffisant pour un débit de : ".$valeur."€ (Votre Solde :".$compte->SOLDE."€)");
+        }
+    }else{
+        throw new Exception("La valeur saisie n'est pas correcte");
     }
-    else throw new Exception("Fond Insuffisant pour un débit de : ".$valeur."€ (Votre Solde :".$compte->SOLDE."€)");
 }
 
 /**
@@ -515,7 +543,13 @@ function CtlDebiterCompte($valeur, $numClient, $nomCompte){
  */
 function CtlCrediterCompte($valeur, $numClient, $nomCompte){
 
-    crediterCompte($valeur,$numClient,$nomCompte);
+    $match = preg_match('/^[0-9]*$/', $valeur);
+
+    if($match == 1){
+        crediterCompte($valeur,$numClient,$nomCompte);
+    }else{
+        throw new Exception("La valeur saisie n'est pas correcte");
+    }
 
 }
 
@@ -654,8 +688,14 @@ function CtlGestionClient($numClient){
 }
 
 function CtlRetrouverClient($nomClient, $birthday, $action){
-    $clientsCorrespondants = rechercherClient($nomClient, $birthday);
-    AfficherSyntheseClient($clientsCorrespondants, $action);
+    $match = preg_match('/(^[a-z]*$)/i', $nomClient);
+
+    if($match == 1){
+        $clientsCorrespondants = rechercherClient($nomClient, $birthday);
+        AfficherSyntheseClient($clientsCorrespondants, $action);
+    }
+
+    throw new Exception("Le nom du client est incorrect");
 }
 
 function CtlAfficherOuvrirCompte($numClient){

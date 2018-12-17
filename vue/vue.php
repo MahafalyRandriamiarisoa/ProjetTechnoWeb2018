@@ -271,12 +271,12 @@ function AfficherModificationId($identifiants){
 	$contenuInterface='<form method="post" action="banque.php"><fieldset>
 						<legend>Identifiants des employés</legend>';
 	for($l=0;$l<count($identifiants);$l++){
-		$contenuInterface.='<p><label>Catégorie: </label><input type="text" name="'.$identifiants[$l]->CATEGORIE.'" value="'.$identifiants[$l]->CATEGORIE.'"disabled/></p>
-							<p><label>Login: </label><input type="text" name="'.$identifiants[$l]->CATEGORIE.'login" value="'.$identifiants[$l]->LOGIN.'"/></p>
-							<p><label>Mot de passe: </label><input type="text" name="'.$identifiants[$l]->CATEGORIE.'mdp" value="'.$identifiants[$l]->MDP.'"/></p><br/>';
+		$contenuInterface.='<p><label class="labelinput">Catégorie: </label><input type="text" name="'.$identifiants[$l]->CATEGORIE.'" value="'.$identifiants[$l]->CATEGORIE.'"disabled/></p>
+							<p><label class="labelinput">Login: </label><input type="text" name="'.$identifiants[$l]->CATEGORIE.'login" value="'.$identifiants[$l]->LOGIN.'"/></p>
+							<p><label class="labelinput">Mot de passe: </label><input type="text" name="'.$identifiants[$l]->CATEGORIE.'mdp" value="'.$identifiants[$l]->MDP.'"/></p><br/>';
 							
 	}
-	$contenuInterface.='<p><input type="submit" name="modifierId" value="Modifier les identifiants"/></p></fieldset></form>';
+	$contenuInterface.='<p><label class="label_nostyle">h</label><input type="submit" name="modifierId" value="Modifier les identifiants"/></p></fieldset></form>';
 
 	require_once('gabaritDirecteur.php');
 }	

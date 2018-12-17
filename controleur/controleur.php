@@ -299,7 +299,7 @@ function CtlAfficherModificationPiece($pieces){
 }
 
 function CtlAjouterPiece($piece,$motif){
-	if($piece==null){
+	if($piece==''){
 		throw new Exception('Le champ de la liste des pièces à fournir pour ce motif est vide');
 	}
 	ajouterPieceAFournir($piece,$motif);
@@ -307,7 +307,7 @@ function CtlAjouterPiece($piece,$motif){
 }
 
 function CtlSupprimerPiece($piece,$motif){
-	if($piece==null){
+	if($piece==''){
 		throw new Exception('La liste de pièces à fournir pour ce motif est déjà vide');
 	}
 	supprimerPieceAFournir($motif);
@@ -315,7 +315,7 @@ function CtlSupprimerPiece($piece,$motif){
 }
 
 function CtlModifierPiece($piece,$motif){
-	if($piece==null){
+	if($piece==''){
 		throw new Exception('Supprimer la liste de pièces à fournir pour ce motif');
 	}
 	modifierPieceAFournir($piece,$motif);

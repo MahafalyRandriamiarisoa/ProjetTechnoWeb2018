@@ -196,7 +196,7 @@ function afficherSelectPiece(){
 	var selection=recup.split("|");
 	var contenu='';
 		if(selection[1]==''){
-			contenu+='<p><label>Liste des pièces à fournir pour ce motif : </label><input type="text" name="newList" size="110"/></p><p><input type="submit" name="ajoutPiece" value="Ajouter la liste de pièces à fournir"/></p>';
+			contenu+='<p><label>Liste des pièces à fournir pour ce motif : </label><textarea rows="4" cols="30" name="newList"> </textarea></p><p><input type="submit" name="ajoutPiece" value="Ajouter la liste de pièces à fournir"/></p>';
 		}else{
 			contenu+='<p>Voulez-vous supprimer la liste des pièces à fournir?</p><p><input type="radio" name="confirmation" onclick="afficherPieceSuppr()"/> Oui </p> <p><input type="radio" name="confirmation" onclick="afficherPieceModif()"/> Non </p>';
 		}
@@ -210,7 +210,7 @@ function afficherPieceSuppr(){
 	noeud.appendChild(noeudDiv);
 	var recup=document.formuPiece.elements['modifPiece'].value;
 	var selection=recup.split("|");
-	var contenu='<p><label>Liste des pièces à fournir pour ce motif : </label><input type="text" name="pieceasuppr" value="'+selection[1]+'" size="105" readonly/></p><p><input type="submit" name="supprPiece" value="Supprimer la liste de pièces à fournir"/></p>';
+	var contenu='<p><label>Liste des pièces à fournir pour ce motif : </label><textarea rows="4" cols="30" name="pieceasuppr" readonly>'+selection[1]+' </textarea></p><p><input type="submit" name="supprPiece" value="Supprimer la liste de pièces à fournir"/></p>';
 	document.getElementById('idDiv').innerHTML=contenu;
 }
 
@@ -221,6 +221,6 @@ function afficherPieceModif(){
 	noeud.appendChild(noeudDiv);
 	var recup=document.formuPiece.elements['modifPiece'].value;
 	var selection=recup.split("|");
-	var contenu='<p><label>Liste des pièces à fournir pour ce motif : </label><input type="text" name="pieceamodif" value="'+selection[1]+'" size="105" /></p><p><input type="submit" name="modifierPiece" value="Modifier la liste de pièces à fournir"/></p>';
+	var contenu='<p><label>Liste des pièces à fournir pour ce motif : </label><textarea rows="4" cols="30" name="pieceamodif" >'+selection[1]+'</textarea></p><p><input type="submit" name="modifierPiece" value="Modifier la liste de pièces à fournir"/></p>';
 	document.getElementById('idDiv').innerHTML=contenu;
 }

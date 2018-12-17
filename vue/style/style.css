@@ -3,6 +3,11 @@ html, body{
 	width:100%;
 }
 
+body {
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 table {
     text-align: center;
     border-collapse: collapse;
@@ -128,7 +133,7 @@ header{
 }
 
 .btnDeconnexion{
-	margin-left:60%;
+	margin-left:58%;
 }
 
 aside{
@@ -154,7 +159,49 @@ aside{
 	letter-spacing: 1px;
 }
 
+.labelselect{
+	display: block;
+	width: 39%;
+	float: left;
+	padding-right: 1%;
+	text-align: right;
+	
+}
+
 .label_nostyle{
 	background: none;
 	color:transparent;
+}
+
+.divLogin{
+    width: 325px;
+    background-color: whitesmoke;
+    margin: 0 auto;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.divLogin fieldset {
+    border: 0;
+}
+
+.divLogin input[type="submit"]{
+    width: 150px;
+    height: 40px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    text-decoration: none;
+}
+
+.divLogin p {
+    text-align: center;
+}
+
+.divLabel {
+    line-height: 50px;
+    text-decoration: underline;
+}
+
+h1 {
+    text-decoration: underline;
 }

@@ -361,13 +361,14 @@ function AfficherRechercherClient($action){
     <form method="post" action="banque.php">
         <fieldset id="f1">
         <legend> Rechercher un client </legend>
-        <p><label for="r1">Par le numéro : </label> </p>
-        <p><input type="text" name="numClient" /></p>
+        <p><label>Par le numéro : </label> </p>
+        <p><label class="labelinput" >Numéro du client: </label><input type="text" name="numClient" /></p>
         <p><input type="hidden" name="action" value="'.$action.'"></p><br>
-		<p><label for="r2">Par le nom et la date de naissance : </label></p>
-		<p><label>Nom : </label><input type="text" name="nomClient" /></p>
-		<p><label>Date de naissance : </label><input type="date" name="birthday" /></p>
-        <input type="submit" name="rechercheClientConseiller" value="Valider"
+		<p><label>Par le nom et la date de naissance : </label></p>
+		<p><label class="labelinput" >Nom : </label><input type="text" name="nomClient" /></p>
+		<p><label class="labelinput">Date de naissance : </label><input type="date" name="birthday" /></p>
+		<p><br/></p>
+        <p><label class="label_nostyle">h</label><input type="submit" name="rechercheClientConseiller" value="Valider"/></p>
         </fieldset>
     </form>';
 	require_once('gabaritConseiller.php');

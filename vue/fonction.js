@@ -210,7 +210,7 @@ function afficherPieceSuppr(){
 	noeud.appendChild(noeudDiv);
 	var recup=document.formuPiece.elements['modifPiece'].value;
 	var selection=recup.split("|");
-	var contenu='<p><label>Liste des pièces à fournir pour ce motif : </label><input type="text" name="pieceasuppr" value="'+selection[1]+'" size="110" readonly/></p><p><input type="submit" name="supprPiece" value="Supprimer la liste de pièces à fournir"/></p>';
+	var contenu='<p><label>Liste des pièces à fournir pour ce motif : </label><input type="text" name="pieceasuppr" value="'+selection[1]+'" size="105" readonly/></p><p><input type="submit" name="supprPiece" value="Supprimer la liste de pièces à fournir"/></p>';
 	document.getElementById('idDiv').innerHTML=contenu;
 }
 
@@ -221,6 +221,6 @@ function afficherPieceModif(){
 	noeud.appendChild(noeudDiv);
 	var recup=document.formuPiece.elements['modifPiece'].value;
 	var selection=recup.split("|");
-	var contenu='<p><label>Liste des pièces à fournir pour ce motif : </label><input type="text" name="pieceamodif" value="'+selection[1]+'" size="110" /></p><p><input type="submit" name="modifierPiece" value="Modifier la liste de pièces à fournir"/></p>';
+	var contenu='<p><label>Liste des pièces à fournir pour ce motif : </label><input type="text" name="pieceamodif" value="'+selection[1]+'" size="105" /></p><p><input type="submit" name="modifierPiece" value="Modifier la liste de pièces à fournir"/></p>';
 	document.getElementById('idDiv').innerHTML=contenu;
 }

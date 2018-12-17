@@ -114,13 +114,8 @@ header,footer{
 			width: 100%;
 }
 
-.barre_connexion,.btnDeconnexion{
-	display:inline-block;
-	vertical-align:middle;
-}
-
 .btnDeconnexion{
-	margin-left:65%;
+	margin-left:62%;
 }
 
 aside{
@@ -132,7 +127,7 @@ aside{
 .interface{
 	position: absolute;
 	margin-left: 8%;
-	right:2%;
+	right:1%;
 	padding-top: 17px;
-	width: 65%;
+	width: 63%;
 }

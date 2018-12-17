@@ -3,14 +3,14 @@
     <head>
       <title>Ma page</title>
       <meta charset="utf-8">
-	  <link rel="stylesheet"  href="vue/style/styles.css" />
+	  <link rel="stylesheet"  href="vue/style/style.css" />
 	  <script type="text/javascript" src="vue/fonction.js"></script>
     </head>
     
 	<body>	
 		<header>
-			<p>Connexion en tant que :<?php echo $contenuHeader;?></p>
-            <a class="btnDeconnexion" href="banque.php">Se Déconnecter</a>
+			<p class="barre_connexion">Connexion en tant que :<?php echo $contenuHeader;?>
+            <a class="btnDeconnexion" href="banque.php">Se Déconnecter</a></p>
 		</header>
 		<aside>
 			<form id="f1" method="post" action="banque.php">
@@ -30,8 +30,8 @@
 				<p><input type="submit" name="valider" value="Valider"/></p>
 			</form>
 		</aside>
-		<div>
-			<?php ini_set('memory_limit', '-1');
+		<div class="interface">
+			<?php
 				  echo $contenuInterface;
 				  echo $contenuBis;?>
 		</div>

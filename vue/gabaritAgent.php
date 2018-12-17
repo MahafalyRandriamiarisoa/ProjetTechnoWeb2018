@@ -9,8 +9,8 @@
     
 	<body>	
 		<header>
-			<p class="barre_connexion">Connexion en tant que :<?php echo $contenuHeader;?></p>
-            <a class="btnDeconnexion" href="banque.php">Se Déconnecter</a>
+			<p class="barre_connexion">Connexion en tant que :<?php echo $contenuHeader;?>
+            <a class="btnDeconnexion" href="banque.php">Se Déconnecter</a></p>
 		</header>
 		<aside>
 			<form id="numCli" method="post" action="banque.php">

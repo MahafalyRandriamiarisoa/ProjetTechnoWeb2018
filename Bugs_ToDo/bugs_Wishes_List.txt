@@ -1,0 +1,6 @@
+bug-list/wish-list
+1) enregistrement d'un client -> Condition : liste de compte à ouvrir vide
+				-> click sur ouvir compte sans selection -> message :"action accomplie avec succé"
+
+2) pouvoir ajouter des contrats ou des comptes si la liste est vide
+

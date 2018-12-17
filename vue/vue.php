@@ -169,21 +169,21 @@ function AfficherInscription($conseillers){
 	$contenuBis = '';
 	$contenuHeader = '<strong>CONSEILLER</strong>';
 	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Nouveau client </legend>
-						<p><label>Nom:</label><input type="text" name="lastName" required /></p>
-						<p><label>Prénom :</label><input type="text" name="firstName" required /></p>
-						<p><label>Date de naissance:</label><input type="date" name="bday" required /></p>
-						<p><label>Adresse:</label><input type="text" name="adresse" required /></p>
-						<p><label>Email:</label><input type="text" name="mail" required /></p>
-						<p><label>Numéro de téléphone :</label><input type="text" name="tel" required /></p>
-						<p><label>Situation familiale:</label><input type="text" name="situation" required /></p>
-						<p><label>Profession:</label><input type="text" name="profession" required /></p>
-						<p><label>Nom du conseiller:</label><select name="conseiller">';
+						<p><label class="labelinput">Nom:</label><input type="text" name="lastName" required /></p>
+						<p><label class="labelinput">Prénom :</label><input type="text" name="firstName" required /></p>
+						<p><label class="labelinput">Date de naissance:</label><input type="date" name="bday" required /></p>
+						<p><label class="labelinput">Adresse:</label><input type="text" name="adresse" required /></p>
+						<p><label class="labelinput">Email:</label><input type="text" name="mail" required /></p>
+						<p><label class="labelinput">Numéro de téléphone:</label><input type="text" name="tel" required /></p>
+						<p><label class="labelinput">Situation familiale:</label><input type="text" name="situation" required /></p>
+						<p><label class="labelinput">Profession:</label><input type="text" name="profession" required /></p>
+						<p><label class="labelinput">Nom du conseiller:</label><select name="conseiller">';
 						
 						for($i = 0; $i < count($conseillers); $i++){
 							$contenuInterface.='<option value="'.$conseillers[$i]->IDEMPLOYE.'">'.$conseillers[$i]->NOMEMPLOYE.'</option>';
 						}
 						$contenuInterface.='</select></p>
-						<p><input type="submit" name="ajouter" value="Ajouter"/></p></fieldset></form>';
+						<p><label class="label_nostyle">h</label><input type="submit" name="ajouter" value="Ajouter"/></p></fieldset></form>';
 	require_once('gabaritConseiller.php');
 }
 

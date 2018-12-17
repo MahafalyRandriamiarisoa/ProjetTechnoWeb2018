@@ -191,6 +191,15 @@ aside{
     color: white;
     border: none;
     text-decoration: none;
+    transition : all 0.15s ease-in-out;
+    letter-spacing : 1px;
+    border-radius : 3px;
+}
+
+.divLogin input[type="submit"]:hover{
+    background : white;
+    color : #4CAF50;
+    border : 1px solid #4CAF50;
 }
 
 .divLogin p {
@@ -201,6 +210,8 @@ aside{
     line-height: 50px;
     text-decoration: underline;
 }
+
+
 
 h1 {
     text-decoration: underline;

@@ -9,7 +9,7 @@
     
 	<body>	
 		<header>
-			<p>Connexion en tant que :<?php echo $contenuHeader;?></p>
+			<p class="barre_connexion">Connexion en tant que :<?php echo $contenuHeader;?></p>
             <a class="btnDeconnexion" href="banque.php">Se Déconnecter</a>
 		</header>
 		<aside>
@@ -42,7 +42,7 @@
 				<p><input type="reset"  value="Effacer"/><input type="submit" name="valider" value="Valider"/></p>
 			</form>
 		</aside>
-		<div>
+		<div class="interface">
 			<?php echo $contenuInterface;
 				  echo $contenuBis; ?>
 		</div>

@@ -55,7 +55,8 @@ function AfficherSyntheseClient($client, $compte = '', $contrat = '', $conseille
 
 		if(count($compte) >= 1) {
 			$contenuInterface .= '<table>
-			<caption>Liste des comptes</caption>';
+			<caption>Liste des comptes</caption>
+			<tr><th>Nom du compte</th><th>Solde actuel</th></tr>';
 
 			for ($j = 0; $j < count($compte); $j++) {
 				$contenuInterface .= '<tr><td>' . $compte[$j]->NOMCOMPTE . '</td><td>' . $compte[$j]->SOLDE . '</td></tr>';

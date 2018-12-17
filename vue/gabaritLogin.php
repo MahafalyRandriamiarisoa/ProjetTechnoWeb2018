@@ -13,7 +13,7 @@
 	</header>
 	<div>
 		<form id="formLogin" method="post" action="banque.php">
-			<fieldset>
+			<fieldset id="fieldsetLogin">
 				
 				<p><label>Login : </label><input type="text" name="identifiant"/></p>
 				<p><label>Mot de passe : </label><input type="password" name="motDePasse"/></p>

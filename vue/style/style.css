@@ -1,5 +1,6 @@
 html, body{
     height: 100%;
+	width:100%;
 }
 
 table {
@@ -109,7 +110,19 @@ td:hover:not(.disabled) {
     margin-top: auto;
 }
 
-header,footer{
+header{
+	text-align:center;
+}
+
+#fieldsetLogin, header{
+	margin:auto;
+}
+
+#fieldsetLogin{
+	width:300px;
+}
+
+header{
 			height:12%;
 			width: 100%;
 }

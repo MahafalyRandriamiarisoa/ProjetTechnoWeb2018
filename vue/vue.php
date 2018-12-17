@@ -207,7 +207,7 @@ function AfficherVendreContrat($contrat, $numClient){
 						<p><label class="label_nostyle">h</label><input type="submit" name="vendre" value="Vendre le contrat"/></p>
 						</fieldset></form>';
 	}else{
-		$contenuInterface .='Le client ne peut plus acheter de contrats</fieldset></form>';
+		$contenuInterface .='Soit le client ne peut plus acheter de contrats, soit la banque ne vend aucun contrat en ce moment</fieldset></form>';
 	}
 	require_once('gabaritConseiller.php');
 }
@@ -219,7 +219,7 @@ function AfficherOuvrirCompte($compte, $numClient){
 	
 	if(count($compte)!=0){
 		$contenuInterface .= '<p><label>Sélectionner le ou les comptes à ouvrir :<label>
-							<select name="actionOpenCompte" multiple>';
+							<select name="actionOpenCompte" multiple required>';
 							
 	for($k = 0; $k < count($compte); $k++){
 		$contenuInterface .= '<option value="'.$compte[$k]->nomCompte.'">'.$compte[$k]->nomCompte.'</option>';
@@ -230,7 +230,7 @@ function AfficherOuvrirCompte($compte, $numClient){
 						<p><br/></p>
 						<p><label class="label_nostyle">h</label><input type="submit" name="ouvrir" value="Ouvrir Compte"/></p></fieldset></form>';	
 	}else{
-		$contenuInterface .= 'Le client ne peut plus ouvrir de comptes</fieldset></form>';
+		$contenuInterface .= 'Soit le client a déjà ouvert tous les comptes disponibles actuellement, soit la banque ne propose pas d\'offre commerciale sur des comptes actuellement</fieldset></form>';
 	}
 	require_once('gabaritConseiller.php');
 }

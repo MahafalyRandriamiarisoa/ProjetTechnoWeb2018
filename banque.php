@@ -162,7 +162,7 @@ try{
     }elseif(isset($_POST['choixConseiller'])){
         $idConseiller = $_POST['selectConseiller'];
         CtlPlanningConseiller($idConseiller);
-    }elseif(isset($_POST['ouvrir'])){
+    }elseif(isset($_POST['ouvrir']) && isset($_POST['actionOpenCompte'])){
         $nomCompte = $_POST['actionOpenCompte'];
         CtlOuvrirCompte($_POST['numClient'], $nomCompte, 0);
     }elseif(isset($_POST['resilier'])){

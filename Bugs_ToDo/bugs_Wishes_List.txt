@@ -1,11 +1,16 @@
 bug-list/wish-list
-1) Conseiller  : enregistrement d'un client -> Condition : liste de compte à ouvrir vide
-				-> click sur ouvir compte sans selection -> message :"action accomplie avec succé"
+
+REGLE NORMALEMENT // MODIFICATION DU MESSAGE DE LA VUE ET AJOUT DU REQUIRED DANS LE SELECT MULTIPLE
+1) Conseiller  : enregistrement d'un client -> Condition : liste de compte ï¿½ ouvrir vide
+				-> click sur ouvir compte sans selection -> message :"action accomplie avec succï¿½"
 
 2) Directeur : pouvoir ajouter des contrats ou des comptes si la liste est vide
 
-3) Agent : bug des jumeaux : Condition : Deux personnes même noms de famille, même de date de naissance -> recherche client n'affiche pas les "jumeaux"
+JE N'AI PAS CE BUG PERSONELLEMENT IL AFFICHE BIEN LES DEUX CLIENTS
+3) Agent : bug des jumeaux : Condition : Deux personnes mï¿½me noms de famille, mï¿½me de date de naissance -> recherche client n'affiche pas les "jumeaux"
 
+REGLE NORMALEMENT // 
 4) Agent : Prise de RDV -> Condition : liste des motifs vides -> Undefined index 
 
-5) Conseiller : Condition : Liste des contrats vides -> vendre un contrat -> mettre un tarif mensuel  et click "Vendre le Contrat" <- verifier si le bug se produit lorsque la liste n'est pas vide et qu'aucun element est selectionné
+REGLE NORMALEMENT // un contrat est selectionnÃ© par defaut donc il peut pas etre null, et si la liste est vide alors on affiche le message de la vue
+5) Conseiller : Condition : Liste des contrats vides -> vendre un contrat -> mettre un tarif mensuel  et click "Vendre le Contrat" <- verifier si le bug se produit lorsque la liste n'est pas vide et qu'aucun element est selectionnï¿½

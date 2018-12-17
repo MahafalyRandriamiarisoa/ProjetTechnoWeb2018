@@ -15,9 +15,9 @@
 		<div class="divLogin">
 			<form id="formLogin" method="post" action="banque.php">
 				<fieldset id="fieldsetLogin">
-						<p><label class="labelinput">Login : </label><br><input type="text" name="identifiant"/></p><br/>
-						<p><label class="labelinput">Mot de passe : </label><br><input type="password" name="motDePasse"/></p>
-						<p><label class="label_nostyle">h</label><input type="submit"  name="connexion" value="Se connecter"/></p>
+						<p><label class="divLabel">Login : </label><br><input type="text" name="identifiant"/></p><br/>
+						<p><label class="divLabel">Mot de passe : </label><br><input type="password" name="motDePasse"/></p>
+						<p><label class="divLabel"></label><input type="submit"  name="connexion" value="Se connecter"/></p>
 				</fieldset>
 				<?php echo $contenu ?>
 			</form>

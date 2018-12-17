@@ -152,6 +152,10 @@ aside{
 
 .labelinput,.label_nostyle{
 	display: block;
+	width: 39%;
+	float: left;
+	padding-right: 1%;
+	text-align: right;
 	letter-spacing: 1px;
 }
 
@@ -193,8 +197,8 @@ aside{
     text-align: center;
 }
 
-.divLogin label {
-    line-height: 25px;
+.divLabel {
+    line-height: 50px;
     text-decoration: underline;
 }
 

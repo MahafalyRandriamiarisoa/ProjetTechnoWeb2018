@@ -154,6 +154,15 @@ aside{
 	letter-spacing: 1px;
 }
 
+.labelselect{
+	display: block;
+	width: 39%;
+	float: left;
+	padding-right: 1%;
+	text-align: right;
+	
+}
+
 .label_nostyle{
 	background: none;
 	color:transparent;

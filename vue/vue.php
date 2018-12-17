@@ -190,9 +190,10 @@ function AfficherInscription($conseillers){
 function AfficherVendreContrat($contrat, $numClient){
 	$contenuBis = '';
 	$contenuHeader = '<strong>CONSEILLER</strong>';
-	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Vendre un contrat </legend>
-						<p><label>Sélectionner le contrat à vendre :</label></p>
-						<p>
+	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Vendre un contrat </legend>';
+	
+	if(count($contrat)!=0){
+		$contenuInterface .= '<p><label class="labelselect">Sélectionner le contrat à vendre :</label>
 							<select name="actionContrat">';
 
 	for($i = 0; $i < count($contrat); $i++){
@@ -201,10 +202,13 @@ function AfficherVendreContrat($contrat, $numClient){
 
 	$contenuInterface .= '</select>
 						</p>
-						<p><label>Tarif mensuel:</label><input type="text" name="tarifMensuel" required /></p>
+						<p><label class="labelinput">Tarif mensuel: </label><input type="text" name="tarifMensuel" required /></p>
 						<input type="hidden" value="'.$numClient.'" name="numClient"/>
-						<p><input type="submit" name="vendre" value="Vendre le contrat"/></p>
+						<p><label class="label_nostyle">h</label><input type="submit" name="vendre" value="Vendre le contrat"/></p>
 						</fieldset></form>';
+	}else{
+		$contenuInterface .='Le client ne peut plus acheter de contrats';
+	}
 	require_once('gabaritConseiller.php');
 }
 
@@ -212,8 +216,7 @@ function AfficherOuvrirCompte($compte, $numClient){
 	$contenuHeader='<strong>CONSEILLER</strong>';
 	$contenuBis = '';
 	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Ouvrir un ou plusieurs comptes</legend>
-						<p><label>Sélectionner le ou les comptes à ouvrir :<label></p>
-						<p>
+						<p><label>Sélectionner le ou les comptes à ouvrir :<label>
 							<select name="actionOpenCompte" multiple>';
 							
 	for($k = 0; $k < count($compte); $k++){
@@ -222,7 +225,8 @@ function AfficherOuvrirCompte($compte, $numClient){
 						
 	$contenuInterface .= '</select></p>
 						<input type="hidden" name="numClient" value="'.$numClient.'"/>
-						<p><input type="submit" name="ouvrir" value="Ouvrir Compte"/></p></fieldset></form>';	
+						<p><br/></p>
+						<p><label class="label_nostyle">h</label><input type="submit" name="ouvrir" value="Ouvrir Compte"/></p></fieldset></form>';	
 	require_once('gabaritConseiller.php');
 }
 
@@ -252,14 +256,17 @@ function AfficherModifDecouvert($comptes, $numClient){
 	$contenuBis = '';
 	$contenuHeader='<strong>CONSEILLER</strong>';
 	$contenuInterface='<form method="post" action="banque.php"><fieldset><legend>Modifier la valeur du découvert</legend>';
-						
+	if(count($comptes)!=0){					
 	for($k=0;$k<count($comptes);$k++){
-	$contenuInterface.='<p><label>Nom du compte :</label><input type="text"  name="compteConcerne[]" value="'.$comptes[$k]->NOMCOMPTE.'" readonly/></p>
-						<p><label>Montant du découvert :</label><input type="text" name="setMontantDecouvert[]" value="'.$comptes[$k]->MONTANTDECOUVERT.'"/></p><br/>';
+	$contenuInterface.='<p><label class="labelinput">Nom du compte :</label><input type="text"  name="compteConcerne[]" value="'.$comptes[$k]->NOMCOMPTE.'" readonly/></p>
+						<p><label class="labelinput">Montant du découvert :</label><input type="text" name="setMontantDecouvert[]" value="'.$comptes[$k]->MONTANTDECOUVERT.'"/></p><br/>';
 	}
 						
-	$contenuInterface.='<p><input type="submit" name="modifierDecouvert" value="Modifier la valeur du découvert"/></p>
-						<input type="hidden" name="numClient" value="'.$numClient.'"/>';	
+	$contenuInterface.='<p><label class="label_nostyle">h</label><input type="submit" name="modifierDecouvert" value="Modifier la valeur du découvert"/></p>
+						<input type="hidden" name="numClient" value="'.$numClient.'"/></fieldset></form>';	
+	}else{
+		$contenuInterface.='Le client ne possède aucun compte</fieldset></form>';
+	}
 	require_once('gabaritConseiller.php');
 	
 }

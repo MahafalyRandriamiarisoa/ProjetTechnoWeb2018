@@ -144,3 +144,17 @@ aside{
 	padding-top: 17px;
 	width: 63%;
 }
+
+.labelinput,.label_nostyle{
+	display: block;
+	width: 39%;
+	float: left;
+	padding-right: 1%;
+	text-align: right;
+	letter-spacing: 1px;
+}
+
+.label_nostyle{
+	background: none;
+	color:transparent;
+}

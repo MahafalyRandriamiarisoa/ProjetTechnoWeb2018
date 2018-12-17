@@ -42,19 +42,19 @@ function AfficherSyntheseClient($client, $compte = '', $contrat = '', $conseille
 
 	if(count($client) == 1){
 	    $numClient = $client[0]->NUMCLIENT;
-		$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Synthèse du client</legend><p>Client n°:'.$numClient.'</p>
-							<p><label>Nom :</label><input type="text" name="nom1" value="'.$client[0]->NOM.'" readonly/></p>
-							<p><label>Prénom :</label><input type="text" name="prenom1" value="'.$client[0]->PRENOM.'" readonly/></p>
-							<p><label>Date de naissance :</label><input type="text" name="birth" value="'.$client[0]->DATEDENAISSANCE.'" readonly/></p>
-							<p><label>Email :</label><input type="text" name="mail" value="'.$client[0]->EMAIL.'" readonly/></p>
-							<p><label>N° téléphone :</label><input type="text" name="tel" value="'.$client[0]->NUMEROTELEPHONE.'" readonly/></p>
-							<p><label>Adresse :</label><input type="text" name="adresse" value="'.$client[0]->ADRESSE.'" readonly/></p>
-							<p><label>Situation familiale :</label><input type="text" name="situation" value="'.$client[0]->SITUATIONFAMILIALE.'" readonly/></p>
-							<p><label>Profession :</label><input type="text" name="profession" value="'.$client[0]->PROFESSION.'" readonly/></p>
-							<p><label>Nom du conseiller :</label><input type="text" name="nomconseiller" value="'.$conseiller.'" readonly/></p>';//nomconseiller
+		$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Synthèse du client</legend><p>Client n° :'.$numClient.'</p>
+							<p><label class="labelinput">Nom :</label><input type="text" name="nom1" value="'.$client[0]->NOM.'" readonly/></p>
+							<p><label class="labelinput">Prénom :</label><input type="text" name="prenom1" value="'.$client[0]->PRENOM.'" readonly/></p>
+							<p><label class="labelinput">Date de naissance :</label><input type="text" name="birth" value="'.$client[0]->DATEDENAISSANCE.'" readonly/></p>
+							<p><label class="labelinput">Email :</label><input type="text" name="mail" value="'.$client[0]->EMAIL.'" readonly/></p>
+							<p><label class="labelinput">N° téléphone :</label><input type="text" name="tel" value="'.$client[0]->NUMEROTELEPHONE.'" readonly/></p>
+							<p><label class="labelinput">Adresse :</label><input type="text" name="adresse" value="'.$client[0]->ADRESSE.'" readonly/></p>
+							<p><label class="labelinput">Situation familiale :</label><input type="text" name="situation" value="'.$client[0]->SITUATIONFAMILIALE.'" readonly/></p>
+							<p><label class="labelinput">Profession :</label><input type="text" name="profession" value="'.$client[0]->PROFESSION.'" readonly/></p>
+							<p><label class="labelinput">Nom du conseiller :</label><input type="text" name="nomconseiller" value="'.$conseiller.'" readonly/></p>';//nomconseiller
 
 		if(count($compte) >= 1) {
-			$contenuInterface .= '<table>
+			$contenuInterface .= '<br/><table>
 			<caption>Liste des comptes</caption>
 			<tr><th>Nom du compte</th><th>Solde actuel</th></tr>';
 
@@ -65,8 +65,9 @@ function AfficherSyntheseClient($client, $compte = '', $contrat = '', $conseille
 		}
 
 		if(count($contrat) >= 1) {
-			$contenuInterface .= '<table>
-			<caption>Liste des contrats</caption>';
+			$contenuInterface .= '<br/><table>
+			<caption>Liste des contrats</caption>
+			<tr><th>Nom du contrat</th></tr>';
 			for ($j = 0; $j < count($contrat); $j++) {
 				$contenuInterface .= '<tr><td>' . $contrat[$j]->LIBELLE . '</td></tr>';
 			}

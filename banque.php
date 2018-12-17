@@ -104,12 +104,11 @@ try{
                 default :
 
                     CtlRetourAcceuil($_POST['categorie'], $_POST['numClient']);
-
             }
 
-    }
+            CtlRetourAcceuil($_POST['categorie'],$_POST['numClient']);
+        }
         //todo : throw erreur, ou pas car vue gère
-        CtlRetourAcceuil($_POST['categorie'],$_POST['numClient']);
 
     }elseif(isset($_POST['idRDVEmploye'])){
 

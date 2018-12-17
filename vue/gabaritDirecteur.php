@@ -9,7 +9,7 @@
     
 	<body>	
 		<header>
-			<p>Connexion en tant que :<?php echo $contenuHeader;?>
+			<p>Connexion en tant que : <?php echo $contenuHeader;?>
             <a class="btnDeconnexion" href="banque.php">Se Déconnecter</a></p>
 		</header>
 		<aside>

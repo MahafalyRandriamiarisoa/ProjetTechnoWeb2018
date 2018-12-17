@@ -207,7 +207,7 @@ function AfficherVendreContrat($contrat, $numClient){
 						<p><label class="label_nostyle">h</label><input type="submit" name="vendre" value="Vendre le contrat"/></p>
 						</fieldset></form>';
 	}else{
-		$contenuInterface .='Le client ne peut plus acheter de contrats';
+		$contenuInterface .='Le client ne peut plus acheter de contrats</fieldset></form>';
 	}
 	require_once('gabaritConseiller.php');
 }
@@ -215,8 +215,10 @@ function AfficherVendreContrat($contrat, $numClient){
 function AfficherOuvrirCompte($compte, $numClient){
 	$contenuHeader='<strong>CONSEILLER</strong>';
 	$contenuBis = '';
-	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Ouvrir un ou plusieurs comptes</legend>
-						<p><label>Sélectionner le ou les comptes à ouvrir :<label>
+	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Ouvrir un ou plusieurs comptes</legend>';
+	
+	if(count($compte)!=0){
+		$contenuInterface .= '<p><label>Sélectionner le ou les comptes à ouvrir :<label>
 							<select name="actionOpenCompte" multiple>';
 							
 	for($k = 0; $k < count($compte); $k++){
@@ -227,6 +229,9 @@ function AfficherOuvrirCompte($compte, $numClient){
 						<input type="hidden" name="numClient" value="'.$numClient.'"/>
 						<p><br/></p>
 						<p><label class="label_nostyle">h</label><input type="submit" name="ouvrir" value="Ouvrir Compte"/></p></fieldset></form>';	
+	}else{
+		$contenuInterface .= 'Le client ne peut plus ouvrir de comptes</fieldset></form>';
+	}
 	require_once('gabaritConseiller.php');
 }
 

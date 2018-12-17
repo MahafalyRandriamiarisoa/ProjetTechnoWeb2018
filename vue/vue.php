@@ -238,22 +238,32 @@ function AfficherOuvrirCompte($compte, $numClient){
 function AfficherResilier($compte,$contrat, $numClient){
 	$contenuHeader = '<strong>CONSEILLER</strong>';
 	$contenuBis = '';
-	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Résilier compte ou contrat</legend>						<p><label>Sélectionner le compte ou le contrat à résilier :<label></p>
-						<p>
+	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Résilier compte ou contrat</legend>';
+
+	if(count($compte)==0 && count($contrat)==0){
+		$contenuInterface .= 'Le client ne possède ni contrat ni compte</fieldset></form>';
+	}else{
+			$contenuInterface .= '<p><label>Sélectionner le compte ou le contrat à résilier :<label>
 							<select name="actionResilier"><optgroup label="Compte">';
-							
+	if(count($compte)!=0){						
 	for($k = 0; $k < count($compte); $k++){
 		$contenuInterface .= '<option value="'.$compte[$k]->NOMCOMPTE.'">'.$compte[$k]->NOMCOMPTE.'</option>';
 	}
-	$contenuInterface .= '</optgroup><optgroup label="Contrat">';
+	$contenuInterface .= '</optgroup>';
+	}
+	if(count($contrat)!=0){
+	$contenuInterface .= '<optgroup label="Contrat">';
 	
 	for($i = 0; $i < count($contrat); $i++){
 		$contenuInterface .= '<option value="'.$contrat[$i]->LIBELLE.'">'.$contrat[$i]->LIBELLE.'</option>';
 	}
 	
-	$contenuInterface .= '</optgroup></select></p>
+	$contenuInterface .= '</optgroup>';
+	}
+	$contenuInterface .= '</select></p>
 					<input type="hidden" name="numClient" value="'.$numClient.'"/>
-					<p><input type="submit" name="resilier" value="Résilier le compte ou le contrat"/></p></fieldset></form>';	
+					<p><label class="label_nostyle">h</label><input type="submit" name="resilier" value="Résilier le compte ou le contrat"/></p></fieldset></form>';	
+	}
 	require_once('gabaritConseiller.php');
 }
 

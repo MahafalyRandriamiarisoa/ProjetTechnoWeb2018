@@ -112,15 +112,15 @@ function AfficherModificationInfo($client, $categorie){
 	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Modification des informations du client</legend><p>Client n°:'.$numClient.'</p>
                         <p><input type="hidden" name="numClient" value="'.$numClient.'"/></p>
                         <p><input type="hidden" name="categorie" value="'.$categorie.'"/></p>
-						<p><label>Nom :</label><input type="text" name="nom1" value="'.$client->NOM.'" disabled/></p>
-						<p><label>Prénom :</label><input type="text" name="prenom1" value="'.$client->PRENOM.'" disabled/></p>
-						<p><label>Date de naissance :</label><input type="text" name="birth" value="'.$client->DATEDENAISSANCE.'" disabled/></p>
-						<p><label for="email">Email :</label><input type="text" name="mail" id="email" value="'.$client->EMAIL.'" /></p>
-						<p><label for="numTel">N° téléphone :</label><input type="text" name="tel" id="numTel" value="'.$client->NUMEROTELEPHONE.'" /></p>
-						<p><label for="adresse">Adresse :</label><input type="text" name="adresse" id="adresse" value="'.$client->ADRESSE.'" /></p>
-						<p><label for="situFam">Situation familiale :</label><input type="text" name="situation" id="situFam" value="'.$client->SITUATIONFAMILIALE.'" /></p>
-						<p><label for="profession">Profession :</label><input type="text" name="profession" id="profession" value="'.$client->PROFESSION.'" /></p>
-						<p><input type="submit" name="modifier" value="Modifier"/></p></fieldset></form>';
+						<p><label class="labelinput">Nom :</label><input type="text" name="nom1" value="'.$client->NOM.'" disabled/></p>
+						<p><label class="labelinput">Prénom :</label><input type="text" name="prenom1" value="'.$client->PRENOM.'" disabled/></p>
+						<p><label class="labelinput">Date de naissance :</label><input type="text" name="birth" value="'.$client->DATEDENAISSANCE.'" disabled/></p>
+						<p><label class="labelinput" for="email">Email :</label><input type="text" name="mail" id="email" value="'.$client->EMAIL.'" /></p>
+						<p><label class="labelinput" for="numTel">N° téléphone :</label><input type="text" name="tel" id="numTel" value="'.$client->NUMEROTELEPHONE.'" /></p>
+						<p><label class="labelinput" for="adresse">Adresse :</label><input type="text" name="adresse" id="adresse" value="'.$client->ADRESSE.'" /></p>
+						<p><label class="labelinput" for="situFam">Situation familiale :</label><input type="text" name="situation" id="situFam" value="'.$client->SITUATIONFAMILIALE.'" /></p>
+						<p><label class="labelinput" for="profession">Profession :</label><input type="text" name="profession" id="profession" value="'.$client->PROFESSION.'" /></p>
+						<p><label class="label_nostyle">h</label><input type="submit" name="modifier" value="Modifier"/></p></fieldset></form>';
 
 	require_once('gabaritAgent.php');
 }
@@ -145,8 +145,7 @@ function AfficherOperationCompte($compte, $numClient){
 	if(count($compte) == 0){
 		$contenuInterface .= 'Aucun compte associé au client';
 	}else{
-		$contenuInterface .= '<p><label>Sélectionner le compte :<label></p>
-							<p>
+		$contenuInterface .= '<p><label>Sélectionner le compte :<label>
 							<select name="actionCompte">';
 
 		for($k = 0; $k < count($compte); $k++){
@@ -154,8 +153,8 @@ function AfficherOperationCompte($compte, $numClient){
 		}
 
 		$contenuInterface .= '</select></p>
-							<p><input type="radio" name="operationcompte" id="debit" value="debit"/><label for="debit">Débiter</label></p>
-							<p><input type="radio" name="operationcompte" id="credit" value="credit"/><label for="credit">Créditer</label></p>
+							<p><input type="radio" name="operationcompte" id="debit" value="debit"/><label for="debit">Débiter</label>
+							<input type="radio" name="operationcompte" id="credit" value="credit"/><label for="credit">Créditer</label></p>
 							<p><label for="somme"> Somme : </label><input type="text" id ="somme" name="somme" /></p>
 							<p><input type="submit" name="validerOp" value="Valider opération"/></p>';
 	}						
@@ -552,7 +551,8 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 		}
 		$contenuBis .= '</table>
 					</div>
-					<input type="submit" value="Valider les disponiblités">
+					
+					<p><input type="submit" value="Valider les disponiblités"/></p>
 				</fieldset>';
 		require_once('gabaritConseiller.php');
 	}elseif($categorie == 'Agent'){

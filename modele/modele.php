@@ -482,6 +482,7 @@ function ajouterMotif($motif){
 	$connexion = getConnect();
 	$requete = "INSERT INTO TYPEMOTIF(IDMOTIF,LIBELLEMOTIF) VALUES (0, '$motif')";
 	$connexion->query($requete);
+	return $connexion->lastInsertId();
 }
 
 function supprimerMotif($motif){

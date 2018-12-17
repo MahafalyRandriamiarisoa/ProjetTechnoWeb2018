@@ -422,9 +422,8 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 	$idEmploye = $idEmploye != '' ? $idEmploye : $client->IDEMPLOYE;
 	$numClient = $client == '' ? $client : $client->NUMCLIENT;
 
-
 	foreach($rdvEmploye as $key => $value){
-		if($value->IDMOTIF == 3){
+		if(is_null($value->NUMCLIENT)){
 			$rdvEmploye[$key]->NOM = "Aucun";
 			$rdvEmploye[$key]->PRENOM = "";
 			$rdvEmploye[$key]->LIBELLEMOTIF = "Disponibilité administrative";
@@ -467,7 +466,7 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 		$heureRDV = $rdv[3];
 		for($j = 0; $j < count($semaine); $j++){
 			if($semaine[$j] == $jourMoisRDV){
-				if($rdvEmploye[$i]->IDMOTIF == 3){
+				if(is_null($rdvEmploye[$i]->NUMCLIENT)){
 					$planning[$heureRDV - 8][$j] = array(
 						"DISPO ADMIN",
 						$rdvEmploye[$i]->NOM,
@@ -585,14 +584,20 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 			}
 		}
 		$contenuBis .= '</table>
-					</div>
+					</div>';
 					
-					<p><label>Motif du rendez-vous: </label><select name="idMotif">';
-					for($p=0;$p<count($motifs);$p++){
-						$contenuBis .= '<option value="'.$motifs[$p]->IDMOTIF.'">'.$motifs[$p]->LIBELLEMOTIF.'</option>';
-					}
-					$contenuBis .= '</select></p>
-					<p><input class="bottom" href=#bottom type="submit" name="idRDVEmploye" value="Valider le RDV"/></p>
+		if(count($motifs) == 0){
+			$contenuBis .= '<p>Aucun motif n\'est disponible dans la base de donnée.</p>
+							<input type="hidden" name="idMotif" value="-1"/>';
+		}else{
+			$contenuBis .= '<p><label>Motif du rendez-vous: </label><select name="idMotif">';
+			for($p=0;$p<count($motifs);$p++){
+				$contenuBis .= '<option value="'.$motifs[$p]->IDMOTIF.'">'.$motifs[$p]->LIBELLEMOTIF.'</option>';
+			}
+			$contenuBis .= '</select></p>';
+		}
+
+		$contenuBis .= '<p><input class="bottom" href=#bottom type="submit" name="idRDVEmploye" value="Valider le RDV"/></p>
 					</form>
 				</fieldset>';
 		require_once('gabaritAgent.php');

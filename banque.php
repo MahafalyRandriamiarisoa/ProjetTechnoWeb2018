@@ -116,7 +116,7 @@ try{
         $numClient = $_POST['numClient'];
         $idMotif = $_POST['idMotif']; // controllé par la vue et par le controlleur quand le directeur en creera
         $DATEHEURERDV = $_POST['choixRDV'];
-        CtlValiderRDV($_POST['semCourante'],intval($idMotif), intval($numClient), $DATEHEURERDV,$categorie);
+        CtlValiderRDV($_POST['semCourante'], intval($idMotif), intval($numClient), $DATEHEURERDV,$categorie);
 
     }elseif(isset($_POST['ajouter'])){
 

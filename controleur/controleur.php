@@ -719,4 +719,4 @@ function CtlAfficherOuvrirCompte($numClient){
 	*
 	*/
 	//function Ctl
-	
+

@@ -14,3 +14,10 @@ REGLE NORMALEMENT //
 
 REGLE NORMALEMENT // un contrat est selectionné par defaut donc il peut pas etre null, et si la liste est vide alors on affiche le message de la vue
 5) Conseiller : Condition : Liste des contrats vides -> vendre un contrat -> mettre un tarif mensuel  et click "Vendre le Contrat" <- verifier si le bug se produit lorsque la liste n'est pas vide et qu'aucun element est selectionn�
+
+6) Agent : disable les champs de details rdv
+
+REGLE
+7) année aberrante dans l'enregistrement d'un client
+
+8) si aucun client ne correspond à la recherche client envoyer un message d'erreur

@@ -16,3 +16,7 @@ $valeur = "890";
 $match5 = preg_match('/^[0-9]*$/', $valeur);
 
 var_dump($match5);
+
+
+$date = date("Y-m-d");
+var_dump($date);

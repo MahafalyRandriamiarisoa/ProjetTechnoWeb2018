@@ -171,7 +171,7 @@ function AfficherInscription($conseillers){
 	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Nouveau client </legend>
 						<p><label class="labelinput">Nom:</label><input type="text" name="lastName" required /></p>
 						<p><label class="labelinput">Prénom :</label><input type="text" name="firstName" required /></p>
-						<p><label class="labelinput">Date de naissance:</label><input type="date" name="bday" required /></p>
+						<p><label class="labelinput">Date de naissance:</label><input type="date" max="'.date("Y-m-d").'" name="bday" required  /></p>
 						<p><label class="labelinput">Adresse:</label><input type="text" name="adresse" required /></p>
 						<p><label class="labelinput">Email:</label><input type="text" name="mail" required /></p>
 						<p><label class="labelinput">Numéro de téléphone:</label><input type="text" name="tel" required /></p>

@@ -90,9 +90,11 @@ function CtlRechercherClient($nomClient, $birthday, $action){
     if($match == 1){
         $clients = rechercherClient($nomClient, $birthday);
         AfficherChoisirClient($clients, $action);
+    }else{
+        throw new Exception("Le nom du client est incorrect");
     }
 
-    throw new Exception("Le nom du client est incorrect");
+    
 
 }
 

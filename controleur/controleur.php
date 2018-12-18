@@ -36,10 +36,9 @@ function CtlInterfaceLogin(){
     AfficherInterfaceLogin();
 }
 
-/**à supprimer
+/**
  * Fonction pour verifier si un client, fonction particulierement importante lors de la saisie interactive directe du numClient
  * @param $numClient identifiant potentiellement rattaché à un client
- * @return array [0]:
  *      cette ligne correspond à un client identifiable par le numClient passé en paramètre
  * @throws Exception
  *      correspond au cas où le numèro client n'existe pas (ou non spécifié lors d'une saisie)?
@@ -66,7 +65,6 @@ function CtlAcceuil($login,$mdp){
         if(!empty($employe)){
 
             AfficherAcceuil($employe->CATEGORIE,"",false);
-            return $employe;
         }
     }
     throw new Exception("Login Incorrect !");
@@ -493,23 +491,6 @@ function CtlValiderRDV($semaineSelection, $idMotif, $numClient, $DATEHEURERDV, $
     $motifs = allMotif();
     $rdvEmploye = array_merge(getRDV($client[0]->IDEMPLOYE), getDispos($client[0]->IDEMPLOYE));
     AfficherPlanning($rdvEmploye,$semaineSelection, $categorie,$client[0],$motifs, '');
-}
-
-/** // à  supprimer
- * Fonction pour controller la prise d'un rendez-vous
- * @param $numclient  parametre déjà controllé via "rechercher un client" ou par saisie interactive
- * @return array : rdv
- *      correspond à la demande d'un rdv
- * @throws Exception
- *      correspond à une exception liée au fait que le numClient  n'existe pas dans la dataBase
- */
-function CtlAfficherRDVClient($numClient){
-
-    CtlnumClientExiste($numClient);
-
-    $client=checkClient($numClient);
-   //AfficherPriseRdv($client);
-    return getRDV($client[0]->IDEMPLOYE);
 }
 
 

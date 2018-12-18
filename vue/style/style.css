@@ -216,3 +216,7 @@ aside{
 h1 {
     text-decoration: underline;
 }
+
+fieldset {
+    background-color: white;
+}

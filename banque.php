@@ -27,7 +27,7 @@ try{
         }
 
         if(isset($nomClient) && isset($birthday)){
-            $numClient = CtlRetrouverClient($nomClient, $birthday, $action);
+            CtlRetrouverClient($nomClient, $birthday, $action);
         }
 
         switch($categorie){
@@ -53,14 +53,14 @@ try{
     }elseif(isset($_POST['suiv'])){
 
         $idEmploye = intval($_POST['idEmp']);
-        $rdvEmploye = getRDV($idEmploye);
+        //$rdvEmploye = getRDV($idEmploye);
         $categorie = (empty($_POST['categorie'])) ? $categorie : $_POST['categorie'];
 
         CtlPlanning((intval($_POST['semCourante'])+1), $categorie, $_POST['numClient'], $idEmploye);
     }elseif(isset($_POST['prec'])){
 
         $idEmploye = intval($_POST['idEmp']);
-        $rdvEmploye = getRDV($idEmploye);
+       // $rdvEmploye = getRDV($idEmploye);
         $categorie = (empty($_POST['categorie'])) ? $categorie : $_POST['categorie'];
 
         CtlPlanning((intval($_POST['semCourante'])-1), $categorie, $_POST['numClient'], $idEmploye);

@@ -66,10 +66,15 @@ function CtlAcceuil($login,$mdp){
         if(!empty($employe)){
 
             AfficherAcceuil($employe->CATEGORIE,"",false);
-            return $employe;
+            exit;
+
+        }else {
+            throw new Exception("Votre identifiant ou votre mot de passe n'a pas été reconnu. Si vous rencontrez des difficultés pour vous connecter, veuillez contacter un de nos téléconseillers au 3639* choix 4.");
         }
+
+    }else {
+        throw new Exception("Veuillez remplir les champs");
     }
-    throw new Exception("Login Incorrect !");
 }
 
 function CtlRetourAcceuil($categorie,$numClient){

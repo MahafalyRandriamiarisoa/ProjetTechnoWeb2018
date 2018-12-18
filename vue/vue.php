@@ -351,7 +351,6 @@ function AfficherErreur($categorie,$erreur){
     $contenuBis = '';
     $contenuHeader = '<strong>'.strtoupper($categorie).'</strong>';
     $contenuInterface = '<fieldset class="erreurs">
-                            <legend>Erreurs détectées</legend>
                             <p>'.$erreur.'</p>
                          </fieldset>';
 

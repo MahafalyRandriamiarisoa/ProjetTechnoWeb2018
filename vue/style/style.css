@@ -206,6 +206,21 @@ aside{
     text-align: center;
 }
 
+.divLogin p input{
+    margin : 0 0 0 1%;
+    border-radius : 3px;
+    color : #414A51;
+    padding : 1% 0 1% 1%;
+    font-size : 14px;
+    margin : 0 0 0 1%;
+    width : 48%;
+    border : 1px solid #CCC;
+    transition : all .25s ease-in-out;
+}
+.divLogin p input:hover{
+box-shadow: 0 2px 5px rgba(105, 108, 109, 0.7) ;
+}
+
 .divLabel {
     line-height: 50px;
     text-decoration: underline;

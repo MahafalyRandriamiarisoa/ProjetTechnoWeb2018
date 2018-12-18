@@ -146,6 +146,7 @@ function AfficherPriseRdv($client){
 function AfficherOperationCompte($compte, $numClient){
 	$contenuHeader = '<strong>AGENT</strong>';
 	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Opération sur le compte</legend>
+						<p>Client n° :'.$numClient.'</p>
                         <input type="hidden" name="numClient" value="'.$numClient.'" />
 	                    <input type="hidden" name="categorie" value="Agent" />';
 	
@@ -500,8 +501,12 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 	$contenuInterface = '';
 	$contenuBis = '
 			<fieldset>
-				<legend>Planning</legend>
-					<div class="planning">
+				<legend>Planning</legend>';
+	if(!empty($numClient)){
+		$contenuBis .= '<p>Client n° :'.$numClient.'</p>';
+	}
+
+	$contenuBis .= '<div class="planning">
 						<table>
 							<tr>
 								<form method="post" action="banque.php">

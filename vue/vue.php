@@ -36,8 +36,12 @@ function AfficherAcceuil($categorie, $numClient = "",$retourAcceuil){
     }
 }
 
-function AfficherSyntheseClient($client, $compte = '', $contrat = '', $conseiller = ''){
-	$contenuHeader = '<strong>AGENT</strong>';
+function AfficherSyntheseClient($client, $compte = '', $contrat = '', $conseiller = '', $categorie = ''){
+	if($categorie == 'Agent'){
+		$contenuHeader = '<strong>AGENT</strong>';
+	}elseif($categorie == 'Conseiller'){
+		$contenuHeader = '<strong>CONSEILLER</strong>';
+	}
 	$contenuBis = '';
 
 	if(count($client) == 1){
@@ -88,7 +92,12 @@ function AfficherSyntheseClient($client, $compte = '', $contrat = '', $conseille
 			$contenuInterface='<form method="post" action="banque.php"><fieldset><p>Aucun client de ce nom </p></fieldset></form>';
 		}
 	}
-	require_once('gabaritAgent.php');
+
+	if($categorie == 'Agent'){
+		require_once('gabaritAgent.php');
+	}elseif($categorie == 'Conseiller'){
+		require_once('gabaritConseiller.php');
+	}
 }
 
 function AfficherChoisirClient($clients, $action){
@@ -181,9 +190,9 @@ function AfficherInscription($conseillers){
 						<p><label class="labelinput">Prénom :</label><input type="text" name="firstName" required /></p>
 						<p><label class="labelinput">Date de naissance:</label><input type="date" name="bday" required /></p>
 						<p><label class="labelinput">Adresse:</label><input type="text" name="adresse" required /></p>
-						<p><label class="labelinput">Email:</label><input type="text" name="mail" required /></p>
+						<p><label class="labelinput">Email:</label><input type="email" name="mail" required /></p>
 						<p><label class="labelinput">Numéro de téléphone:</label><input type="text" name="tel" required /></p>
-						<p><label class="labelinput">Situation familiale:</label><input type="text" name="situation" required /></p>
+						<p><label class="labelinput">Situation familiale:</label><select name="situation" required><option value="Célibataire">Célibataire</option><option value="Marié">Marié</option><option value="Autre">Autre</option></select></p>
 						<p><label class="labelinput">Profession:</label><input type="text" name="profession" required /></p>
 						<p><label class="labelinput">Nom du conseiller:</label><select name="conseiller">';
 						
@@ -227,7 +236,7 @@ function AfficherOuvrirCompte($compte, $numClient){
 	
 	if(count($compte)!=0){
 		$contenuInterface .= '<p><label>Sélectionner le ou les comptes à ouvrir :<label>
-							<select name="actionOpenCompte" multiple required>';
+							<select name="actionOpenCompte[]" multiple required>';
 							
 	for($k = 0; $k < count($compte); $k++){
 		$contenuInterface .= '<option value="'.$compte[$k]->nomCompte.'">'.$compte[$k]->nomCompte.'</option>';
@@ -391,11 +400,11 @@ function AfficherRechercherClient($action){
         <fieldset id="f1">
         <legend> Rechercher un client </legend>
         <p><label>Par le numéro : </label> </p>
-        <p><label class="labelinput" >Numéro du client: </label><input type="text" name="numClient" /></p>
+        <p><label class="labelinput" >Numéro du client: </label><input type="text" name="numClient"/></p>
         <p><input type="hidden" name="action" value="'.$action.'"></p><br>
 		<p><label>Par le nom et la date de naissance : </label></p>
-		<p><label class="labelinput" >Nom : </label><input type="text" name="nomClient" /></p>
-		<p><label class="labelinput">Date de naissance : </label><input type="date" name="birthday" /></p>
+		<p><label class="labelinput" >Nom : </label><input type="text" name="nomClient"/></p>
+		<p><label class="labelinput">Date de naissance : </label><input type="date" name="birthday"/></p>
 		<p><br/></p>
         <p><label class="label_nostyle">h</label><input type="submit" name="rechercheClientConseiller" value="Valider"/></p>
         </fieldset>

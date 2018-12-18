@@ -21,6 +21,7 @@
 					<p><label style="display: none;">Numéro du client :</label><input type="hidden" name="numClient"/></p>	
 					<p><label>Sélectionner une action à réaliser :<label></p>
 					<p><select name="action">
+							<option value="synteseClientConseiller">Synthèse du client</option>
 							<option value="inscrireClient">Inscrire un nouveau client</option>
 							<option value="vendreContrat">Vendre un contrat</option>
 							<option value="ouvrirCompte">Ouvrir un compte</option>

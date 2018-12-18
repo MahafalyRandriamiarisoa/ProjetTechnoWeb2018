@@ -114,7 +114,7 @@ function CtlAfficherAction($action, $numClient = '', $nomClient = '', $birthday 
 
         case 'syntese':
             CtlnumClientExiste(intval($numClient));
-            CtlSyntheseClient($numClient);
+            CtlSyntheseClient($numClient, 'Agent');
             break;
 
         case 'modif':
@@ -180,6 +180,15 @@ function CtlAfficherAction($action, $numClient = '', $nomClient = '', $birthday 
         case 'planning':
 
             CtlAfficherPlanning();//todo : gerer les idConseillers
+            break;
+
+        case 'synteseClientConseiller':
+            if(!empty($numClient)){
+                CtlnumClientExiste($numClient);
+                CtlSyntheseClient($numClient, 'Conseiller'); 
+            }else{
+                AfficherRechercherClient($action);
+            }
             break;
     }
 
@@ -392,15 +401,19 @@ function CtlResilier($typeResiliation, $numClient){
  * Fonction qui controle l'affichage de la synthese du client par son numClient
  * @param $numclient parametre déjà controllé via "rechercher un client" ou par saisie interactive
  */
-	function CtlSyntheseClient($numClient1){
+	function CtlSyntheseClient($numClient1, $categorie){
 
         $numClient = intval($numClient1);
         $client = checkClient($numClient);
         $contrats = getContratsClient($numClient);
         $comptes = getComptesClient($numClient);
-        $synthese = getSyntheseClient($numClient); //todo :
+        $synthese = getSyntheseClient($numClient);
         
-        AfficherSyntheseClient($client,$comptes,$contrats,getEmploye($client[0]->IDEMPLOYE)->NOMEMPLOYE);
+        if($categorie == 'Agent'){
+            AfficherSyntheseClient($client,$comptes,$contrats,getEmploye($client[0]->IDEMPLOYE)->NOMEMPLOYE, 'Agent');
+        }elseif($categorie == 'Conseiller'){
+            AfficherSyntheseClient($client,$comptes,$contrats,getEmploye($client[0]->IDEMPLOYE)->NOMEMPLOYE, 'Conseiller');
+        }
     }
 
 /***
@@ -638,11 +651,13 @@ function CtlCompteDisponible($numClient){
  * @param $MONTANTDECOUVERT
  *      à 0 si non autorisé, il peut être modifier par le conseiller
  */
-function CtlOuvrirCompte($numClient, $nomCompte, $montantDecouvert){
+function CtlOuvrirCompte($numClient, $nomsComptes, $montantDecouvert){
     //todo : $DATEOUVERTURE= fonction pour getDateNOW();
     $dateOuverture = date('Y/m/j');
 
-    ouvertureCompte($numClient,$nomCompte,$dateOuverture,$montantDecouvert);
+    for($i = 0; $i < count($nomsComptes); $i++){
+        ouvertureCompte($numClient,$nomsComptes[$i],$dateOuverture,$montantDecouvert);
+    }
 
     CtlRetourAcceuil('Conseiller', '');
 }

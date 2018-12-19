@@ -272,8 +272,9 @@ fieldset:hover{
 }
 
 #loginTitle {
-    display: inline-block;
+    display: inline;
     vertical-align: middle;
+    
 }
 
 header {

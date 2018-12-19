@@ -405,10 +405,12 @@ function AfficherRechercherClient($action){
 		<p><label>Par le nom et la date de naissance : </label></p>
 		<p><label class="labelinput" >Nom : </label><input type="text" name="nomClient"/></p>
 		<p><label class="labelinput">Date de naissance : </label><input type="date" name="birthday"/></p>
+		<p><input type="hidden" name="categorie" value="Conseiller" /></p>
 		<p><br/></p>
         <p><label class="label_nostyle">h</label><input type="submit" name="rechercheClientConseiller" value="Valider"/></p>
         </fieldset>
-    </form>';
+	</form>';
+	
 	require_once('gabaritConseiller.php');
 }
 
@@ -523,18 +525,18 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 								    <input type="hidden" name="categorie" value="'.$categorie.'" /></p>
 									<input type="hidden" class="invisible" name="idEmp" value="'.$idEmploye.'" />
 									<input type="hidden" class="invisible" name="semCourante" value="'.$semaineSelection.'" />
-									<td><input type="submit" name="prec" value="Semaine précédente" /></td>
-									<th colspan="4" style="text-align: center;">Semaine du '.$semaine[0].'</th>
-									<td><input type="submit" name="suiv" value="Semaine suivante" /></td>
+									<td class="bord"><input type="submit" name="prec" value="Semaine précédente" /></td>
+									<th class="bord" colspan="4" style="text-align: center;">Semaine du '.$semaine[0].'</th>
+									<td class="bord"><input type="submit" name="suiv" value="Semaine suivante" /></td>
 							</tr>
 							<tr>
-								<td class="disabled"></td>';
+								<td class="bord" class="disabled"></td>';
 	$contenuBis .='
-								<th>Mardi '.$semaine[0].'</th>
-								<th>Mercredi '.$semaine[1].'</th>
-								<th>Jeudi '.$semaine[2].'</th>
-								<th>Vendredi '.$semaine[3].'</th>
-								<th>Samedi '.$semaine[4].'</th>
+								<th class="bord">MARDI '.$semaine[0].'</th>
+								<th class="bord">MERCREDI '.$semaine[1].'</th>
+								<th class="bord">JEUDI '.$semaine[2].'</th>
+								<th class="bord">VENDREDI '.$semaine[3].'</th>
+								<th class="bord">SAMEDI <br>'.$semaine[4].'</th>
 							</tr>';
 
 	if($categorie == 'Conseiller'){
@@ -542,10 +544,10 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 		for($k = 0; $k < 11; $k++){
 			$heure = 8 + $k;
 			$contenuBis .= '<tr>
-								<th>'.$heure.'H</th>';
+								<th class="bord">'.$heure.'H</th>';
 			for($j = 0; $j < count($planning[0]); $j++){
 				if($planning[$k][$j][0] != ""){
-					$contenuBis .= '<td onClick="showRDV(\''.$planning[$k][$j][1].'\', \''.$planning[$k][$j][2].'\', \''.$planning[$k][$j][4].'\', \''.$planning[$k][$j][5].'\', \''.$planning[$k][$j][6].'\')">'.$planning[$k][$j][0].'</td>';
+					$contenuBis .= '<td class="rempli" onClick="showRDV(\''.$planning[$k][$j][1].'\', \''.$planning[$k][$j][2].'\', \''.$planning[$k][$j][4].'\', \''.$planning[$k][$j][5].'\', \''.$planning[$k][$j][6].'\')">'.$planning[$k][$j][0].'</td>';
 				}else{
 					//$contenuBis .= '<td onClick="checkRDV(\''.($k).($j).'\')"><input type="checkbox" id="'.($k).($j).'" name="dispos[]" value="'.$semaine[$j].'/'.$heure.'"/></td>';
 					
@@ -579,10 +581,10 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 		for($k = 0; $k < 11; $k++){
 			$heure = 8 + $k;
 			$contenuBis .= '<tr>
-								<th>'.$heure.'H</th>';
+								<th class="bord">'.$heure.'H</th>';
 			for($j = 0; $j < count($planning[0]); $j++){
 				if($planning[$k][$j][0] != ""){
-					$contenuBis .= '<td onClick="showRDV(\''.$planning[$k][$j][1].'\', \''.$planning[$k][$j][2].'\', \''.$planning[$k][$j][4].'\', \''.$planning[$k][$j][5].'\', \''.$planning[$k][$j][6].'\')">'.$planning[$k][$j][0].'</td>';
+					$contenuBis .= '<td class="rempli" onClick="showRDV(\''.$planning[$k][$j][1].'\', \''.$planning[$k][$j][2].'\', \''.$planning[$k][$j][4].'\', \''.$planning[$k][$j][5].'\', \''.$planning[$k][$j][6].'\')">'.$planning[$k][$j][0].'</td>';
 				}else{
 					$heureActuelle = date('H');
 					$dateActuelle = date('j/m/Y');

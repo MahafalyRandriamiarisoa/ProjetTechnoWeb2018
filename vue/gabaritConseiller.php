@@ -10,12 +10,12 @@
     
 	<body>	
 		<header>
-			<p>Connexion en tant que : <?php echo $contenuHeader;?>
-            <a class="btnDeconnexion" href="banque.php">Se Déconnecter</a></p>
+			<p>Connexion en tant que : <?php echo $contenuHeader;?></p>
+            <p class="btnDeconnexion"><a href="banque.php">Se Déconnecter</a></p>
 		</header>
 		<aside>
 			<form id="f1" method="post" action="banque.php">
-				<?php echo '<p><input type="text" name="categorie" value="Conseiller"style="display:none" /></p>' ?>
+				<p><input type="hidden" name="categorie" value="Conseiller" /></p>
               	<fieldset>
 					<legend>Actions</legend>
 					<p><label style="display: none;">Numéro du client :</label><input type="hidden" name="numClient"/></p>	

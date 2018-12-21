@@ -39,7 +39,7 @@
 						</select>
 					</p>
 				</fieldset>
-				<p><input type="reset"  value="Effacer"/><input type="submit" name="valider" value="Valider"/></p>
+				<p><input type="reset"  value="Effacer"/><input type="submit" id="valider" name="valider" value="Valider"/></p>
 			</form>
 		</aside>
 		<div class="interface">

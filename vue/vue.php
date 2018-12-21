@@ -400,14 +400,14 @@ function AfficherRechercherClient($action){
         <fieldset id="f1">
         <legend> Rechercher un client </legend>
         <p><label>Par le numéro : </label> </p>
-        <p><label class="labelinput" >Numéro du client: </label><input type="text" name="numClient"/></p>
+        <p><label class="labelinput" >Numéro du client: </label><input type="text" id="numClient" onInput="checkNumCli()" name="numClient"/></p>
         <p><input type="hidden" name="action" value="'.$action.'"></p><br>
 		<p><label>Par le nom et la date de naissance : </label></p>
 		<p><label class="labelinput" >Nom : </label><input type="text" name="nomClient"/></p>
 		<p><label class="labelinput">Date de naissance : </label><input type="date" name="birthday"/></p>
 		<p><input type="hidden" name="categorie" value="Conseiller" /></p>
 		<p><br/></p>
-        <p><label class="label_nostyle">h</label><input type="submit" name="rechercheClientConseiller" value="Valider"/></p>
+        <p><label class="label_nostyle">h</label><input type="submit" name="rechercheClientConseiller" id="valider" value="Valider"/></p>
         </fieldset>
 	</form>';
 	

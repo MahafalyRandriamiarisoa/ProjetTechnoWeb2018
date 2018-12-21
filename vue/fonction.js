@@ -6,7 +6,7 @@ function afficherNumCli(){
 	var noeud=document.getElementById('f1');
 	noeud.appendChild(noeudDiv);
 	noeudDiv.appendChild(noeudP);
-	document.getElementById('idP').innerHTML='<p><label>Numéro du client : </label><input type="text" name="numClient"/></p>';
+	document.getElementById('idP').innerHTML='<p><label>Numéro du client : </label><input type="text" id="numClient" onInput="checkNumCli()" name="numClient"/></p>';
 }
 
 function afficherNomDate(){
@@ -243,4 +243,17 @@ function afficherPieceModif(){
 	var selection=recup.split("|");
 	var contenu='<p><label>Liste des pièces à fournir pour ce motif : </label><textarea rows="4" cols="30" name="pieceamodif" >'+selection[1]+'</textarea></p><p><input type="submit" name="modifierPiece" value="Modifier la liste de pièces à fournir"/></p>';
 	document.getElementById('idDiv').innerHTML=contenu;
+}
+
+function checkNumCli(){
+	var inputNumCli = document.getElementById('numClient');
+	var inputValider = document.getElementById('valider');
+
+	if(isNaN(parseInt(inputNumCli.value))){
+		inputValider.disabled = true;
+		inputNumCli.style = "border-color: red";
+	}else{
+		inputNumCli.style = "border-color: default";
+		inputValider.disabled = false;
+	}
 }

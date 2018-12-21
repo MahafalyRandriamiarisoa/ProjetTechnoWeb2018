@@ -324,6 +324,7 @@ header p {
 .bord input {
     margin-right: -6px;
     margin-left: -5px;
+    margin-top: -1px;
     border: none;
     background-color: #2e3131;
     color: white;

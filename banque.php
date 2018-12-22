@@ -6,7 +6,6 @@ try{
 
     if(isset($_POST['connexion'])){
 
-        //todo : verifier si la data base est vide
         CtlAcceuil($_POST['identifiant'], $_POST['motDePasse']);
 
 
@@ -18,7 +17,7 @@ try{
         $action = $_POST['action'];
         $numClient = '';
         
-        if(isset($_POST['numClient']) && !empty($_POST['numClient'])){
+        if(isset($_POST['numClient']) && !empty($_POST['numClient']) && !isset($_POST['birthday'])){
             $numClient = $_POST['numClient'];
 
         }elseif(empty($numClient) && isset($_POST['nomClient']) && isset($_POST['birthday'])){

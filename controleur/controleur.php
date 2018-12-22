@@ -89,12 +89,10 @@ function CtlRechercherClient($nomClient, $birthday, $action){
 
     if($match == 1){
         $clients = rechercherClient($nomClient, $birthday);
-        AfficherChoisirClient($clients, $action);
+        AfficherChoisirClient($clients, $action, 'Conseiller');
     }else{
         throw new Exception("Le nom du client est incorrect");
     }
-
-    
 
 }
 
@@ -228,7 +226,6 @@ function CtlAfficherModificationId($identifiants){
 function CtlModifierIdentifiants(){
 	$identifiants=allIdentifiants();
 	
-	//$identifiants=getAllEmployes();
 	for($i=0;$i<count($identifiants);$i++){
 		$categorie=$identifiants[$i]->CATEGORIE;
 		$login=$_POST[$categorie.'login'];
@@ -707,21 +704,19 @@ function CtlErreur($categorie,$msg){
 
 }
 
-function CtlGestionClient($numClient){
-
-    //todo : reflechir à quelle vue mettre
-    //après avoir "log" un Client
-}
-
 function CtlRetrouverClient($nomClient, $birthday, $action){
     $match = preg_match('/(^[a-z]*$)/i', $nomClient);
 
     if($match == 1){
         $clientsCorrespondants = rechercherClient($nomClient, $birthday);
-        AfficherSyntheseClient($clientsCorrespondants, $action);
+        if(count($clientsCorrespondants) == 1){
+            CtlAfficherAction($action, $clientsCorrespondants[0]->NUMCLIENT);
+        }else{
+            AfficherChoisirClient($clientsCorrespondants, $action, 'Agent');
+        }
+    }else{
+        throw new Exception("Le nom du client est incorrect");
     }
-
-    throw new Exception("Le nom du client est incorrect");
 }
 
 function CtlAfficherOuvrirCompte($numClient){
@@ -730,10 +725,4 @@ function CtlAfficherOuvrirCompte($numClient){
 
     AfficherOuvrirCompte($comptes, $numClient);
 }
-	/**
-	*Fonction 
-	*
-	*
-	*/
-	//function Ctl
-	
+

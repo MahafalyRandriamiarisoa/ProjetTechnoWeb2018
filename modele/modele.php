@@ -80,6 +80,7 @@ function checkClient($numClient){
 
 function rechercherClient($nom, $dateNaissance){
 	$connexion = getConnect();
+	var_dump($dateNaissance);
 	$requete = "SELECT * FROM CLIENT WHERE nom = '$nom' AND dateDeNaissance = '$dateNaissance'";
 	$resultat = $connexion->query($requete);
 	$resultat->setFetchMode(PDO::FETCH_OBJ);

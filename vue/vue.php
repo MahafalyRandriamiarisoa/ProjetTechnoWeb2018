@@ -100,7 +100,7 @@ function AfficherSyntheseClient($client, $compte = '', $contrat = '', $conseille
 	}
 }
 
-function AfficherChoisirClient($clients, $action){
+function AfficherChoisirClient($clients, $action, $categorie){
 	$numClient = '';
 	$contenuBis = '';
 	$contenuHeader = '';
@@ -118,7 +118,12 @@ function AfficherChoisirClient($clients, $action){
 		<p>Aucun client ne correspond à votre recherche</p>
 		</fieldset>';
 	}
-	require_once('gabaritConseiller.php');
+	
+	if($categorie == 'Agent'){
+		require_once('gabaritAgent.php');
+	}else{
+		require_once('gabaritConseiller.php');
+	}
 }
 
 function AfficherModificationInfo($client, $categorie){

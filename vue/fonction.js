@@ -249,7 +249,7 @@ function checkNumCli(){
 	var inputNumCli = document.getElementById('numClient');
 	var inputValider = document.getElementById('valider');
 
-	if(isNaN(parseInt(inputNumCli.value))){
+	if(isNaN(parseInt(inputNumCli.value)) || inputNumCli.value == ""){
 		inputValider.disabled = true;
 		inputNumCli.style = "border-color: red";
 	}else{

@@ -36,8 +36,12 @@ function AfficherAcceuil($categorie, $numClient = "",$retourAcceuil){
     }
 }
 
-function AfficherSyntheseClient($client, $compte = '', $contrat = '', $conseiller = ''){
-	$contenuHeader = '<strong>AGENT</strong>';
+function AfficherSyntheseClient($client, $compte = '', $contrat = '', $conseiller = '', $categorie = ''){
+	if($categorie == 'Agent'){
+		$contenuHeader = '<strong>AGENT</strong>';
+	}elseif($categorie == 'Conseiller'){
+		$contenuHeader = '<strong>CONSEILLER</strong>';
+	}
 	$contenuBis = '';
 
 	if(count($client) == 1){
@@ -88,7 +92,12 @@ function AfficherSyntheseClient($client, $compte = '', $contrat = '', $conseille
 			$contenuInterface='<form method="post" action="banque.php"><fieldset><p>Aucun client de ce nom </p></fieldset></form>';
 		}
 	}
-	require_once('gabaritAgent.php');
+
+	if($categorie == 'Agent'){
+		require_once('gabaritAgent.php');
+	}elseif($categorie == 'Conseiller'){
+		require_once('gabaritConseiller.php');
+	}
 }
 
 function AfficherChoisirClient($clients, $action){
@@ -146,6 +155,7 @@ function AfficherPriseRdv($client){
 function AfficherOperationCompte($compte, $numClient){
 	$contenuHeader = '<strong>AGENT</strong>';
 	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Opération sur le compte</legend>
+						<p>Client n° :'.$numClient.'</p>
                         <input type="hidden" name="numClient" value="'.$numClient.'" />
 	                    <input type="hidden" name="categorie" value="Agent" />';
 	
@@ -180,9 +190,9 @@ function AfficherInscription($conseillers){
 						<p><label class="labelinput">Prénom :</label><input type="text" name="firstName" required /></p>
 						<p><label class="labelinput">Date de naissance:</label><input type="date" max="'.date("Y-m-d").'" name="bday" required  /></p>
 						<p><label class="labelinput">Adresse:</label><input type="text" name="adresse" required /></p>
-						<p><label class="labelinput">Email:</label><input type="text" name="mail" required /></p>
+						<p><label class="labelinput">Email:</label><input type="email" name="mail" required /></p>
 						<p><label class="labelinput">Numéro de téléphone:</label><input type="text" name="tel" required /></p>
-						<p><label class="labelinput">Situation familiale:</label><input type="text" name="situation" required /></p>
+						<p><label class="labelinput">Situation familiale:</label><select name="situation" required><option value="Célibataire">Célibataire</option><option value="Marié">Marié</option><option value="Autre">Autre</option></select></p>
 						<p><label class="labelinput">Profession:</label><input type="text" name="profession" required /></p>
 						<p><label class="labelinput">Nom du conseiller:</label><select name="conseiller">';
 						
@@ -226,7 +236,7 @@ function AfficherOuvrirCompte($compte, $numClient){
 	
 	if(count($compte)!=0){
 		$contenuInterface .= '<p><label>Sélectionner le ou les comptes à ouvrir :<label>
-							<select name="actionOpenCompte" multiple required>';
+							<select name="actionOpenCompte[]" multiple required>';
 							
 	for($k = 0; $k < count($compte); $k++){
 		$contenuInterface .= '<option value="'.$compte[$k]->nomCompte.'">'.$compte[$k]->nomCompte.'</option>';
@@ -390,15 +400,17 @@ function AfficherRechercherClient($action){
         <fieldset id="f1">
         <legend> Rechercher un client </legend>
         <p><label>Par le numéro : </label> </p>
-        <p><label class="labelinput" >Numéro du client: </label><input type="text" name="numClient" /></p>
+        <p><label class="labelinput" >Numéro du client: </label><input type="text" id="numClient" onInput="checkNumCli()" name="numClient"/></p>
         <p><input type="hidden" name="action" value="'.$action.'"></p><br>
 		<p><label>Par le nom et la date de naissance : </label></p>
-		<p><label class="labelinput" >Nom : </label><input type="text" name="nomClient" /></p>
-		<p><label class="labelinput">Date de naissance : </label><input type="date" name="birthday" /></p>
+		<p><label class="labelinput" >Nom : </label><input type="text" name="nomClient"/></p>
+		<p><label class="labelinput">Date de naissance : </label><input type="date" name="birthday"/></p>
+		<p><input type="hidden" name="categorie" value="Conseiller" /></p>
 		<p><br/></p>
-        <p><label class="label_nostyle">h</label><input type="submit" name="rechercheClientConseiller" value="Valider"/></p>
+        <p><label class="label_nostyle">h</label><input type="submit" name="rechercheClientConseiller" id="valider" value="Valider"/></p>
         </fieldset>
-    </form>';
+	</form>';
+	
 	require_once('gabaritConseiller.php');
 }
 
@@ -500,8 +512,12 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 	$contenuInterface = '';
 	$contenuBis = '
 			<fieldset>
-				<legend>Planning</legend>
-					<div class="planning">
+				<legend>Planning</legend>';
+	if(!empty($numClient)){
+		$contenuBis .= '<p>Client n° :'.$numClient.'</p>';
+	}
+
+	$contenuBis .= '<div class="planning">
 						<table>
 							<tr>
 								<form method="post" action="banque.php">
@@ -509,18 +525,18 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 								    <input type="hidden" name="categorie" value="'.$categorie.'" /></p>
 									<input type="hidden" class="invisible" name="idEmp" value="'.$idEmploye.'" />
 									<input type="hidden" class="invisible" name="semCourante" value="'.$semaineSelection.'" />
-									<td><input type="submit" name="prec" value="Semaine précédente" /></td>
-									<th colspan="4" style="text-align: center;">Semaine du '.$semaine[0].'</th>
-									<td><input type="submit" name="suiv" value="Semaine suivante" /></td>
+									<td class="bord"><input type="submit" name="prec" value="Semaine précédente" /></td>
+									<th class="bord" colspan="4" style="text-align: center;">Semaine du '.$semaine[0].'</th>
+									<td class="bord"><input type="submit" name="suiv" value="Semaine suivante" /></td>
 							</tr>
 							<tr>
-								<td class="disabled"></td>';
+								<td class="bord" class="disabled"></td>';
 	$contenuBis .='
-								<th>Mardi '.$semaine[0].'</th>
-								<th>Mercredi '.$semaine[1].'</th>
-								<th>Jeudi '.$semaine[2].'</th>
-								<th>Vendredi '.$semaine[3].'</th>
-								<th>Samedi '.$semaine[4].'</th>
+								<th class="bord">MARDI '.$semaine[0].'</th>
+								<th class="bord">MERCREDI '.$semaine[1].'</th>
+								<th class="bord">JEUDI '.$semaine[2].'</th>
+								<th class="bord">VENDREDI '.$semaine[3].'</th>
+								<th class="bord">SAMEDI <br>'.$semaine[4].'</th>
 							</tr>';
 
 	if($categorie == 'Conseiller'){
@@ -528,10 +544,10 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 		for($k = 0; $k < 11; $k++){
 			$heure = 8 + $k;
 			$contenuBis .= '<tr>
-								<th>'.$heure.'H</th>';
+								<th class="bord">'.$heure.'H</th>';
 			for($j = 0; $j < count($planning[0]); $j++){
 				if($planning[$k][$j][0] != ""){
-					$contenuBis .= '<td onClick="showRDV(\''.$planning[$k][$j][1].'\', \''.$planning[$k][$j][2].'\', \''.$planning[$k][$j][4].'\', \''.$planning[$k][$j][5].'\', \''.$planning[$k][$j][6].'\')">'.$planning[$k][$j][0].'</td>';
+					$contenuBis .= '<td class="rempli" onClick="showRDV(\''.$planning[$k][$j][1].'\', \''.$planning[$k][$j][2].'\', \''.$planning[$k][$j][4].'\', \''.$planning[$k][$j][5].'\', \''.$planning[$k][$j][6].'\')">'.$planning[$k][$j][0].'</td>';
 				}else{
 					//$contenuBis .= '<td onClick="checkRDV(\''.($k).($j).'\')"><input type="checkbox" id="'.($k).($j).'" name="dispos[]" value="'.$semaine[$j].'/'.$heure.'"/></td>';
 					
@@ -565,10 +581,10 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 		for($k = 0; $k < 11; $k++){
 			$heure = 8 + $k;
 			$contenuBis .= '<tr>
-								<th>'.$heure.'H</th>';
+								<th class="bord">'.$heure.'H</th>';
 			for($j = 0; $j < count($planning[0]); $j++){
 				if($planning[$k][$j][0] != ""){
-					$contenuBis .= '<td onClick="showRDV(\''.$planning[$k][$j][1].'\', \''.$planning[$k][$j][2].'\', \''.$planning[$k][$j][4].'\', \''.$planning[$k][$j][5].'\', \''.$planning[$k][$j][6].'\')">'.$planning[$k][$j][0].'</td>';
+					$contenuBis .= '<td class="rempli" onClick="showRDV(\''.$planning[$k][$j][1].'\', \''.$planning[$k][$j][2].'\', \''.$planning[$k][$j][4].'\', \''.$planning[$k][$j][5].'\', \''.$planning[$k][$j][6].'\')">'.$planning[$k][$j][0].'</td>';
 				}else{
 					$heureActuelle = date('H');
 					$dateActuelle = date('j/m/Y');

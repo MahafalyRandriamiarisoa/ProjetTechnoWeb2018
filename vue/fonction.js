@@ -6,7 +6,7 @@ function afficherNumCli(){
 	var noeud=document.getElementById('f1');
 	noeud.appendChild(noeudDiv);
 	noeudDiv.appendChild(noeudP);
-	document.getElementById('idP').innerHTML='<p><label>Numéro du client : </label><input type="text" name="numClient"/></p>';
+	document.getElementById('idP').innerHTML='<p><label>Numéro du client : </label><input type="text" id="numClient" onInput="checkNumCli()" name="numClient"/></p>';
 }
 
 function afficherNomDate(){
@@ -129,61 +129,81 @@ function afficherAjout(){
 	}	
 
 function afficherModificationCon(nbContrat){
-	var noeudDiv=document.createElement("div");
-	noeudDiv.id='idDiv';
-	var noeud=document.getElementById('liste');
-	noeud.appendChild(noeudDiv);
-	var contenu='<p><input type="hidden" name="nbContrat" value="'+nbContrat+'"/></p>';
-	for(i=0;i<nbContrat;i++){
-		var val=document.modifMotif.elements['contrat'+i].value;
-		contenu+='<p><input type="hidden" name="ancienContrat'+i+'" value="'+val+'"/></p><p><label>Contrat '+eval(i+1)+' :</label><input type="text" name="contrat'+i+'" value="'+val+'"/></p>';
-		
+	if(document.getElementById('idDiv') == undefined){
+		var noeudDiv=document.createElement("div");
+		noeudDiv.id='idDiv';
+		var noeud=document.getElementById('liste');
+		noeud.appendChild(noeudDiv);
+		var contenu='<p><input type="hidden" name="nbContrat" value="'+nbContrat+'"/></p>';
+		for(i=0;i<nbContrat;i++){
+			var val=document.modifMotif.elements['contrat'+i].value;
+			contenu+='<p><input type="hidden" name="ancienContrat'+i+'" value="'+val+'"/></p><p><label>Contrat '+eval(i+1)+' :</label><input type="text" name="contrat'+i+'" value="'+val+'"/></p>';
+			
+		}
+		contenu+='<p><input type="submit" name="modifierContrat" value="Modifier la liste des contrats"/></p>';
+		document.getElementById('idDiv').innerHTML=contenu;
+	}else{
+		document.getElementById('idDiv').remove();
+		afficherModificationCon(nbContrat);
 	}
-	contenu+='<p><input type="submit" name="modifierContrat" value="Modifier la liste des contrats"/></p>';
-	document.getElementById('idDiv').innerHTML=contenu;
 }
 
 function afficherSuppressionCon(nbContrat){
-	var noeudDiv=document.createElement("div");
-	noeudDiv.id='idDiv';
-	var noeud=document.getElementById('liste');
-	noeud.appendChild(noeudDiv);
-	var contenu='<p><select name="contratSuppr">';
-	for(i=0;i<nbContrat;i++){
-		var val=document.modifMotif.elements['contrat'+i].value;
-		contenu+='<option value="'+val+'">'+val+'</option>';
+	if(document.getElementById('idDiv') == undefined){
+		var noeudDiv=document.createElement("div");
+		noeudDiv.id='idDiv';
+		var noeud=document.getElementById('liste');
+		noeud.appendChild(noeudDiv);
+		var contenu='<p><select name="contratSuppr">';
+		for(i=0;i<nbContrat;i++){
+			var val=document.modifMotif.elements['contrat'+i].value;
+			contenu+='<option value="'+val+'">'+val+'</option>';
+		}
+		contenu+='</select></p><p><input type="submit" name="supprimerContrat" value="Supprimer de la liste des contrats"/></p>';
+		document.getElementById('idDiv').innerHTML=contenu;
+	}else{
+		document.getElementById('idDiv').remove();
+		afficherSuppressionCon(nbContrat);
 	}
-	contenu+='</select></p><p><input type="submit" name="supprimerContrat" value="Supprimer de la liste des contrats"/></p>';
-	document.getElementById('idDiv').innerHTML=contenu;
 }
 
 function afficherModificationCom(nbCompte){
-	var noeudDiv=document.createElement("div");
-	noeudDiv.id='idDiv';
-	var noeud=document.getElementById('liste');
-	noeud.appendChild(noeudDiv);
-	var contenu='<p><input type="hidden" name="nbCompte" value="'+nbCompte+'"/></p>';
-	for(i=0;i<nbCompte;i++){
-		var val=document.modifMotif.elements['compte'+i].value;
-		contenu+='<p><input type="hidden" name="ancienCompte'+i+'" value="'+val+'"/></p><p><label>Compte '+eval(i+1)+' :</label><input type="text" name="compte'+i+'" value="'+val+'"/></p>';
-		
+	if(document.getElementById('idDiv') == undefined){
+		var noeudDiv=document.createElement("div");
+		noeudDiv.id='idDiv';
+		var noeud=document.getElementById('liste');
+		noeud.appendChild(noeudDiv);
+		var contenu='<p><input type="hidden" name="nbCompte" value="'+nbCompte+'"/></p>';
+		for(i=0;i<nbCompte;i++){
+			var val=document.modifMotif.elements['compte'+i].value;
+			contenu+='<p><input type="hidden" name="ancienCompte'+i+'" value="'+val+'"/></p><p><label>Compte '+eval(i+1)+' :</label><input type="text" name="compte'+i+'" value="'+val+'"/></p>';
+			
+		}
+		contenu+='<p><input type="submit" name="modifierCompte" value="Modifier la liste des comptes"/></p>';
+		document.getElementById('idDiv').innerHTML=contenu;
+	}else{
+		document.getElementById('idDiv').remove();
+		afficherModificationCom(nbCompte);
 	}
-	contenu+='<p><input type="submit" name="modifierCompte" value="Modifier la liste des comptes"/></p>';
-	document.getElementById('idDiv').innerHTML=contenu;
 }
 
 function afficherSuppressionCom(nbCompte){
-	var noeudDiv=document.createElement("div");
-	noeudDiv.id='idDiv';
-	var noeud=document.getElementById('liste');
-	noeud.appendChild(noeudDiv);
-	var contenu='<p><select name="compteSuppr">';
-	for(i=0;i<nbCompte;i++){
-		var val=document.modifMotif.elements['compte'+i].value;
-		contenu+='<option value="'+val+'">'+val+'</option>';
+	if(document.getElementById('idDiv') == undefined){
+		var noeudDiv=document.createElement("div");
+		noeudDiv.id='idDiv';
+		var noeud=document.getElementById('liste');
+		noeud.appendChild(noeudDiv);
+		var contenu='<p><select name="compteSuppr">';
+		for(i=0;i<nbCompte;i++){
+			var val=document.modifMotif.elements['compte'+i].value;
+			contenu+='<option value="'+val+'">'+val+'</option>';
+		}
+		contenu+='</select></p><p><input type="submit" name="supprimerCompte" value="Supprimer de la liste des contrats"/></p>';
+		document.getElementById('idDiv').innerHTML=contenu;
+	}else{
+		document.getElementById('idDiv').remove();
+		afficherSuppressionCom(nbCompte);
 	}
-	contenu+='</select></p><p><input type="submit" name="supprimerCompte" value="Supprimer de la liste des contrats"/></p>';
-	document.getElementById('idDiv').innerHTML=contenu;
 }
 
 
@@ -223,4 +243,17 @@ function afficherPieceModif(){
 	var selection=recup.split("|");
 	var contenu='<p><label>Liste des pièces à fournir pour ce motif : </label><textarea rows="4" cols="30" name="pieceamodif" >'+selection[1]+'</textarea></p><p><input type="submit" name="modifierPiece" value="Modifier la liste de pièces à fournir"/></p>';
 	document.getElementById('idDiv').innerHTML=contenu;
+}
+
+function checkNumCli(){
+	var inputNumCli = document.getElementById('numClient');
+	var inputValider = document.getElementById('valider');
+
+	if(isNaN(parseInt(inputNumCli.value))){
+		inputValider.disabled = true;
+		inputNumCli.style = "border-color: red";
+	}else{
+		inputNumCli.style = "border-color: default";
+		inputValider.disabled = false;
+	}
 }

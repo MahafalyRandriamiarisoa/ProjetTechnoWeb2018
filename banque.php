@@ -157,14 +157,14 @@ try{
             $birthday = $_POST['birthday'];
             CtlAfficherAction($action, '', $nomClient, $birthday);
         }else{
-            echo "erreur champs non remplis";
+            CtlErreur('Conseiller', 'Il faut remplir soit le numéro client, soit le nom du client ainsi que sa date de naissance');
         }
     }elseif(isset($_POST['choixConseiller'])){
         $idConseiller = $_POST['selectConseiller'];
         CtlPlanningConseiller($idConseiller);
     }elseif(isset($_POST['ouvrir']) && isset($_POST['actionOpenCompte'])){
-        $nomCompte = $_POST['actionOpenCompte'];
-        CtlOuvrirCompte($_POST['numClient'], $nomCompte, 0);
+        $nomsComptes = $_POST['actionOpenCompte'];
+        CtlOuvrirCompte($_POST['numClient'], $nomsComptes, 0);
     }elseif(isset($_POST['resilier'])){
         $typeResiliation = $_POST['actionResilier'];
         $numClient = $_POST['numClient'];
@@ -227,7 +227,6 @@ try{
 
 }catch(Exception $e1){
 
-    $categorie = (isset($categorie))?$_POST['categorie']:'';
-
+    $categorie = (isset($_POST['categorie']))?$_POST['categorie']:'';
     CtlErreur($categorie,$e1->getMessage());
 }

@@ -1,11 +1,16 @@
 html, body{
     height: 100%;
-	width:100%;
+    width:100%;
 }
 
 body {
-    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
-    font-family: Arial, Helvetica, sans-serif;
+    /*background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);*/
+    background-color: white;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+
+#bodyLogin {
+    background-image: url("../images/stripes-light.png");
 }
 
 table {
@@ -14,7 +19,7 @@ table {
 }
 
 table, th, td{
-    border: 1px solid black;
+    border: none;
 }
 
 legend {
@@ -24,14 +29,15 @@ legend {
 td {
     height: 50px;
     width: 250px;
+    transition: 0.15s ease-in-out;
 }
 
 tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-td:hover:not(.disabled) {
-    box-shadow: inset 0 0 10px #000000;
+td:hover:not(.disabled):not(.bord) {
+    box-shadow: 0 2px 5px rgba(105, 108, 109, 0.7);
 }
 
 .showRDV_back {
@@ -124,16 +130,12 @@ header{
 }
 
 #fieldsetLogin{
-	width:300px;
+	width:500px;
 }
 
 header{
-			height:12%;
-			width: 100%;
-}
-
-.btnDeconnexion{
-	margin-left:58%;
+    height:12%;
+    width: 100%;
 }
 
 aside{
@@ -174,10 +176,15 @@ aside{
 }
 
 .divLogin{
-    width: 325px;
+    width: 525px;
     background-color: whitesmoke;
     margin: 0 auto;
+    margin-top: 30px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.divLogin p {
+    padding-top: 25px;
 }
 
 .divLogin fieldset {
@@ -202,17 +209,11 @@ aside{
     border : 1px solid #4CAF50;
 }
 
-.divLogin p {
-    text-align: center;
-}
-
 .divLogin p input{
-    margin : 0 0 0 1%;
     border-radius : 3px;
     color : #414A51;
     padding : 1% 0 1% 1%;
     font-size : 14px;
-    margin : 0 0 0 1%;
     width : 48%;
     border : 1px solid #CCC;
     transition : all .25s ease-in-out;
@@ -221,15 +222,118 @@ aside{
     box-shadow: 0 2px 5px rgba(105, 108, 109, 0.7) ;
 }
 
-.divLabel {
-    line-height: 50px;
-    text-decoration: underline;
-}
-
 h1 {
-    text-decoration: underline;
+    text-align: center;
 }
 
 fieldset {
+    background: rgb(247, 247, 247);
+    border-radius: 5px;
+    border: 1px solid #CCC;
+    transition: 0.15s ease-in-out;
+}
+
+fieldset:hover{
+    box-shadow: 0 2px 5px rgba(105, 108, 109, 0.7);
+}
+
+.pbtn {
+    text-align: center;
+}
+
+.divLogin p:not(.pbtn):not(.title) {
+    text-align: right;
+    margin-right: 10%;
+}
+
+.divLogin input {
+    margin-left: 10px;
+    height: 32px;
+    width: 200px;
+}
+
+.divLogin label {
+    display: inline-block;
+    background-color: #4CAF50;
+    box-shadow: 0 2px 5px rgba(105, 108, 109, 0.7);
+    color: white;
+    transition: 0.15s ease-in-out;
+    width: 120px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 5px;
+    padding-left: 45px;
+    border-radius: 3px;
+}
+
+.divLogin label:hover {
     background-color: white;
+    color: #4CAF50;
+}
+
+#loginTitle {
+    display: inline;
+    vertical-align: middle;
+    
+}
+
+header {
+    margin: 0;
+    background-color: #4CAF50;
+    color: white;
+    height: 50px;
+}
+
+header p {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
+.btnDeconnexion {
+    display: inline-block;
+    margin-left: 850px;
+    color: white;
+}
+
+.btnDeconnexion a {
+    padding-top: 16px;
+    padding-bottom: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 500px;
+    color: white;
+    background-color: #4CAF50;
+    text-decoration: none;
+    transition: 0.10s ease-in-out;
+}
+
+.btnDeconnexion a:hover {
+    background-color: #48964b;
+}
+
+.bord {
+    background-color: #2e3131;
+    color: white;
+}
+
+.rempli {
+    background-color: #2ecc71;
+}
+
+.bord input {
+    margin-right: -6px;
+    margin-left: -5px;
+    margin-top: -1px;
+    border: none;
+    background-color: #2e3131;
+    color: white;
+    padding: 25px;
+    padding-left: 30px;
+    transition: 0.15s ease-in-out;
+}
+
+.bord input:hover{
+    background-color: white;
+    color: #2e3131;
 }

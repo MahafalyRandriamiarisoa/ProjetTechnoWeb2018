@@ -9,8 +9,8 @@
     
 	<body>	
 		<header>
-			<p>Connexion en tant que : <?php echo $contenuHeader;?>
-            <a class="btnDeconnexion" href="banque.php">Se Déconnecter</a></p>
+			<p>Connexion en tant que : <?php echo $contenuHeader;?></p>
+            <p class="btnDeconnexion"><a href="banque.php">Se Déconnecter</a></p>
 		</header>
 		<aside>
 			<form id="numCli" method="post" action="banque.php">
@@ -39,7 +39,7 @@
 						</select>
 					</p>
 				</fieldset>
-				<p><input type="reset"  value="Effacer"/><input type="submit" name="valider" value="Valider"/></p>
+				<p><input type="reset"  value="Effacer"/><input type="submit" id="valider" name="valider" value="Valider"/></p>
 			</form>
 		</aside>
 		<div class="interface">

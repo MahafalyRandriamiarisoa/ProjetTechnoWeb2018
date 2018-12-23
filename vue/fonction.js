@@ -249,11 +249,24 @@ function checkNumCli(){
 	var inputNumCli = document.getElementById('numClient');
 	var inputValider = document.getElementById('valider');
 
-	if(isNaN(parseInt(inputNumCli.value))){
+	if(isNaN(parseInt(inputNumCli.value)) || inputNumCli.value == ""){
 		inputValider.disabled = true;
 		inputNumCli.style = "border-color: red";
 	}else{
 		inputNumCli.style = "border-color: default";
 		inputValider.disabled = false;
+	}
+}
+
+function checkSomme(){
+	var somme = document.getElementById('somme');
+	var validerOp = document.getElementById('validerOp');
+
+	if(isNaN(parseInt(somme.value)) || somme.value == "" || parseInt(somme.value) < 0){
+		validerOp.disabled = true;
+		somme.style = "border-color: red";
+	}else{
+		somme.style = "border-color: default";
+		validerOp.disabled = false;
 	}
 }

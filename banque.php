@@ -6,7 +6,6 @@ try{
 
     if(isset($_POST['connexion'])){
 
-        //todo : verifier si la data base est vide
         CtlAcceuil($_POST['identifiant'], $_POST['motDePasse']);
 
 
@@ -18,7 +17,7 @@ try{
         $action = $_POST['action'];
         $numClient = '';
         
-        if(isset($_POST['numClient']) && !empty($_POST['numClient'])){
+        if(isset($_POST['numClient']) && !empty($_POST['numClient']) && !isset($_POST['birthday'])){
             $numClient = $_POST['numClient'];
 
         }elseif(empty($numClient) && isset($_POST['nomClient']) && isset($_POST['birthday'])){
@@ -80,14 +79,16 @@ try{
 
     }elseif(isset($_POST['validerOp'])){
 
-        $somme = $_POST['somme'];
+        $somme = isset($_POST['somme']) ? $_POST['somme'] : false;
         $numClient = $_POST['numClient'];
-
-        //todo : verifier que la somme soit éligible pattern et que ce soit positif
 
         $operationCompte = (isset($_POST['operationcompte'])) ? $_POST['operationcompte'] : false;
 
         if($operationCompte) {
+
+            if(!$somme){
+                throw new Exception('Veuillez préciser une somme');
+            }
 
             switch ($_POST['operationcompte']) {
 
@@ -107,8 +108,9 @@ try{
             }
 
             CtlRetourAcceuil($_POST['categorie'],$_POST['numClient']);
+        }else{
+            throw new Exception("Veuillez choisir un type d'opération");
         }
-        //todo : throw erreur, ou pas car vue gère
 
     }elseif(isset($_POST['idRDVEmploye'])){
 

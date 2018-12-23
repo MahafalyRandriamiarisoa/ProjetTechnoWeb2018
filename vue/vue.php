@@ -177,8 +177,8 @@ function AfficherOperationCompte($compte, $numClient){
 		$contenuInterface .= '</select></p>
 							<p><input type="radio" name="operationcompte" id="debit" value="debit"/><label for="debit">Débiter</label>
 							<input type="radio" name="operationcompte" id="credit" value="credit"/><label for="credit">Créditer</label></p>
-							<p><label for="somme"> Somme : </label><input type="text" id ="somme" name="somme" /></p>
-							<p><input type="submit" name="validerOp" value="Valider opération"/></p>';
+							<p><label for="somme"> Somme : </label><input type="text" id ="somme" name="somme" onInput="checkSomme()"/></p>
+							<p><input type="submit" name="validerOp" id="validerOp" value="Valider opération" disabled/></p>';
 	}						
 	
 	$contenuInterface .= '</fieldset></form>';

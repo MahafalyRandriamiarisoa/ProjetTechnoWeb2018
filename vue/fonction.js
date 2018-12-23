@@ -257,3 +257,16 @@ function checkNumCli(){
 		inputValider.disabled = false;
 	}
 }
+
+function checkSomme(){
+	var somme = document.getElementById('somme');
+	var validerOp = document.getElementById('validerOp');
+
+	if(isNaN(parseInt(somme.value)) || somme.value == "" || parseInt(somme.value) < 0){
+		validerOp.disabled = true;
+		somme.style = "border-color: red";
+	}else{
+		somme.style = "border-color: default";
+		validerOp.disabled = false;
+	}
+}

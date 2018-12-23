@@ -660,18 +660,6 @@ function CtlOuvrirCompte($numClient, $nomsComptes, $montantDecouvert){
 }
 
 /**
- * Fonction qui ferme le compte d'un Client
- * @param $numClient
- *      correspond au numèro permettant d'accéder à un unique Client
- * @param $nomCompte
- *      correspond au type de compte
- */
-function CtlFermerCompte($numClient, $nomCompte){
-
-    fermerCompte($numClient,$nomCompte);
-}
-
-/**
  * Fonction qui modifie le Montant du découvert d'un compte appartenant à un client
  * @param $montant
  *      correspond au nouveau montant du montant

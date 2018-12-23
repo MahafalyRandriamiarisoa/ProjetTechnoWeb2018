@@ -79,14 +79,16 @@ try{
 
     }elseif(isset($_POST['validerOp'])){
 
-        $somme = $_POST['somme'];
+        $somme = isset($_POST['somme']) ? $_POST['somme'] : false;
         $numClient = $_POST['numClient'];
-
-        //todo : verifier que la somme soit éligible pattern et que ce soit positif
 
         $operationCompte = (isset($_POST['operationcompte'])) ? $_POST['operationcompte'] : false;
 
         if($operationCompte) {
+
+            if(!$somme){
+                throw new Exception('Veuillez préciser une somme');
+            }
 
             switch ($_POST['operationcompte']) {
 
@@ -106,8 +108,9 @@ try{
             }
 
             CtlRetourAcceuil($_POST['categorie'],$_POST['numClient']);
+        }else{
+            throw new Exception("Veuillez choisir un type d'opération");
         }
-        //todo : throw erreur, ou pas car vue gère
 
     }elseif(isset($_POST['idRDVEmploye'])){
 

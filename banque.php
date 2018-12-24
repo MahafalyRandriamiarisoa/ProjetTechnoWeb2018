@@ -133,13 +133,7 @@ try{
         $profession = $_POST['profession'];
 
         if(isset($lastName) && isset($firstName) && isset($bday) && isset($adresse) && isset($adresse) && isset($mail) && isset($tel) && isset($situation) && isset($profession)){
-
             CtlenregistrerClient($idConseiller, $lastName, $firstName, $bday, $adresse, $mail, $tel, $situation, $profession);
-
-        }else{
-
-            echo "DES ERREURS DANS LE FORMULAIRE";
-
         }
 
     }elseif(isset($_POST['vendre'])){
@@ -170,7 +164,6 @@ try{
     }elseif(isset($_POST['resilier'])){
         $typeResiliation = $_POST['actionResilier'];
         $numClient = $_POST['numClient'];
-        
         CtlResilier($typeResiliation, $numClient);
 	}elseif(isset($_POST['modifierId'])){
 		CtlModifierIdentifiants();
@@ -220,8 +213,6 @@ try{
             $numClient = $_POST['leclient'];
             $action = $_POST['action'];
             CtlAfficherAction($action, $numClient);
-        }else{
-            echo "Probleme : il choisir un client";
         }
     }else{
         CtlInterfaceLogin();

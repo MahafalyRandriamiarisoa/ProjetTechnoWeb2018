@@ -91,7 +91,7 @@ function CtlRechercherClient($nomClient, $birthday, $action){
         $clients = rechercherClient($nomClient, $birthday);
         AfficherChoisirClient($clients, $action, 'Conseiller');
     }else{
-        throw new Exception("Le nom du client est incorrect");
+        throw new Exception("Le client est introuvable");
     }
 
 }

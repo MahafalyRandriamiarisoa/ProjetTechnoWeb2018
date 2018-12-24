@@ -220,6 +220,6 @@ try{
 
 }catch(Exception $e1){
 
-    $categorie = (isset($_POST['categorie']))?$_POST['categorie']:'';
+    $categorie = (isset($_POST['categorie'])) ? $_POST['categorie'] : '';
     CtlErreur($categorie,$e1->getMessage());
 }

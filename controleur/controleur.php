@@ -1,32 +1,8 @@
 <?php
-    require_once('modele/modele.php');
-    require_once('vue/vue.php');
 
-    class Client
-    {
-       public $NUMCLIENT;
-       public $IDEMPLOYE;
-       public $NOM;
-       public $PRENOM;
-       public $DATEDENAISSANCE;
-       public $ADRESSE;
-       public $EMAIL;
+require_once('modele/modele.php');
+require_once('vue/vue.php');
 
-
-       public function __construct()
-        {
-                $this->NUMCLIENT = '';
-                $this->IDEMPLOYE = '';
-                $this->NOM = '';
-                $this->PRENOM = '';
-                $this->DATEDENAISSANCE = '';
-                $this->ADRESSE = '';
-                $this->EMAIL = '';
-            }
-
-
-
-    }
 /**  
  * Fonction pour le contrôle de la toute première interface, l'interface de connexion
  *@param message qui potentiellement un message inquant une erreur

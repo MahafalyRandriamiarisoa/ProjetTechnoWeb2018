@@ -216,7 +216,9 @@ try{
         }
     }elseif(isset($_POST['submitDateStat'])){
         $date = $_POST['dateStat'];
-        CtlAfficherStatistiques($date);
+        $dateInterval1 = $_POST['dateInterval1'];
+        $dateInterval2 = $_POST['dateInterval2'];
+        CtlAfficherStatistiques($date, $dateInterval1, $dateInterval2);
     }else{
         CtlInterfaceLogin();
     }

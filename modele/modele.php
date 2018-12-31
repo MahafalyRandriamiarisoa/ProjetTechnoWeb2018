@@ -838,16 +838,37 @@ function allIdentifiants(){
  * 
  * @param string :
  * 		Deuxième date
- * @return array :
+ * @return object :
  * 		Résultat de la requête SQL contenant tous les contrats souscrits entre la première date et la seconde date
  */
 
 function contratsBetween($date1, $date2){
 	$connexion = getConnect();
-    $requete = "SELECT * FROM CONTRATCLIENT WHERE dateOuvertureContrat BETWEEN STR_TO_DATE('$date1', '%d/%m/%Y') AND STR_TO_DATE('$date2', '%d/%m/%Y')";
+    $requete = "SELECT COUNT(*)total FROM (SELECT * FROM CONTRATCLIENT WHERE dateOuvertureContrat BETWEEN STR_TO_DATE('$date1', '%d/%m/%Y') AND STR_TO_DATE('$date2', '%d/%m/%Y'))contrats";
     $resultat = $connexion->query($requete);
     $resultat->setFetchMode(PDO::FETCH_OBJ);
-    return $resultat->fetchAll();
+    return $resultat->fetch();
+}
+
+ /** 
+ * Cette fonction effectue une requete SQL à la base de donnée pour obtenir la liste de tous les rendez-vous qui se dérouleront entre deux dates
+ * 
+ * @param string :
+ * 		Première date
+ * 
+ * @param string :
+ * 		Deuxième date
+ * 
+ * @return object :
+ * 		Résultat de la requête SQL contenant tous les rendez-vous qui se dérouleront entre la première date et la seconde date
+ */
+
+function rdvBetween($date1, $date2){
+	$connexion = getConnect();
+    $requete = "SELECT COUNT(*)total FROM (SELECT * FROM RENDEZVOUS WHERE dateHeureRdv BETWEEN STR_TO_DATE('$date1', '%d/%m/%Y') AND STR_TO_DATE('$date2', '%d/%m/%Y') AND numClient IS NOT NULL)rdv";
+    $resultat = $connexion->query($requete);
+    $resultat->setFetchMode(PDO::FETCH_OBJ);
+    return $resultat->fetch();
 }
 
  /** 
@@ -855,7 +876,7 @@ function contratsBetween($date1, $date2){
  * 
  * @param string :
  * 		Date
- * @return array :
+ * @return object :
  * 		Résultat de la requête SQL contenant tous les clients de la banque à une date donnée
  */
 
@@ -872,7 +893,7 @@ function clientsAtDate($date){
  * 
  * @param string :
  * 		Date
- * @return array :
+ * @return object :
  * 		Résultat de la requête SQL contenant le nombre de contrats souscrits à une date donnée
  */
 
@@ -889,7 +910,7 @@ function contratsAtDate($date){
  * 
  * @param string :
  * 		Date
- * @return array :
+ * @return object :
  * 		Résultat de la requête SQL contenant le nombre de comptes souscrits à une date donnée
  */
 
@@ -913,6 +934,27 @@ function comptesAtDate($date){
 function soldeTotalBanqueAtDate($date){
 	$connexion = getConnect();
     $requete = "SELECT SUM(solde)total FROM COMPTECLIENT WHERE dateOuverture <= STR_TO_DATE('$date', '%d/%m/%Y')";
+    $resultat = $connexion->query($requete);
+    $resultat->setFetchMode(PDO::FETCH_OBJ);
+    return $resultat->fetch();
+}
+
+ /** 
+ * Cette fonction effectue une requete SQL à la base de donnée pour obtenir le nombre de disponibilités administratives qui ont été déposées entre les deux dates
+ * 
+ * @param string :
+ * 		Première date
+ * 
+ * @param string :
+ * 		Deuxième date
+ * 
+ * @return object :
+ * 		Résultat de la requête SQL contenant le nombre de disponibilités administratives qui ont été déposées entre la première date et la seconde date
+ */
+
+function disposBetween($date1, $date2){
+	$connexion = getConnect();
+    $requete = "SELECT COUNT(*)total FROM (SELECT * FROM RENDEZVOUS WHERE dateHeureRdv BETWEEN STR_TO_DATE('$date1', '%d/%m/%Y') AND STR_TO_DATE('$date2', '%d/%m/%Y') AND numClient IS NULL)rdv";
     $resultat = $connexion->query($requete);
     $resultat->setFetchMode(PDO::FETCH_OBJ);
     return $resultat->fetch();

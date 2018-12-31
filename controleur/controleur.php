@@ -211,18 +211,26 @@ function CtlMenuDirecteur($action){
 			break;
     case 'stat':
             $date = date('Y-m-d');
-		    CtlAfficherStatistiques($date);
+            $dateInterval1 = date('Y-m-d', strtotime($date."- 1 week"));
+		    CtlAfficherStatistiques($date, $dateInterval1, $date);
 			break;
     }
 }
 
-function CtlAfficherStatistiques($date){
+function CtlAfficherStatistiques($date, $dateInterval1, $dateInterval2){
     $dateModel = date('j/m/Y', strtotime($date));
+    $dateModelInterval1 = date('j/m/Y', strtotime($dateInterval1));
+    $dateModelInterval2 = date('j/m/Y', strtotime($dateInterval2));
+
+    $rdvBetween = intval(rdvBetween($dateModelInterval1, $dateModelInterval2)->total);
+    $contratsBetween = intval(contratsBetween($dateModelInterval1, $dateModelInterval2)->total);
+    $disposBetween = intval(disposBetween($dateModelInterval1, $dateModelInterval2)->total);
     $totalClients = intval(clientsAtDate($dateModel)->total);
     $totalSoldeComptesClients = intval(soldeTotalBanqueAtDate(date('j/m/Y'))->total);
     $totalContrats = intval(contratsAtDate($dateModel)->total);
     $totalComptes = intval(comptesAtDate($dateModel)->total);
-    AfficherStatistiques($totalClients, $totalSoldeComptesClients, $totalContrats, $totalComptes, $date);
+
+    AfficherStatistiques($totalClients, $totalSoldeComptesClients, $totalContrats, $totalComptes, $date, $dateInterval1, $dateInterval2, $contratsBetween, $rdvBetween, $disposBetween);
 }
 
 

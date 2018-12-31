@@ -5,19 +5,21 @@ function AfficherInterfaceLogin(){
 	require_once('gabaritLogin.php');
 }
 
-function AfficherAcceuil($categorie, $numClient = "",$retourAcceuil){
+function AfficherAcceuil($categorie, $numClient = "", $retourAcceuil){
 	if($retourAcceuil){
 		$contenuInterface='<form method="post" action="banque.php"><fieldset><legend>Notifications</legend><p>Action accomplie avec succès</p></fieldset></form>';
 	}else{
-    $contenuInterface='<form method="post" action="banque.php"><fieldset><legend>Notifications</legend><p> Connexion réussie <br/> Bienvenue </p></fieldset></form>';
-    }
+    	$contenuInterface='<form method="post" action="banque.php"><fieldset><legend>Notifications</legend><p> Connexion réussie <br/> Bienvenue </p></fieldset></form>';
+	}
+	
 	$contenuBis = '';
 
     switch($categorie) {
 		case 'Agent':
 		
-            $contenuHeader = '<strong>AGENT</strong>';
-            require_once ('gabaritAgent.php');
+			$contenuHeader = '<strong>AGENT</strong>';
+			
+            require_once('gabaritAgent.php');
             break;
 
         case 'Conseiller':
@@ -42,10 +44,12 @@ function AfficherSyntheseClient($client, $compte = '', $contrat = '', $conseille
 	}elseif($categorie == 'Conseiller'){
 		$contenuHeader = '<strong>CONSEILLER</strong>';
 	}
+
 	$contenuBis = '';
 
 	if(count($client) == 1){
-	    $numClient = $client[0]->NUMCLIENT;
+		$numClient = $client[0]->NUMCLIENT;
+		
 		$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Synthèse du client</legend><p>Client n° :'.$numClient.'</p>
 							<p><label class="labelinput">Nom :</label><input type="text" name="nom1" value="'.$client[0]->NOM.'" readonly/></p>
 							<p><label class="labelinput">Prénom :</label><input type="text" name="prenom1" value="'.$client[0]->PRENOM.'" readonly/></p>
@@ -59,19 +63,21 @@ function AfficherSyntheseClient($client, $compte = '', $contrat = '', $conseille
 
 		if(count($compte) >= 1) {
 			$contenuInterface .= '<br/><table>
-			<caption>Liste des comptes</caption>
-			<tr><th>Nom du compte</th><th>Solde actuel</th></tr>';
+								<caption>Liste des comptes</caption>
+								<tr><th>Nom du compte</th><th>Solde actuel</th></tr>';
 
 			for ($j = 0; $j < count($compte); $j++) {
 				$contenuInterface .= '<tr><td>' . $compte[$j]->NOMCOMPTE . '</td><td>' . $compte[$j]->SOLDE . '</td></tr>';
 			}
+
 			$contenuInterface .= '</table>';
 		}
 
 		if(count($contrat) >= 1) {
 			$contenuInterface .= '<br/><table>
-			<caption>Liste des contrats</caption>
-			<tr><th>Nom du contrat</th></tr>';
+								<caption>Liste des contrats</caption>
+								<tr><th>Nom du contrat</th></tr>';
+
 			for ($j = 0; $j < count($contrat); $j++) {
 				$contenuInterface .= '<tr><td>' . $contrat[$j]->LIBELLE . '</td></tr>';
 			}
@@ -82,20 +88,26 @@ function AfficherSyntheseClient($client, $compte = '', $contrat = '', $conseille
 	}else{
 		if(count($client) > 1){
 			$numClient = '';
+			
 			$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Rechercher client</legend><table><tr><td></td><td>Nom</td><td>Prénom</td><td>Tel</td><td>Date de naissance</td></tr>';
+			
 			for($i = 0; $i < count($client) ; $i++){
 				$contenuInterface.='<tr><td><input type="radio" name="leclient" value="'.$client[$i]->NUMCLIENT.'"/></td><td>'.$client[$i]->NOM.'</td><td>'.$client[$i]->PRENOM.'</td><td>'.$client[$i]->NUMEROTELEPHONE.'</td><td>'.$client[$i]->DATEDENAISSANCE.'</td></tr>';
 			}
 
-			$contenuInterface.='</table><p><input type="submit" name="synthese" value="Synthèse client"/></p></fieldset></form>';
+			$contenuInterface .= '</table><p><input type="submit" name="synthese" value="Synthèse client"/></p></fieldset></form>';
+		
 		}else{
-			$contenuInterface='<form method="post" action="banque.php"><fieldset><p>Aucun client de ce nom </p></fieldset></form>';
+			$contenuInterface = '<form method="post" action="banque.php"><fieldset><p>Aucun client de ce nom </p></fieldset></form>';
 		}
 	}
 
 	if($categorie == 'Agent'){
+
 		require_once('gabaritAgent.php');
+
 	}elseif($categorie == 'Conseiller'){
+
 		require_once('gabaritConseiller.php');
 	}
 }
@@ -107,21 +119,26 @@ function AfficherChoisirClient($clients, $action, $categorie){
 	
 	if(count($clients) != 0){
 		$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Rechercher client</legend><table><tr><td></td><td>Nom</td><td>Prénom</td><td>Tel</td><td>Date de naissance</td></tr>';
+		
 		for($i = 0; $i < count($clients) ; $i++){
 			$contenuInterface.='<tr><td><input type="radio" name="leclient" value="'.$clients[$i]->NUMCLIENT.'"/></td><td>'.$clients[$i]->NOM.'</td><td>'.$clients[$i]->PRENOM.'</td><td>'.$clients[$i]->NUMEROTELEPHONE.'</td><td>'.$clients[$i]->DATEDENAISSANCE.'</td></tr>';
 		}
-		$contenuInterface.='<input type="hidden" name="action" value="'.$action.'"/>
-						</table><p><input type="submit" name="validerChoixClient" value="Choisir le client"/></p></fieldset></form>';
+
+		$contenuInterface .= '<input type="hidden" name="action" value="'.$action.'"/>
+							</table><p><input type="submit" name="validerChoixClient" value="Choisir le client"/></p></fieldset></form>';
 	}else{
+
 		$contenuInterface = '<fieldset>
-		<legend>Resultat de votre recherche</legend>
-		<p>Aucun client ne correspond à votre recherche</p>
-		</fieldset>';
+							<legend>Resultat de votre recherche</legend>
+							<p>Aucun client ne correspond à votre recherche</p>
+							</fieldset>';
 	}
 	
 	if($categorie == 'Agent'){
+
 		require_once('gabaritAgent.php');
 	}else{
+
 		require_once('gabaritConseiller.php');
 	}
 }
@@ -129,7 +146,9 @@ function AfficherChoisirClient($clients, $action, $categorie){
 function AfficherModificationInfo($client, $categorie){
 	$contenuHeader = '<strong>AGENT</strong>';
 	$contenuBis = '';
-    $numClient = $client->NUMCLIENT;
+
+	$numClient = $client->NUMCLIENT;
+	
 	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Modification des informations du client</legend><p>Client n°:'.$numClient.'</p>
                         <p><input type="hidden" name="numClient" value="'.$numClient.'"/></p>
                         <p><input type="hidden" name="categorie" value="'.$categorie.'"/></p>
@@ -148,10 +167,10 @@ function AfficherModificationInfo($client, $categorie){
 
 
 function AfficherPriseRdv($client){
-    $numClient = $client[0]->NUMCLIENT;
+	$numClient = $client[0]->NUMCLIENT;
+	
 	$contenuHeader = '<strong>AGENT</strong>';
 	$contenuInterface = '<form method="post" action="banque.php"><fieldset><p>Conseiller n°:'.$client[0]->IDEMPLOYE.'</p>';
-	//plage de rdv
 	$contenuBis = '';
 
 	require_once('gabaritAgent.php');
@@ -204,8 +223,9 @@ function AfficherInscription($conseillers){
 						for($i = 0; $i < count($conseillers); $i++){
 							$contenuInterface.='<option value="'.$conseillers[$i]->IDEMPLOYE.'">'.$conseillers[$i]->NOMEMPLOYE.'</option>';
 						}
-						$contenuInterface.='</select></p>
-						<p><label class="label_nostyle">h</label><input type="submit" name="ajouter" value="Ajouter"/></p></fieldset></form>';
+
+						$contenuInterface .= '</select></p>
+											<p><label class="label_nostyle">h</label><input type="submit" name="ajouter" value="Ajouter"/></p></fieldset></form>';
 	require_once('gabaritConseiller.php');
 }
 
@@ -214,7 +234,7 @@ function AfficherVendreContrat($contrat, $numClient){
 	$contenuHeader = '<strong>CONSEILLER</strong>';
 	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Vendre un contrat </legend>';
 	
-	if(count($contrat)!=0){
+	if(count($contrat) != 0){
 		$contenuInterface .= '<p><label class="labelselect">Sélectionner le contrat à vendre :</label>
 							<select name="actionContrat">';
 
@@ -229,8 +249,9 @@ function AfficherVendreContrat($contrat, $numClient){
 						<p><label class="label_nostyle">h</label><input type="submit" name="vendre" value="Vendre le contrat"/></p>
 						</fieldset></form>';
 	}else{
-		$contenuInterface .='Soit le client ne peut plus acheter de contrats, soit la banque ne vend aucun contrat en ce moment</fieldset></form>';
+		$contenuInterface .= 'Soit le client ne peut plus acheter de contrats, soit la banque ne vend aucun contrat en ce moment</fieldset></form>';
 	}
+
 	require_once('gabaritConseiller.php');
 }
 
@@ -254,6 +275,7 @@ function AfficherOuvrirCompte($compte, $numClient){
 	}else{
 		$contenuInterface .= 'Soit le client a déjà ouvert tous les comptes disponibles actuellement, soit la banque ne propose pas d\'offre commerciale sur des comptes actuellement</fieldset></form>';
 	}
+
 	require_once('gabaritConseiller.php');
 }
 
@@ -262,30 +284,37 @@ function AfficherResilier($compte,$contrat, $numClient){
 	$contenuBis = '';
 	$contenuInterface = '<form method="post" action="banque.php"><fieldset><legend>Résilier compte ou contrat</legend>';
 
-	if(count($compte)==0 && count($contrat)==0){
+	if(count($compte) == 0 && count($contrat) == 0){
 		$contenuInterface .= 'Le client ne possède ni contrat ni compte</fieldset></form>';
 	}else{
-			$contenuInterface .= '<p><label>Sélectionner le compte ou le contrat à résilier :<label>
+		$contenuInterface .= '<p><label>Sélectionner le compte ou le contrat à résilier :<label>
 							<select name="actionResilier"><optgroup label="Compte">';
-	if(count($compte)!=0){						
-	for($k = 0; $k < count($compte); $k++){
-		$contenuInterface .= '<option value="'.$compte[$k]->NOMCOMPTE.'">'.$compte[$k]->NOMCOMPTE.'</option>';
+		if(count($compte)!=0){		
+
+			for($k = 0; $k < count($compte); $k++){
+				$contenuInterface .= '<option value="'.$compte[$k]->NOMCOMPTE.'">'.$compte[$k]->NOMCOMPTE.'</option>';
+			}
+
+			$contenuInterface .= '</optgroup>';
+		}
+
+		if(count($contrat) != 0){
+
+			$contenuInterface .= '<optgroup label="Contrat">';
+			
+			for($i = 0; $i < count($contrat); $i++){
+				$contenuInterface .= '<option value="'.$contrat[$i]->LIBELLE.'">'.$contrat[$i]->LIBELLE.'</option>';
+			}
+			
+			$contenuInterface .= '</optgroup>';
+
+		}
+
+		$contenuInterface .= '</select></p>
+						<input type="hidden" name="numClient" value="'.$numClient.'"/>
+						<p><label class="label_nostyle">h</label><input type="submit" name="resilier" value="Résilier le compte ou le contrat"/></p></fieldset></form>';	
 	}
-	$contenuInterface .= '</optgroup>';
-	}
-	if(count($contrat)!=0){
-	$contenuInterface .= '<optgroup label="Contrat">';
-	
-	for($i = 0; $i < count($contrat); $i++){
-		$contenuInterface .= '<option value="'.$contrat[$i]->LIBELLE.'">'.$contrat[$i]->LIBELLE.'</option>';
-	}
-	
-	$contenuInterface .= '</optgroup>';
-	}
-	$contenuInterface .= '</select></p>
-					<input type="hidden" name="numClient" value="'.$numClient.'"/>
-					<p><label class="label_nostyle">h</label><input type="submit" name="resilier" value="Résilier le compte ou le contrat"/></p></fieldset></form>';	
-	}
+
 	require_once('gabaritConseiller.php');
 }
 
@@ -293,19 +322,21 @@ function AfficherModifDecouvert($comptes, $numClient){
 	$contenuBis = '';
 	$contenuHeader='<strong>CONSEILLER</strong>';
 	$contenuInterface='<form method="post" action="banque.php"><fieldset><legend>Modifier la valeur du découvert</legend>';
-	if(count($comptes)!=0){					
-	for($k=0;$k<count($comptes);$k++){
-	$contenuInterface.='<p><label class="labelinput">Nom du compte :</label><input type="text"  name="compteConcerne[]" value="'.$comptes[$k]->NOMCOMPTE.'" readonly/></p>
-						<p><label class="labelinput">Montant du découvert :</label><input type="text" name="setMontantDecouvert[]" value="'.$comptes[$k]->MONTANTDECOUVERT.'"/></p><br/>';
-	}
+	
+	if(count($comptes) != 0){	
+
+		for($k = 0; $k < count($comptes); $k++){
+			$contenuInterface.='<p><label class="labelinput">Nom du compte :</label><input type="text"  name="compteConcerne[]" value="'.$comptes[$k]->NOMCOMPTE.'" readonly/></p>
+								<p><label class="labelinput">Montant du découvert :</label><input type="text" name="setMontantDecouvert[]" value="'.$comptes[$k]->MONTANTDECOUVERT.'"/></p><br/>';
+		}
 						
-	$contenuInterface.='<p><label class="label_nostyle">h</label><input type="submit" name="modifierDecouvert" value="Modifier la valeur du découvert"/></p>
-						<input type="hidden" name="numClient" value="'.$numClient.'"/></fieldset></form>';	
+		$contenuInterface.='<p><label class="label_nostyle">h</label><input type="submit" name="modifierDecouvert" value="Modifier la valeur du découvert"/></p>
+							<input type="hidden" name="numClient" value="'.$numClient.'"/></fieldset></form>';	
 	}else{
 		$contenuInterface.='Le client ne possède aucun compte</fieldset></form>';
 	}
+
 	require_once('gabaritConseiller.php');
-	
 }
 
 
@@ -314,12 +345,14 @@ function AfficherModificationId($identifiants){
 	$contenuBis='';
 	$contenuInterface='<form method="post" action="banque.php"><fieldset>
 						<legend>Identifiants des employés</legend>';
-	for($l=0;$l<count($identifiants);$l++){
+
+	for($l = 0; $l < count($identifiants); $l++){
 		$contenuInterface.='<p><label class="labelinput">Catégorie: </label><input type="text" name="'.$identifiants[$l]->CATEGORIE.'" value="'.$identifiants[$l]->CATEGORIE.'"disabled/></p>
 							<p><label class="labelinput">Login: </label><input type="text" name="'.$identifiants[$l]->CATEGORIE.'login" value="'.$identifiants[$l]->LOGIN.'"/></p>
 							<p><label class="labelinput">Mot de passe: </label><input type="text" name="'.$identifiants[$l]->CATEGORIE.'mdp" value="'.$identifiants[$l]->MDP.'"/></p><br/>';
 							
 	}
+
 	$contenuInterface.='<p><label class="label_nostyle">h</label><input type="submit" name="modifierId" value="Modifier les identifiants"/></p></fieldset></form>';
 
 	require_once('gabaritDirecteur.php');
@@ -332,39 +365,42 @@ function AfficherModificationListeContratCompte($compte,$contrat){
 	$contenuBis='';
 	$contenuInterface='<form name="modifMotif" method="post" action="banque.php"><fieldset id="liste">
 						<legend>Liste des contrats et des comptes</legend>';
-						for($i=0;$i<count($compte);$i++){
-							$contenuInterface.='<p><input type="hidden" name="compte'.$i.'" value="'.$compte[$i]->NOMCOMPTE.'"/></p>';
-						}
+	for($i=0;$i<count($compte);$i++){
+		$contenuInterface.='<p><input type="hidden" name="compte'.$i.'" value="'.$compte[$i]->NOMCOMPTE.'"/></p>';
+	}
 						
-						for($i=0;$i<count($contrat);$i++){
-							$contenuInterface.='<p><input type="hidden" name="contrat'.$i.'" value="'.$contrat[$i]->LIBELLE.'"/></p>';
-						}
+	for($i=0;$i<count($contrat);$i++){
+		$contenuInterface.='<p><input type="hidden" name="contrat'.$i.'" value="'.$contrat[$i]->LIBELLE.'"/></p>';
+	}
 						
-						$contenuInterface.='<p><input type="radio" name="choix" value="Ajouter" onClick="afficherAjout()" id="r1" /><label for="r1">Ajouter</label></p> 
+	$contenuInterface.='<p><input type="radio" name="choix" value="Ajouter" onClick="afficherAjout()" id="r1" /><label for="r1">Ajouter</label></p> 
 						<p><input type="radio" name="choix"  value="modifierContrat" onClick="afficherModificationCon('.count($contrat).')" id="r2" /><label for="r2">Modifier la liste des contrats</label>
 						<input type="radio" name="choix" value="supprimerContrat" onClick="afficherSuppressionCon('.count($contrat).')" id="r3" /><label for="r3">Supprimer la liste des contrats</label></p>
 						<p><input type="radio" name="choix"  value="modifierCompte" onClick="afficherModificationCom('.count($compte).')" id="r4" /><label for="r4">Modifier la liste des comptes</label>
 						<input type="radio" name="choix" value="supprimerCompte" onClick="afficherSuppressionCom('.count($compte).')" id="r5" /><label for="r5">Supprimer la liste des comptes</label>
 						</p>
 						</fieldset></form>';
+
 	require_once('gabaritDirecteur.php');
 }
 
 function AfficherModificationPiece($piece){
-	$contenuHeader='<strong>DIRECTEUR</strong>';
-	$contenuBis='';
+	$contenuHeader = '<strong>DIRECTEUR</strong>';
+	$contenuBis = '';
 	$contenuInterface='<form name="formuPiece" method="post" action="banque.php"><fieldset id="modifListePiece">
 						<legend>Liste des pieces à fournir</legend>
 						<p><select name="modifPiece" onchange="afficherSelectPiece()">';
 						
-						for($p=0;$p<count($piece);$p++){
-							$contenuInterface.='<option value="'.$piece[$p]->LIBELLEMOTIF.'|'.$piece[$p]->PIECES_A_FOURNIR.'">'.$piece[$p]->LIBELLEMOTIF.'</option>';
-						}
-						$contenuInterface.='</select></p></fieldset></form>';
+	for($p = 0 ; $p < count($piece); $p++){
+		$contenuInterface .= '<option value="'.$piece[$p]->LIBELLEMOTIF.'|'.$piece[$p]->PIECES_A_FOURNIR.'">'.$piece[$p]->LIBELLEMOTIF.'</option>';
+	}
+
+	$contenuInterface .= '</select></p></fieldset></form>';
+
 	require_once('gabaritDirecteur.php');
 }
 
-function AfficherStatistiques($totalClients, $totalSoldeComptesClients, $totalContrats, $totalComptes, $date){
+function AfficherStatistiques($totalClients, $totalSoldeComptesClients, $totalContrats, $totalComptes, $date, $dateInterval1, $dateInterval2, $contratsBetween, $rdvBetween, $disposBetween){
 	$dateAjd = date('Y-m-d');
 	$contenuHeader='<strong>DIRECTEUR</strong>';
 	$contenuBis='';
@@ -376,6 +412,12 @@ function AfficherStatistiques($totalClients, $totalSoldeComptesClients, $totalCo
 							<li><p>Nombre total de <strong>contrats</strong> souscrits : '.$totalContrats.' contrats</p></li>
 							<li><p>Nombre total de <strong>comptes</strong> souscrits : '.$totalComptes.' comptes</p></li>
 						</ul>
+						<h3>Entre le <input type="date" name="dateInterval1" value="'.$dateInterval1.'" max="'.$dateAjd.'"/> et le <input type="date" name="dateInterval2" value="'.$dateInterval2.'" max="'.$dateAjd.'"/> il y a : </h3>
+						<ul>
+							<li><p>'.$contratsBetween.' contrats souscrits</p></li>
+							<li><p>'.$rdvBetween.' rendez-vous avec les conseillers</p></li>
+							<li><p>'.$disposBetween.'H de disponiblités administratives déposées par les conseillers</p></li>
+						</ul>
 						<h3>Solde total de tous les comptes des clients à ce jour : ' .number_format($totalSoldeComptesClients, 2 ,".", " " ).'€</h3>
 						<p><input type="submit" value="Valider" name="submitDateStat" /></p>
 						</fieldset></form>';
@@ -383,12 +425,13 @@ function AfficherStatistiques($totalClients, $totalSoldeComptesClients, $totalCo
 }
 
 function AfficherErreur($categorie,$erreur){
-    $numClient = '';
+	$numClient = '';
+	
     $contenuBis = '';
     $contenuHeader = '<strong>'.strtoupper($categorie).'</strong>';
     $contenuInterface = '<fieldset class="erreurs">
-                            <p>'.$erreur.'</p>
-                         </fieldset>';
+                        <p>'.$erreur.'</p>
+                        </fieldset>';
 
     $contenu = $contenuInterface;
 
@@ -415,20 +458,20 @@ function AfficherRechercherClient($action){
 	$contenuHeader = '<strong>CONSEILLER</strong>';
 	$contenuBis = '';
 	$contenuInterface = '
-    <form method="post" action="banque.php">
-        <fieldset id="f1">
-        <legend> Rechercher un client </legend>
-        <p><label>Par le numéro : </label> </p>
-        <p><label class="labelinput" >Numéro du client: </label><input type="text" id="numClient" onInput="checkNumCli()" name="numClient"/></p>
-        <p><input type="hidden" name="action" value="'.$action.'"></p><br>
-		<p><label>Par le nom et la date de naissance : </label></p>
-		<p><label class="labelinput" >Nom : </label><input type="text" name="nomClient"/></p>
-		<p><label class="labelinput">Date de naissance : </label><input type="date" name="birthday"/></p>
-		<p><input type="hidden" name="categorie" value="Conseiller" /></p>
-		<p><br/></p>
-        <p><label class="label_nostyle">h</label><input type="submit" name="rechercheClientConseiller" id="valider" value="Valider"/></p>
-        </fieldset>
-	</form>';
+		<form method="post" action="banque.php">
+			<fieldset id="f1">
+			<legend> Rechercher un client </legend>
+			<p><label>Par le numéro : </label> </p>
+			<p><label class="labelinput" >Numéro du client: </label><input type="text" id="numClient" onInput="checkNumCli()" name="numClient"/></p>
+			<p><input type="hidden" name="action" value="'.$action.'"></p><br>
+			<p><label>Par le nom et la date de naissance : </label></p>
+			<p><label class="labelinput" >Nom : </label><input type="text" name="nomClient"/></p>
+			<p><label class="labelinput">Date de naissance : </label><input type="date" name="birthday"/></p>
+			<p><input type="hidden" name="categorie" value="Conseiller" /></p>
+			<p><br/></p>
+			<p><label class="label_nostyle">h</label><input type="submit" name="rechercheClientConseiller" id="valider" value="Valider"/></p>
+			</fieldset>
+		</form>';
 	
 	require_once('gabaritConseiller.php');
 }
@@ -445,10 +488,12 @@ function AfficherChoixPlanning($conseillers){
 	for($i = 0; $i < count($conseillers); $i++){
 		$contenuInterface .= '<option value="'.$conseillers[$i]->IDEMPLOYE.'">'.$conseillers[$i]->IDEMPLOYE.' '.$conseillers[$i]->NOMEMPLOYE.'</option>';
 	}
+
 	$contenuInterface .= '</select><br><br>
 		<input type="submit" name="choixConseiller" value="Valider"/>
         </fieldset>
-    </form>';
+	</form>';
+	
 	require_once('gabaritConseiller.php');
 }
 

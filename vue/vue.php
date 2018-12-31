@@ -347,7 +347,7 @@ function AfficherModificationListeContratCompte($compte,$contrat){
 						<input type="radio" name="choix" value="supprimerCompte" onClick="afficherSuppressionCom('.count($compte).')" id="r5" /><label for="r5">Supprimer la liste des comptes</label>
 						</p>
 						</fieldset></form>';
-require_once('gabaritDirecteur.php');
+	require_once('gabaritDirecteur.php');
 }
 
 function AfficherModificationPiece($piece){
@@ -364,8 +364,22 @@ function AfficherModificationPiece($piece){
 	require_once('gabaritDirecteur.php');
 }
 
-function AfficherStatistiques(){
-	
+function AfficherStatistiques($totalClients, $totalSoldeComptesClients, $totalContrats, $totalComptes, $date){
+	$dateAjd = date('Y-m-d');
+	$contenuHeader='<strong>DIRECTEUR</strong>';
+	$contenuBis='';
+	$contenuInterface='<form name="modifDateStat" method="post" action="banque.php"><fieldset id="stats">
+						<legend>Statistique de la banque</legend>
+						<h3>Voici les statistiques de la banque au <input type="date" value="'.$date.'" name="dateStat" max="'.$dateAjd.'"/> :</h3>
+						<ul>
+							<li><p>Nombre total de <strong>clients</strong> inscrits : ' .$totalClients.' clients</p></li>
+							<li><p>Nombre total de <strong>contrats</strong> souscrits : '.$totalContrats.' contrats</p></li>
+							<li><p>Nombre total de <strong>comptes</strong> souscrits : '.$totalComptes.' comptes</p></li>
+						</ul>
+						<h3>Solde total de tous les comptes des clients à ce jour : ' .number_format($totalSoldeComptesClients, 2 ,".", " " ).'€</h3>
+						<p><input type="submit" value="Valider" name="submitDateStat" /></p>
+						</fieldset></form>';
+	require_once('gabaritDirecteur.php');
 }
 
 function AfficherErreur($categorie,$erreur){

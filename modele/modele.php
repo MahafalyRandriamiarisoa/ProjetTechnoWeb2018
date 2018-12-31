@@ -829,3 +829,94 @@ function allIdentifiants(){
     $resultat->setFetchMode(PDO::FETCH_OBJ);
     return $resultat->fetchAll();
 }
+
+ /** 
+ * Cette fonction effectue une requete SQL à la base de donnée pour obtenir la liste de tous les contrats souscrits entre deux dates
+ * 
+ * @param string :
+ * 		Première date
+ * 
+ * @param string :
+ * 		Deuxième date
+ * @return array :
+ * 		Résultat de la requête SQL contenant tous les contrats souscrits entre la première date et la seconde date
+ */
+
+function contratsBetween($date1, $date2){
+	$connexion = getConnect();
+    $requete = "SELECT * FROM CONTRATCLIENT WHERE dateOuvertureContrat BETWEEN STR_TO_DATE('$date1', '%d/%m/%Y') AND STR_TO_DATE('$date2', '%d/%m/%Y')";
+    $resultat = $connexion->query($requete);
+    $resultat->setFetchMode(PDO::FETCH_OBJ);
+    return $resultat->fetchAll();
+}
+
+ /** 
+ * Cette fonction effectue une requete SQL à la base de donnée pour obtenir la liste de tous les clients à une date donnée
+ * 
+ * @param string :
+ * 		Date
+ * @return array :
+ * 		Résultat de la requête SQL contenant tous les clients de la banque à une date donnée
+ */
+
+function clientsAtDate($date){
+	$connexion = getConnect();
+    $requete = "SELECT COUNT(*)total FROM(SELECT numClient FROM COMPTECLIENT WHERE dateOuverture <= STR_TO_DATE('$date', '%d/%m/%Y') GROUP BY NUMCLIENT)clients";
+    $resultat = $connexion->query($requete);
+    $resultat->setFetchMode(PDO::FETCH_OBJ);
+    return $resultat->fetch();
+}
+
+ /** 
+ * Cette fonction effectue une requete SQL à la base de donnée pour obtenir le nombre de contrats souscrits à une date donnée
+ * 
+ * @param string :
+ * 		Date
+ * @return array :
+ * 		Résultat de la requête SQL contenant le nombre de contrats souscrits à une date donnée
+ */
+
+function contratsAtDate($date){
+	$connexion = getConnect();
+    $requete = "SELECT COUNT(*)total FROM(SELECT numClient FROM CONTRATCLIENT WHERE dateOuvertureContrat <= STR_TO_DATE('$date', '%d/%m/%Y') GROUP BY NUMCLIENT)clients";
+    $resultat = $connexion->query($requete);
+    $resultat->setFetchMode(PDO::FETCH_OBJ);
+    return $resultat->fetch();
+}
+
+ /** 
+ * Cette fonction effectue une requete SQL à la base de donnée pour obtenir le nombre de comptes souscrits à une date donnée
+ * 
+ * @param string :
+ * 		Date
+ * @return array :
+ * 		Résultat de la requête SQL contenant le nombre de comptes souscrits à une date donnée
+ */
+
+function comptesAtDate($date){
+	$connexion = getConnect();
+    $requete = "SELECT COUNT(*)total FROM(SELECT numClient FROM COMPTECLIENT WHERE dateOuverture <= STR_TO_DATE('$date', '%d/%m/%Y') GROUP BY NUMCLIENT)clients";
+    $resultat = $connexion->query($requete);
+    $resultat->setFetchMode(PDO::FETCH_OBJ);
+    return $resultat->fetch();
+}
+
+ /** 
+ * Cette fonction effectue une requete SQL à la base de donnée pour obtenir le solde total de tous les comptes des clients à une date
+ * 
+ * @param string :
+ * 		Date
+ * @return object :
+ * 		Résultat de la requête SQL contenant le solde total de tous les comptes des clients de la banque à une date donnée
+ */
+
+function soldeTotalBanqueAtDate($date){
+	$connexion = getConnect();
+    $requete = "SELECT SUM(solde)total FROM COMPTECLIENT WHERE dateOuverture <= STR_TO_DATE('$date', '%d/%m/%Y')";
+    $resultat = $connexion->query($requete);
+    $resultat->setFetchMode(PDO::FETCH_OBJ);
+    return $resultat->fetch();
+}
+
+
+

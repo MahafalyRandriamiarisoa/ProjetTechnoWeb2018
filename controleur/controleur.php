@@ -209,11 +209,22 @@ function CtlMenuDirecteur($action){
 			$pieces=allMotif();
 			CtlAfficherModificationPiece($pieces);
 			break;
-	case 'statistiques':
-			CtlAfficherStatistiques();
+    case 'stat':
+            $date = date('Y-m-d');
+		    CtlAfficherStatistiques($date);
 			break;
     }
 }
+
+function CtlAfficherStatistiques($date){
+    $dateModel = date('j/m/Y', strtotime($date));
+    $totalClients = intval(clientsAtDate($dateModel)->total);
+    $totalSoldeComptesClients = intval(soldeTotalBanqueAtDate(date('j/m/Y'))->total);
+    $totalContrats = intval(contratsAtDate($dateModel)->total);
+    $totalComptes = intval(comptesAtDate($dateModel)->total);
+    AfficherStatistiques($totalClients, $totalSoldeComptesClients, $totalContrats, $totalComptes, $date);
+}
+
 
 function CtlAfficherModificationId($identifiants){
 	if($identifiants!=null){

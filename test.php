@@ -15,8 +15,9 @@ $match4 = preg_match('/^[A-Za-zÀ-ÖØ-öø-ÿ]*$/i', $situationFamiliale);
 $valeur = "890";
 $match5 = preg_match('/^[0-9]*$/', $valeur);
 
-var_dump($match5);
-
 
 $date = date("Y-m-d");
-var_dump($date);
+
+$argent = "309097098";
+
+var_dump(number_format($argent, 2 ,".", " " ));

@@ -214,6 +214,9 @@ try{
             $action = $_POST['action'];
             CtlAfficherAction($action, $numClient);
         }
+    }elseif(isset($_POST['submitDateStat'])){
+        $date = $_POST['dateStat'];
+        CtlAfficherStatistiques($date);
     }else{
         CtlInterfaceLogin();
     }

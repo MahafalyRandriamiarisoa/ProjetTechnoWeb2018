@@ -17,7 +17,22 @@ function afficherNomDate(){
 	var noeud=document.getElementById('f1');
 	noeud.appendChild(noeudDiv);
 	noeudDiv.appendChild(noeudP);
-	document.getElementById('idP').innerHTML='<p><label>Nom du client : <label><input type="text" name="nomClient" required /></p><p><label>Date de naissance : <label><input type="date" name="birthday" required /></p>';
+	document.getElementById('idP').innerHTML='<p><label>Nom du client : <label><input type="text" name="nomClient" required /></p><p><label>Date de naissance : <label><input type="date" name="birthday" max="'+getCurrDate()+'" required/></p>';
+}
+
+function getCurrDate(){
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+	if(dd<10){
+		dd='0'+dd
+	} 
+	if(mm<10){
+		mm='0'+mm
+	} 
+
+	return yyyy+'-'+mm+'-'+dd;
 }
 
 function showRDV(dataNom, dataPrenom, dataMotif, dataPieceAFournir, dataDateHeure){

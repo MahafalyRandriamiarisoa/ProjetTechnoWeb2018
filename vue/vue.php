@@ -578,7 +578,7 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 			<fieldset>
 				<legend>Planning</legend>';
 	if(!empty($numClient)){
-		$contenuBis .= '<p>Client n° :'.$numClient.'</p>';
+		$contenuBis .= '<h4">Client n° :'.$numClient.'</h4>';
 	}
 
 	$contenuBis .= '<div class="planning">
@@ -673,14 +673,14 @@ function AfficherPlanning($rdvEmploye, $semaineSelection, $categorie, $client,$m
 					</div>';
 					
 		if(count($motifs) == 0){
-			$contenuBis .= '<p>Aucun motif n\'est disponible dans la base de donnée.</p>
-							<input type="hidden" name="idMotif" value="-1"/>';
+			$contenuBis .= '<h3>Aucun motif n\'est disponible dans la base de donnée.</h3>
+							<input type="hidden" name="idMotif" value="-1"/><br>';
 		}else{
-			$contenuBis .= '<p><label>Motif du rendez-vous: </label><select name="idMotif">';
+			$contenuBis .= '<h3><label>Motif du rendez-vous: </label><select name="idMotif" style="width: 50%;">';
 			for($p=0;$p<count($motifs);$p++){
 				$contenuBis .= '<option value="'.$motifs[$p]->IDMOTIF.'">'.$motifs[$p]->LIBELLEMOTIF.'</option>';
 			}
-			$contenuBis .= '</select></p>';
+			$contenuBis .= '</select></h3>';
 		}
 
 		$contenuBis .= '<p><input class="bottom" href=#bottom type="submit" name="idRDVEmploye" value="Valider le RDV"/></p>

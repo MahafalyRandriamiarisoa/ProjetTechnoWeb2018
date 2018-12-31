@@ -466,7 +466,7 @@ function AfficherRechercherClient($action){
 			<p><input type="hidden" name="action" value="'.$action.'"></p><br>
 			<p><label>Par le nom et la date de naissance : </label></p>
 			<p><label class="labelinput" >Nom : </label><input type="text" name="nomClient"/></p>
-			<p><label class="labelinput">Date de naissance : </label><input type="date" name="birthday"/></p>
+			<p><label class="labelinput">Date de naissance : </label><input type="date" name="birthday" max="'.date('Y-m-d').'"/></p>
 			<p><input type="hidden" name="categorie" value="Conseiller" /></p>
 			<p><br/></p>
 			<p><label class="label_nostyle">h</label><input type="submit" name="rechercheClientConseiller" id="valider" value="Valider"/></p>

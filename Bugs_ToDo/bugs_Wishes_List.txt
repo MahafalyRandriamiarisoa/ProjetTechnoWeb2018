@@ -20,5 +20,5 @@ REGLE NORMALEMENT // un contrat est selectionné par defaut donc il peut pas etr
 REGLE
 7) année aberrante dans l'enregistrement d'un client
 
-
+REGLE
 8) si aucun client ne correspond à la recherche client envoyer un message d'erreur

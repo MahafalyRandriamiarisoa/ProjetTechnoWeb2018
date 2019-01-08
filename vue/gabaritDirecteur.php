@@ -14,7 +14,7 @@
 		</header>
 		<aside>
 			<form id="f1" method="post" action="banque.php">
-			<?php echo '<p><input type="text" name="categorie" value="Directeur"style="display:none" /></p>' ?>
+				<p><input type="hidden" name="categorie" value="Directeur"/></p>
 				<fieldset>
 					<legend> Actions </legend>
 					<p><label>Sélectionner une action à réaliser :<label></p>

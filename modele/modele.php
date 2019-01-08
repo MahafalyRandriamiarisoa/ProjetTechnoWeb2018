@@ -960,5 +960,18 @@ function disposBetween($date1, $date2){
     return $resultat->fetch();
 }
 
+function checkCompte(){
+	$connexion = getConnect();
+	$requete = "SELECT DISTINCT nomCompte FROM COMPTECLIENT";
+	$resultat = $connexion->query($requete);
+    $resultat->setFetchMode(PDO::FETCH_OBJ);
+    return $resultat->fetchAll();
+}
 
-
+function checkContrat(){
+	$connexion = getConnect();
+	$requete = "SELECT DISTINCT libelle FROM CONTRATCLIENT NATURAL JOIN CONTRAT";
+	$resultat = $connexion->query($requete);
+    $resultat->setFetchMode(PDO::FETCH_OBJ);
+    return $resultat->fetchAll();
+}

@@ -183,7 +183,7 @@ try{
 	}elseif(isset($_POST['modifierContrat'])){
 		CtlModifierListeContrat();
 	}elseif(isset($_POST['supprimerContrat'])){
-		$contrat=$_POST['contratSuppr'];
+        $contrat=$_POST['contratSuppr'];
 		CtlSupprimerListeContrat($contrat);
 	}elseif(isset($_POST['modifierCompte'])){
 		CtlModifierListeCompte();

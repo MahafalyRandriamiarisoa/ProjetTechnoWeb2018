@@ -273,9 +273,15 @@ function CtlModifierListeContrat(){
 }
 
 function CtlSupprimerListeContrat($contrat){
-	supprimerContrat($contrat);
-	supprimerMotif($contrat);
-	AfficherAcceuil("Directeur","",true);
+    $contratsEnCours = checkContrat();
+    for($i = 0; $i < count($contratsEnCours); $i++){
+        if($contratsEnCours[$i]->libelle == $contrat){
+            throw new Exception("Vous ne pouvez pas supprimer ce contrat, des clients le possèdent");
+        }
+    }
+    supprimerContrat($contrat);
+    supprimerMotif($contrat);
+    AfficherAcceuil("Directeur","",true);
 }
 
 function CtlModifierListeCompte(){
@@ -293,6 +299,13 @@ function CtlModifierListeCompte(){
 }
 
 function CtlSupprimerListeCompte($compte){
+    $comptesEnCours = checkCompte();
+    for($i = 0; $i < count($comptesEnCours); $i++){
+        if($comptesEnCours[$i]->nomCompte == $compte){
+            throw new Exception("Vous ne pouvez pas supprimer ce compte, des clients le possèdent");
+        }
+    }
+    
 	supprimerCompte($compte);
 	supprimerMotif($compte);
 	AfficherAcceuil("Directeur","",true);
@@ -665,7 +678,16 @@ function CtlOuvrirCompte($numClient, $nomsComptes, $montantDecouvert){
  */
 function CtlModifierMontantDecouvert($comptesConcernes,$montantsDecouverts,$numClient){
     for($i = 0; $i < count($comptesConcernes); $i++){
-        setMontantDecouvertAutorise($numClient, $comptesConcernes[$i], $montantsDecouverts[$i]);
+        if($montantsDecouverts[$i] < 0){
+            throw new Exception("Montant de découvert incorrect pour le compte " . $comptesConcernes[$i]);
+        }else{
+            $match = preg_match('/(^\d*$)/i', $montantsDecouverts[$i]);
+            if($match == 1){
+                setMontantDecouvertAutorise($numClient, $comptesConcernes[$i], $montantsDecouverts[$i]);
+            }else{
+                throw new Exception("Montant de découvert incorrect pour le compte " . $comptesConcernes[$i]);
+            }
+        }
     }
 
     CtlRetourAcceuil('Conseiller', '');
@@ -682,7 +704,6 @@ function CtlAfficherModificationDecouvert($numClient){
  * @param $msg
  */
 function CtlErreur($categorie,$msg){
-
     AfficherErreur($categorie,$msg);
 
 }

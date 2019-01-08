@@ -321,7 +321,8 @@ function AfficherResilier($compte,$contrat, $numClient){
 function AfficherModifDecouvert($comptes, $numClient){
 	$contenuBis = '';
 	$contenuHeader='<strong>CONSEILLER</strong>';
-	$contenuInterface='<form method="post" action="banque.php"><fieldset><legend>Modifier la valeur du découvert</legend>';
+	$contenuInterface='<form method="post" action="banque.php"><fieldset><legend>Modifier la valeur du découvert</legend>
+	<p><input type="hidden" name="categorie" value="Conseiller" /></p>';
 	
 	if(count($comptes) != 0){	
 
@@ -373,7 +374,8 @@ function AfficherModificationListeContratCompte($compte,$contrat){
 		$contenuInterface.='<p><input type="hidden" name="contrat'.$i.'" value="'.$contrat[$i]->LIBELLE.'"/></p>';
 	}
 						
-	$contenuInterface.='<p><input type="radio" name="choix" value="Ajouter" onClick="afficherAjout()" id="r1" /><label for="r1">Ajouter</label></p> 
+	$contenuInterface.='<p><input type="hidden" name="categorie" value="Directeur" /></p>
+						<p><input type="radio" name="choix" value="Ajouter" onClick="afficherAjout()" id="r1" /><label for="r1">Ajouter</label></p> 
 						<p><input type="radio" name="choix"  value="modifierContrat" onClick="afficherModificationCon('.count($contrat).')" id="r2" /><label for="r2">Modifier la liste des contrats</label>
 						<input type="radio" name="choix" value="supprimerContrat" onClick="afficherSuppressionCon('.count($contrat).')" id="r3" /><label for="r3">Supprimer la liste des contrats</label></p>
 						<p><input type="radio" name="choix"  value="modifierCompte" onClick="afficherModificationCom('.count($compte).')" id="r4" /><label for="r4">Modifier la liste des comptes</label>
@@ -389,7 +391,8 @@ function AfficherModificationPiece($piece){
 	$contenuBis = '';
 	$contenuInterface='<form name="formuPiece" method="post" action="banque.php"><fieldset id="modifListePiece">
 						<legend>Liste des pieces à fournir</legend>
-						<p><select name="modifPiece" onchange="afficherSelectPiece()">';
+						<p><select name="modifPiece" onchange="afficherSelectPiece()">
+						<p><input type="hidden" name="categorie" value="Directeur" /></p>';
 						
 	for($p = 0 ; $p < count($piece); $p++){
 		$contenuInterface .= '<option value="'.$piece[$p]->LIBELLEMOTIF.'|'.$piece[$p]->PIECES_A_FOURNIR.'">'.$piece[$p]->LIBELLEMOTIF.'</option>';

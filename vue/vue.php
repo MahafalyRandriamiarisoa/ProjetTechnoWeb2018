@@ -345,7 +345,8 @@ function AfficherModificationId($identifiants){
 	$contenuHeader='<strong>DIRECTEUR</strong>';
 	$contenuBis='';
 	$contenuInterface='<form method="post" action="banque.php"><fieldset>
-						<legend>Identifiants des employés</legend>';
+						<legend>Identifiants des employés</legend>
+						<p><input type="hidden" name="categorie" value="Directeur" /></p>';
 
 	for($l = 0; $l < count($identifiants); $l++){
 		$contenuInterface.='<p><label class="labelinput">Catégorie: </label><input type="text" name="'.$identifiants[$l]->CATEGORIE.'" value="'.$identifiants[$l]->CATEGORIE.'"disabled/></p>
